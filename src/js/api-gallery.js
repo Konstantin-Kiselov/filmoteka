@@ -1,5 +1,5 @@
 import templateGalleryFilms from '../templates/films-gallery.hbs';
-console.log(templateGalleryFilms);
+
 const galleryEl = document.querySelector('.gallery-list');
 
 class NewApiService {
@@ -26,6 +26,14 @@ class NewApiService {
   resetPage() {
     this.page = 1;
   }
+
+  get query() {
+    return this.searchQuery;
+  }
+
+  set query(newQuery) {
+    this.searchQuery = newQuery;
+  }
 }
 
 // Функция для отрисовки фильмов через template  в HTML
@@ -41,4 +49,4 @@ function renderCardGallery(results) {
   });
 }
 
-export { galleryEl };
+export { galleryEl, newApiService, renderCardGallery };
