@@ -8,7 +8,7 @@ class NewApiService {
   }
 
   fetchArticles() {
-    const url = `https://api.themoviedb.org/3/trending/movie/week?api_key=32f8714cf637d439a8b71841fb721940&page=${this.page}`;
+    const url = `https://api.themoviedb.org/3/trending/movie/week?api_key=b32f977d148061c9ab22a471ff2c7792&page=${this.page}`;
 
     return fetch(url)
       .then(response => response.json())
