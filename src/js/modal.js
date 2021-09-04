@@ -46,35 +46,36 @@ console.log(modalTemplate);
 
 /////////////////////
 const refs = {
-    openModalBtn: document.querySelector('.gallery-list'),
-    closeModalBtn: document.querySelector('.modal-close-btn'),
-    modal: document.querySelector('.modal'),
-    modalWindow: document.querySelector('.modal-aaaa'),
-    
+  openModalBtn: document.querySelector('.gallery-list'),
+  closeModalBtn: document.querySelector('.modal-close-btn'),
+  modal: document.querySelector('.modal'),
+  modalWindow: document.querySelector('.modal-aaaa'),
 };
 
 refs.openModalBtn.addEventListener('click', onModalOpen);
 
 refs.closeModalBtn.addEventListener('click', toggleModal);
+let movieId;
 
 function onModalOpen(event) {
-
-    const a = event.target;
-    console.log(a);
-    //если клик не на элемент li, тогда модальное окно не открывается
-    const isCardElement = event.target.closest('li');
-    console.log(isCardElement.firstElementChild.getAttribute('data-action'));
+  const a = event.target;
+  console.log(a);
+  //если клик не на элемент li, тогда модальное окно не открывается
+  const isCardElement = event.target.closest('li');
+  movieId = isCardElement.firstElementChild.getAttribute('data-action');
+  console.log(movieId);
   if (!isCardElement) {
     return;
-    }
+  }
 
-    // const a = event.target.value;
-    // console.log(a);
+  // const a = event.target.value;
+  // console.log(a);
 
-    event.preventDefault();
+  event.preventDefault();
 
-    toggleModal();
-    renderModalMarkUP(modalTemplate);
+  toggleModal();
+  // renderModalMarkUP(modalTemplate);
+  fetchMovieInform();
 }
 
 // function onModalClose() {
@@ -82,7 +83,7 @@ function onModalOpen(event) {
 // }
 
 function toggleModal() {
-    window.addEventListener('keydown', onEscKeyPress);
+  window.addEventListener('keydown', onEscKeyPress);
   refs.modal.classList.toggle('is-hidden');
 }
 
@@ -94,49 +95,47 @@ function onEscKeyPress(event) {
 
   if (isEscKey) {
     toggleModal();
-  };
-};
+  }
+}
 
 // Закрытие модального окна по клику на backdrop.
 
 refs.modal.addEventListener('click', onModalCloseBackdrop);
 function onModalCloseBackdrop(evt) {
-    const isBackdrop = evt.target.classList.contains('backdrop');
-    console.log(isBackdrop);
-    if (isBackdrop) {
+  const isBackdrop = evt.target.classList.contains('backdrop');
+  console.log(isBackdrop);
+  if (isBackdrop) {
     toggleModal();
-  };
+  }
 }
 
-function renderModalMarkUP(template) {
+function renderModalMarkUP(movie) {
   refs.modalWindow.textContent = '';
-    const markUp = modalTemplate(template);
-    refs.modalWindow.insertAdjacentHTML('beforeend', markUp);
+  const markUp = modalTemplate(movie);
+  refs.modalWindow.insertAdjacentHTML('beforeend', markUp);
 
-    console.log('one country');
+  console.log('one country');
 }
 
 //запрос
-// const BASE_URL = 'https://restcountries.eu/rest/v2';
+function fetchMovieInform() {
+  const BASE_URL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=b32f977d148061c9ab22a471ff2c7792&language=en-US`;
 
-// function fetchCountries(searchQuery) {
-//     return fetch(`${BASE_URL}/name/${searchQuery}`).then(response =>
-//         response.json(),
-//     );
-// }
+  fetch(BASE_URL).then(response => response.json().then(movieDetails));
+}
 
+function movieDetails(movie) {
+  console.log(movie);
 
+  a(movie);
 
+  // refs.modalWindow.textContent = '';
+  renderModalMarkUP(movie);
+}
 
-
-
-
-
-
-
-
-
-
+function a(d) {
+  console.log(d.genres);
+}
 
 // function renderModalMarkUP(modalTemplate) {
 //     const markUp = countre(modalTemplate);
