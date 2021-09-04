@@ -1,5 +1,5 @@
-// import modalTemplate from '../templates/modal.hbs';
-// console.log(modalTemplate);
+import modalTemplate from '../templates/modal-templates.hbs';
+console.log(modalTemplate);
 
 ///////////////////////////////api запрос
 
@@ -41,11 +41,15 @@
 // }
 
 //////////////////////////////////
+
+///////////////////
+
+/////////////////////
 const refs = {
     openModalBtn: document.querySelector('.gallery-list'),
     closeModalBtn: document.querySelector('.modal-close-btn'),
     modal: document.querySelector('.modal'),
-    // modalWindow: document.querySelector('.modal-window'),
+    modalWindow: document.querySelector('.modal-aaaa'),
     
 };
 
@@ -70,7 +74,7 @@ function onModalOpen(event) {
     event.preventDefault();
 
     toggleModal();
-    // renderModalMarkUP(modalTemplate);
+    renderModalMarkUP(modalTemplate);
 }
 
 // function onModalClose() {
@@ -79,7 +83,7 @@ function onModalOpen(event) {
 
 function toggleModal() {
     window.addEventListener('keydown', onEscKeyPress);
-    refs.modal.classList.toggle('is-hidden');
+  refs.modal.classList.toggle('is-hidden');
 }
 
 // Закрытие модального окна по нажатию клавиши ESC
@@ -103,6 +107,25 @@ function onModalCloseBackdrop(evt) {
     toggleModal();
   };
 }
+
+function renderModalMarkUP(template) {
+  refs.modalWindow.textContent = '';
+    const markUp = modalTemplate(template);
+    refs.modalWindow.insertAdjacentHTML('beforeend', markUp);
+
+    console.log('one country');
+}
+
+//запрос
+// const BASE_URL = 'https://restcountries.eu/rest/v2';
+
+// function fetchCountries(searchQuery) {
+//     return fetch(`${BASE_URL}/name/${searchQuery}`).then(response =>
+//         response.json(),
+//     );
+// }
+
+
 
 
 
