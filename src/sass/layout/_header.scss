@@ -26,6 +26,9 @@ img {
   display: block;
   max-width: 100%;
 }
+button {
+  border: none;
+}
 .current {
   border-bottom: 1px solid #ff6b08;
 }
@@ -35,6 +38,7 @@ img {
     background-image: url(../images/backgroundmobile.jpg);
   }
   .conteiner {
+    height: 230px;
     padding: 46px 20px 97px;
   }
   .navigation {
@@ -97,7 +101,12 @@ img {
   .header {
     background-image: url(../images/Rectangle.png);
   }
+  .conteiner {
+    padding: 41px 71px 97px;
+  }
   .navigation__search {
     margin-left: 31%;
   }
 }
+
+
