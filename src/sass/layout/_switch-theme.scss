@@ -21,8 +21,8 @@ body.dark-theme {
 
 .theme-switch__icon {
   color: currentColor;
-  height: 20px;
-  width: 20px;
+  height: 15px;
+  width: 15px;
   margin-right: 8px;
   margin-left: 8px;
 }
@@ -32,8 +32,8 @@ body.dark-theme {
   align-items: center;
   flex-shrink: 0;
   position: relative;
-  width: 64px;
-  height: 20px;
+  width: 30px;
+  height: 10px;
   border-radius: 50em;
   padding: 3px 0;
 }
@@ -67,8 +67,8 @@ body.dark-theme {
 .theme-switch__marker {
   position: relative;
   background-color: #fff;
-  width: 25px;
-  height: 23px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   z-index: 2;
   pointer-events: none;
@@ -82,7 +82,7 @@ body.dark-theme {
 }
 
 .theme-switch__toggle:checked ~ .theme-switch__marker {
-  transform: translateX(35px);
+  transform: translateX(15px);
 }
 
 .theme-switch__toggle:focus + .theme-switch__track,
