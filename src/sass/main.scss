@@ -4,12 +4,6 @@
  */
 
 // Стили для файла с примером HTML-фрагмента
-@import './utils/variables';
-@import './utils/visually_hidden';
-
-@import './base/common';
-@import './base/container';
-
-@import './layout/modal';
-@import './layout/gallery';
-@import './layout/testing-header';
+/* @import './example'; */
+@import './layout/header';
+@import './layout/library';
