@@ -16,13 +16,17 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
       rel="stylesheet"
     />
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon" />
   </head>
   <body>
     <!-- Так добавляются фрагменты в главные HTML-файлы страниц. -->
+    <include src="./partials/test-header-olya.html"></include>
     <include src="./partials/gallery.html"></include>
     <include src="./partials/scroll.html"></include>
 
-    <!-- <include src="./templates/modal.hbs"></include> -->
+    <!-- <include src="./partials/modal.html"></include> -->
+
+    <include src="./templates/modal.hbs"></include>
 
     <!-- Скрипт идёт последним в разметке. В нём уже подключен главный SASS-файл. -->
     <script src="./index.js"></script>
