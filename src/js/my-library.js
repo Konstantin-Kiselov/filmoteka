@@ -8,6 +8,10 @@ const refs = {
   homeLink: document.querySelector('.navigation-list-item-link-home'),
 };
 
+// console.log(refs.libraryBtn);
+// console.log(refs.homeLink);
+refs.libraryBtn.addEventListener('click', libraryHandleClick);
+
 function libraryHandleClick(event) {
   event.preventDefault();
   refs.homeLink.classList.remove('current');
