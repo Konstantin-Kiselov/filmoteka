@@ -1,20 +1,20 @@
 <img class='modal-img' src='https://image.tmdb.org/t/p/w500/{{poster_path}}' alt='{{title}}' />
 <h2>{{original_title}}</h2>
 <ul class='movie-card-metrics'>
-  <li>
-    <p>Vote / Votes</p>
+  <li class='movie-card-item'>
+    <p class='movie-metrics-title'>Vote / Votes</p>
     <p>{{vote_average}} / {{vote_count}}</p>
   </li>
-  <li>
-    <p>Popularity</p>
+  <li class='movie-card-item'>
+    <p class='movie-metrics-title'>Popularity</p>
     <p>{{popularity}}</p>
   </li>
-  <li>
-    <p>Original Title</p>
+  <li class='movie-card-item'>
+    <p class='movie-metrics-title'>Original Title</p>
     <p>{{original_title}}</p>
   </li>
-  <li>
-    <ul>Genre
+  <li class='movie-card-item'>
+    <ul class='movie-metrics-title'>Genre
       {{#each genres}}
         <li>{{this.name}}</li>
       {{/each}}
@@ -24,6 +24,6 @@
   </li>
 </ul>
 <div>
-  <h3>About</h3>
+  <h3 class='movie-metrics-title'>About</h3>
   <p>{{overview}}</p>
 </div>
