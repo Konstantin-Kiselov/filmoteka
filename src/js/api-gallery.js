@@ -2,10 +2,10 @@ import templateGalleryFilms from '../templates/films-gallery.hbs';
 import genresJson from './genres.json';
 import genreCard from '../templates/genre-card.hbs';
 
-function forGenres() {
-  const { genres } = genresJson;
-  return genres;
-}
+// function forGenres() {
+const { genres } = genresJson;
+// return genres;
+// }
 
 const galleryEl = document.querySelector('.gallery-list');
 
@@ -93,7 +93,7 @@ function renderCardGallery(results) {
   newApiService.fetchArticles().then(results => {
     const markup = templateGalleryFilms(results);
     galleryEl.insertAdjacentHTML('beforeend', markup);
-    updateMovieMarkup();
+    updateMovieMarkup(results, genres);
   });
 }
 
@@ -147,6 +147,7 @@ function updateMovieMarkup(films, genres) {
     const movie = [{ id, img, title, movieGenres, releaseDate }];
 
     console.log(movie);
+    return movie;
   });
 }
 

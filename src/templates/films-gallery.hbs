@@ -10,8 +10,8 @@
     <div class='film-card'>
       <h3 class='film-title'>{{original_title}}</h3>
 
-      <p class='film-genres'>{{#each genre_ids}}
-          <span class='film-text genre'> {{this}}</span>
+      <p class='film-genres'>{{#each genres_ids}}
+          <span class='film-text genre'> {{this.name}}</span>
         {{/each}}
         {{release_date}}
         |
