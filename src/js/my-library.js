@@ -25,14 +25,14 @@ function libraryHandleClick(event) {
   refs.header.classList.remove('header');
   refs.header.classList.add('library');
   updateHeaderMarkup();
+
+  if (document.querySelector('.modal')) {
+    document.querySelector('.modal').remove();
+  }
+
+  const watchedBtn = document.querySelector('.header-button-watched');
+  const queueBtn = document.querySelector('.header-button-queue');
 }
-
-// if (document.querySelector('.modal')) {
-//   document.querySelector('.modal').remove();
-// }
-
-// const watchedBtn = document.querySelector('.header-button-watched');
-// const queueBtn = document.querySelector('.header-button-queue');
 
 // refs.filmsGallery.innerHTML = '';
 // refs.paginationContainer.style.display = 'none';
