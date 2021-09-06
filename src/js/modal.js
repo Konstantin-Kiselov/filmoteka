@@ -46,11 +46,10 @@ console.log(modalTemplate);
 
 /////////////////////
 const refs = {
-    openModalBtn: document.querySelector('.gallery-list'),
-    closeModalBtn: document.querySelector('.modal-close-btn'),
-    modal: document.querySelector('.modal'),
-    modalWindow: document.querySelector('.modal-aaaa'),
-    
+  openModalBtn: document.querySelector('.gallery-list'),
+  closeModalBtn: document.querySelector('.modal-close-btn'),
+  modal: document.querySelector('.modal'),
+  modalWindow: document.querySelector('.modal-aaaa'),
 };
 
 refs.openModalBtn.addEventListener('click', onModalOpen);
@@ -58,23 +57,22 @@ refs.openModalBtn.addEventListener('click', onModalOpen);
 refs.closeModalBtn.addEventListener('click', toggleModal);
 
 function onModalOpen(event) {
-
-    const a = event.target;
-    console.log(a);
-    //если клик не на элемент li, тогда модальное окно не открывается
-    const isCardElement = event.target.closest('li');
-    console.log(isCardElement.firstElementChild.getAttribute('data-action'));
+  const a = event.target;
+  console.log(a);
+  //если клик не на элемент li, тогда модальное окно не открывается
+  const isCardElement = event.target.closest('li');
+  console.log(isCardElement.firstElementChild.getAttribute('data-action'));
   if (!isCardElement) {
     return;
-    }
+  }
 
-    // const a = event.target.value;
-    // console.log(a);
+  // const a = event.target.value;
+  // console.log(a);
 
-    event.preventDefault();
+  event.preventDefault();
 
-    toggleModal();
-    renderModalMarkUP(modalTemplate);
+  toggleModal();
+  renderModalMarkUP(modalTemplate);
 }
 
 // function onModalClose() {
@@ -82,7 +80,7 @@ function onModalOpen(event) {
 // }
 
 function toggleModal() {
-    window.addEventListener('keydown', onEscKeyPress);
+  window.addEventListener('keydown', onEscKeyPress);
   refs.modal.classList.toggle('is-hidden');
 }
 
@@ -94,26 +92,26 @@ function onEscKeyPress(event) {
 
   if (isEscKey) {
     toggleModal();
-  };
-};
+  }
+}
 
 // Закрытие модального окна по клику на backdrop.
 
 refs.modal.addEventListener('click', onModalCloseBackdrop);
 function onModalCloseBackdrop(evt) {
-    const isBackdrop = evt.target.classList.contains('backdrop');
-    console.log(isBackdrop);
-    if (isBackdrop) {
+  const isBackdrop = evt.target.classList.contains('backdrop');
+  console.log(isBackdrop);
+  if (isBackdrop) {
     toggleModal();
-  };
+  }
 }
 
 function renderModalMarkUP(template) {
   refs.modalWindow.textContent = '';
-    const markUp = modalTemplate(template);
-    refs.modalWindow.insertAdjacentHTML('beforeend', markUp);
+  const markUp = modalTemplate(template);
+  refs.modalWindow.insertAdjacentHTML('beforeend', markUp);
 
-    console.log('one country');
+  console.log('one country');
 }
 
 //запрос
@@ -124,19 +122,6 @@ function renderModalMarkUP(template) {
 //         response.json(),
 //     );
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // function renderModalMarkUP(modalTemplate) {
 //     const markUp = countre(modalTemplate);
