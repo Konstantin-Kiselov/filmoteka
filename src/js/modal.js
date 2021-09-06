@@ -1,80 +1,37 @@
 import modalTemplate from '../templates/modal-templates.hbs';
 console.log(modalTemplate);
 
-///////////////////////////////api запрос
-
-// const BASE_URL = 'https://developers.themoviedb.org/3/movies/get-movie-details';
-// const API_KEY = '23052937-32fb9bd6f4b84b12682be3748';
-
-// export default class ApiService {
-//     constructor() {
-//         this.searchQuery = '';
-//         this.page = 1;
-//     }
-
-//     fetchImg() {
-//         const url = `${BASE_URL}/?image_type=photo&orientation=horizontal&q=${this.searchQuery}&page=${this.page}&per_page=12&key=${API_KEY}`;
-//         return fetch(url).then(response => response.json()
-//             .then(data => {
-//                 console.log(data);
-//                 return data.hits;
-//             })
-//         );
-//     }
-
-//     incrementPage() {
-//         this.page += 1;
-//     }
-
-//     resetPage() {
-//         this.page = 1;
-//     }
-
-//     get query() {
-//         return this.searchQuery;
-//     }
-
-//     set query(newQuery) {
-//         this.searchQuery = newQuery;
-//     }
-
-// }
-
-//////////////////////////////////
-
-///////////////////
-
-/////////////////////
 const refs = {
-    openModalBtn: document.querySelector('.gallery-list'),
-    closeModalBtn: document.querySelector('.modal-close-btn'),
-    modal: document.querySelector('.modal'),
-    modalWindow: document.querySelector('.modal-aaaa'),
-    
+  openModalBtn: document.querySelector('.gallery-list'),
+  closeModalBtn: document.querySelector('.modal-close-btn'),
+  modal: document.querySelector('.modal'),
+  modalWindow: document.querySelector('.movie-card'),
 };
 
 refs.openModalBtn.addEventListener('click', onModalOpen);
 
 refs.closeModalBtn.addEventListener('click', toggleModal);
+let movieId;
 
 function onModalOpen(event) {
-
-    const a = event.target;
-    console.log(a);
-    //если клик не на элемент li, тогда модальное окно не открывается
-    const isCardElement = event.target.closest('li');
-    console.log(isCardElement.firstElementChild.getAttribute('data-action'));
+  const a = event.target;
+  console.log(a);
+  //если клик не на элемент li, тогда модальное окно не открывается
+  const isCardElement = event.target.closest('li');
+  movieId = isCardElement.firstElementChild.getAttribute('data-action');
+  console.log(movieId);
   if (!isCardElement) {
     return;
-    }
+  }
 
-    // const a = event.target.value;
-    // console.log(a);
+  // const a = event.target.value;
+  // console.log(a);
 
-    event.preventDefault();
+  event.preventDefault();
 
-    toggleModal();
-    renderModalMarkUP(modalTemplate);
+  toggleModal();
+  // renderModalMarkUP(modalTemplate);
+  fetchMovieInform();
 }
 
 // function onModalClose() {
@@ -82,7 +39,7 @@ function onModalOpen(event) {
 // }
 
 function toggleModal() {
-    window.addEventListener('keydown', onEscKeyPress);
+  window.addEventListener('keydown', onEscKeyPress);
   refs.modal.classList.toggle('is-hidden');
 }
 
@@ -94,49 +51,42 @@ function onEscKeyPress(event) {
 
   if (isEscKey) {
     toggleModal();
-  };
-};
+  }
+}
 
 // Закрытие модального окна по клику на backdrop.
 
 refs.modal.addEventListener('click', onModalCloseBackdrop);
 function onModalCloseBackdrop(evt) {
-    const isBackdrop = evt.target.classList.contains('backdrop');
-    console.log(isBackdrop);
-    if (isBackdrop) {
+  const isBackdrop = evt.target.classList.contains('backdrop');
+  console.log(isBackdrop);
+  if (isBackdrop) {
     toggleModal();
-  };
+  }
 }
 
-function renderModalMarkUP(template) {
+//рендер информации о фильме
+function renderModalMarkUP(movie) {
   refs.modalWindow.textContent = '';
-    const markUp = modalTemplate(template);
-    refs.modalWindow.insertAdjacentHTML('beforeend', markUp);
+  const markUp = modalTemplate(movie);
+  refs.modalWindow.insertAdjacentHTML('beforeend', markUp);
 
-    console.log('one country');
+  console.log('render');
 }
 
 //запрос
-// const BASE_URL = 'https://restcountries.eu/rest/v2';
+function fetchMovieInform() {
+  const BASE_URL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=b32f977d148061c9ab22a471ff2c7792&language=en-US`;
 
-// function fetchCountries(searchQuery) {
-//     return fetch(`${BASE_URL}/name/${searchQuery}`).then(response =>
-//         response.json(),
-//     );
-// }
+  fetch(BASE_URL).then(response => response.json().then(movieDetails));
+}
 
+function movieDetails(movie) {
+  console.log(movie);
 
-
-
-
-
-
-
-
-
-
-
-
+  // refs.modalWindow.textContent = '';
+  renderModalMarkUP(movie);
+}
 
 // function renderModalMarkUP(modalTemplate) {
 //     const markUp = countre(modalTemplate);

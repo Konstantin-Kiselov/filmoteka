@@ -60,11 +60,11 @@
   }
 }
 
-.modal-aaaa {
+.movie-card {
   // width: 200px;
   // height: 200px;
   outline: 1px solid rgb(71, 30, 126);
-  background-color: aqua;
+  // background-color: aqua;
 }
 
 .modal-img {
@@ -86,4 +86,12 @@
       height: 478px;
     }
   }
+}
+
+.movie-metrics-title {
+  color: #8c8c8c;
+}
+
+.movie-card-item {
+  display: flex;
 }
