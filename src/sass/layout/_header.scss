@@ -13,6 +13,16 @@ button {
 // ============ HEADER ============
 .current {
   border-bottom: 1px solid #ff6b08;
+  &::after {
+    left: 0;
+    bottom: 0;
+
+    display: block;
+    background-color: #ff6b08;
+    content: '';
+    width: 100%;
+    height: 3px;
+  }
 }
 @media screen and (min-width: 320px) {
   .header {
@@ -91,4 +101,65 @@ button {
   .navigation__search {
     margin-left: 31%;
   }
+}
+//------ my library-------
+
+.header-container {
+  padding-left: 20px;
+  padding-right: 20px;
+
+  @media screen and(min-width:768px) {
+    padding-left: 71px;
+    padding-right: 76px;
+  }
+  height: 230px;
+  padding-top: 113px;
+}
+
+.header-button-list {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 6px;
+
+  @media screen and(min-width:768px) {
+    justify-content: center;
+  }
+}
+
+.header-button-item:not(:last-child) {
+  @media screen and(min-width:768px) {
+    margin-right: 15px;
+  }
+}
+
+.header-button {
+  width: 129px;
+  height: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-transform: uppercase;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.334;
+  color: #ffff;
+
+  background: none;
+  border: 1px solid #ffff;
+  border-radius: 5px;
+}
+
+.is-active-btn {
+  background: #ff6b01;
+  border: 1px solid #ff6b01;
+  filter: drop-shadow(0px 8px 43px rgba(255, 107, 1, 0.6));
+}
+
+#js-watched-button {
+  background: #ff6b01;
+  border: 1px solid #ff6b01;
+  color: #ffff;
 }

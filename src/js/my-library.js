@@ -1,7 +1,7 @@
-import headerTemplates from './header-tpl';
+import headerTemplates from '../partials/my-library.html';
 
 const refs = {
-  header: document.querySelector('.header-container-js'),
+  header: document.querySelector('.header-container'),
   filmsGallery: document.querySelector('#films-gallery'),
   paginationContainer: document.querySelector('#pagination'),
   libraryBtn: document.querySelector('.navigation-list-item-link-my-library'),
@@ -12,13 +12,17 @@ const refs = {
 // console.log(refs.homeLink);
 refs.libraryBtn.addEventListener('click', libraryHandleClick);
 
+function updateHeaderMarkup(headerTemplates) {
+  refs.header.innerHTML = '';
+  refs.header.insertAdjacentHTML('beforeend', headerTemplates);
+  refs.libraryBtn.addEventListener('click', libraryHandleClick);
+}
+
 function libraryHandleClick(event) {
   event.preventDefault();
   refs.homeLink.classList.remove('current');
   refs.libraryBtn.classList.add('current');
-  const watchedFilms = getUserWatchedFromDatabase(currentUserId);
-  const queuedFilms = getUserQueueFromDatabase(currentUserId);
-  updateHeaderMarkup(headerTemplates.myLibraryHeader);
+  updateHeaderMarkup(headerTemplates);
 
   if (document.querySelector('.modal')) {
     document.querySelector('.modal').remove();
