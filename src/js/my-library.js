@@ -1,4 +1,4 @@
-import headerTemplates from '../partials/my-library.html';
+import headerTemplates from '../templates/headerTpl.hbs';
 
 const refs = {
   header: document.querySelector('.header-container'),
@@ -12,9 +12,9 @@ const refs = {
 // console.log(refs.homeLink);
 refs.libraryBtn.addEventListener('click', libraryHandleClick);
 
-function updateHeaderMarkup(headerTemplates) {
+function updateHeaderMarkup(headerTpl) {
   refs.header.innerHTML = '';
-  refs.header.insertAdjacentHTML('beforeend', headerTemplates);
+  refs.header.insertAdjacentHTML('beforeend', headerTpl);
   refs.libraryBtn.addEventListener('click', libraryHandleClick);
 }
 
