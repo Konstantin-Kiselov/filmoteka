@@ -10,3 +10,36 @@
   display: block;
   width: 100%;
 }
+
+.film-title {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: #000;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.film-genres {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.vote-average {
+  display: inline-block;
+  text-align: center;
+  width: 36px;
+  height: 15px;
+  text-transform: uppercase;
+  color: #fff;
+  background: #ff6b08;
+  border-radius: 5px;
+  border: 1px solid #ff6b08;
+  margin-left: 10px;
+}
