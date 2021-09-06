@@ -1,55 +1,11 @@
 import modalTemplate from '../templates/modal-templates.hbs';
 console.log(modalTemplate);
 
-///////////////////////////////api запрос
-
-// const BASE_URL = 'https://developers.themoviedb.org/3/movies/get-movie-details';
-// const API_KEY = '23052937-32fb9bd6f4b84b12682be3748';
-
-// export default class ApiService {
-//     constructor() {
-//         this.searchQuery = '';
-//         this.page = 1;
-//     }
-
-//     fetchImg() {
-//         const url = `${BASE_URL}/?image_type=photo&orientation=horizontal&q=${this.searchQuery}&page=${this.page}&per_page=12&key=${API_KEY}`;
-//         return fetch(url).then(response => response.json()
-//             .then(data => {
-//                 console.log(data);
-//                 return data.hits;
-//             })
-//         );
-//     }
-
-//     incrementPage() {
-//         this.page += 1;
-//     }
-
-//     resetPage() {
-//         this.page = 1;
-//     }
-
-//     get query() {
-//         return this.searchQuery;
-//     }
-
-//     set query(newQuery) {
-//         this.searchQuery = newQuery;
-//     }
-
-// }
-
-//////////////////////////////////
-
-///////////////////
-
-/////////////////////
 const refs = {
   openModalBtn: document.querySelector('.gallery-list'),
   closeModalBtn: document.querySelector('.modal-close-btn'),
   modal: document.querySelector('.modal'),
-  modalWindow: document.querySelector('.modal-aaaa'),
+  modalWindow: document.querySelector('.movie-card'),
 };
 
 refs.openModalBtn.addEventListener('click', onModalOpen);
@@ -109,12 +65,13 @@ function onModalCloseBackdrop(evt) {
   }
 }
 
+//рендер информации о фильме
 function renderModalMarkUP(movie) {
   refs.modalWindow.textContent = '';
   const markUp = modalTemplate(movie);
   refs.modalWindow.insertAdjacentHTML('beforeend', markUp);
 
-  console.log('one country');
+  console.log('render');
 }
 
 //запрос
@@ -127,14 +84,8 @@ function fetchMovieInform() {
 function movieDetails(movie) {
   console.log(movie);
 
-  a(movie);
-
   // refs.modalWindow.textContent = '';
   renderModalMarkUP(movie);
-}
-
-function a(d) {
-  console.log(d.genres);
 }
 
 // function renderModalMarkUP(modalTemplate) {
