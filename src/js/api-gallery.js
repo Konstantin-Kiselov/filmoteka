@@ -2,10 +2,10 @@ import templateGalleryFilms from '../templates/films-gallery.hbs';
 import genresJson from './genres.json';
 import genreCard from '../templates/genre-card.hbs';
 
-function forGenres() {
-  const { genres } = genresJson;
-  return genres;
-}
+// function forGenres() {
+const { genres } = genresJson;
+// return genres;
+// }
 
 const galleryEl = document.querySelector('.gallery-list');
 
@@ -93,7 +93,7 @@ function renderCardGallery(results) {
   newApiService.fetchArticles().then(results => {
     const markup = templateGalleryFilms(results);
     galleryEl.insertAdjacentHTML('beforeend', markup);
-    updateMovieMarkup();
+    updateMovieMarkup(results, genres);
   });
 }
 
@@ -132,22 +132,23 @@ function renderCardGallery(results) {
 // }));
 //}
 
-// function updateMovieMarkup(films, genres) {
-//   films.map(({ id, poster_path, title, release_date, genre_ids }) => {
-//     const filterGenres = genres.filter(genre => genre_ids.includes(genre.id));
-//     const mapGenres = filterGenres.map(({ name }) => name);
-//     if (mapGenres.length > 3) {
-//       mapGenres.splice(3, 0, 'Other');
-//     }
-//     const movieGenres = mapGenres.slice(0, 4).join(', ');
-//     const releaseDate = release_date.slice(0, 4);
+function updateMovieMarkup(films, genres) {
+  films.map(({ id, poster_path, title, release_date, genre_ids }) => {
+    const filterGenres = genres.filter(genre => genre_ids.includes(genre.id));
+    const mapGenres = filterGenres.map(({ name }) => name);
+    if (mapGenres.length > 3) {
+      mapGenres.splice(3, 0, 'Other');
+    }
+    const movieGenres = mapGenres.slice(0, 4).join(', ');
+    const releaseDate = release_date.slice(0, 4);
 
-//     let img = poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : emptyJpg;
+    let img = poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : emptyJpg;
 
-//     const movie = [{ id, img, title, movieGenres, releaseDate }];
+    const movie = [{ id, img, title, movieGenres, releaseDate }];
 
-//     console.log(movie);
-//   });
-// }
+    console.log(movie);
+    return movie;
+  });
+}
 
 export { galleryEl, newApiService, renderCardGallery };
