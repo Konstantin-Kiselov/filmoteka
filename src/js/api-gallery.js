@@ -3,7 +3,7 @@ import genresJson from './genres.json';
 import genreCard from '../templates/genre-card.hbs';
 
 //function forGenres() {
-const { genres } = genresJson;
+// const { genres } = genresJson;
 // return genres;
 //}
 
@@ -20,11 +20,11 @@ class NewApiService {
     return fetch(url)
       .then(response => response.json())
       .then(({ results }) => {
-        fetchGenres().then(({ genres }) => {
-          markupMovieFilm(results, genres);
-        });
+        // fetchGenres().then(({ genres }) => {
+        //   markupMovieFilm(results, genres);
+        // });
         this.incrementPage();
-        console.log(results);
+        // console.log(results);
         return results;
       });
   }
@@ -46,17 +46,6 @@ class NewApiService {
   }
 }
 
-function fetchGenres() {
-  return fetch(
-    `https://api.themoviedb.org/3/genre/movie/list?api_key=b32f977d148061c9ab22a471ff2c7792`,
-  ).then(response => response.json());
-  // .then(gen => {
-  //   genres = gen.genres;
-  //   console.log(gen);
-  //   fetchArticles();
-  // });
-}
-
 //fetchGenres();
 
 // Функция для отрисовки фильмов через template  в HTML
@@ -69,12 +58,26 @@ document.addEventListener('DOMContentLoaded', renderCardGallery);
 const newApiService = new NewApiService();
 
 function renderCardGallery(results, genres) {
-  newApiService
-    .fetchArticles()
-    .markupMovieFilm()
-    .then(results => {
-      const markup = genreCard(results);
-      galleryEl.insertAdjacentHTML('beforeend', markup);
+  newApiService.fetchArticles().then(results => {
+    fetchGenres().then(genres => {
+      // console.log(genres);
+      // console.log(results);
+      markupMovieFilm(results, genres);
+      // const markup = genreCard(results);
+      // galleryEl.insertAdjacentHTML('beforeend', markup);
+    });
+  });
+}
+
+function fetchGenres() {
+  return fetch(
+    `https://api.themoviedb.org/3/genre/movie/list?api_key=b32f977d148061c9ab22a471ff2c7792`,
+  )
+    .then(response => response.json())
+    .then(({ genres }) => {
+      // console.log(genres);
+      // markupMovieFilm(results, genres);
+      return genres;
     });
 }
 
@@ -114,6 +117,7 @@ function renderCardGallery(results, genres) {
 
 function markupMovieFilm(results, genres) {
   results.map(({ id, poster_path, title, release_date, genre_ids, vote_average }) => {
+    console.log(genres);
     const filterGenres = genres.filter(genre => genre_ids.includes(genre.id));
     const mapGenres = filterGenres.map(({ name }) => name);
     if (mapGenres.length > 3) {
