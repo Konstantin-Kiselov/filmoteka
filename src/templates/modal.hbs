@@ -1,17 +1,21 @@
 <div class='backdrop is-hidden modal'>
   <div class='modal-container'>
-    <button class='modal-close-btn' data-modal-close>close</button>
+    <button class='modal-close-btn' data-modal-close>
+      <svg class='modal-close-btn__icon'>
+        <use href='./images/icons/sprite.svg#close-modal'></use>
+      </svg>
+    </button>
 
     <div class='movie-card'>
 
     </div>
 
-    <ul>
-      <li>
-        <button>add to Watched</button>
+    <ul class='modal-btn-list list'>
+      <li class='modal-btn-list-item'>
+        <button class='modal-add-btn uppercase'>add to Watched</button>
       </li>
-      <li>
-        <button>add to queue</button>
+      <li class='modal-btn-list-item'>
+        <button class='modal-add-btn uppercase'>add to queue</button>
       </li>
     </ul>
   </div>
