@@ -15,15 +15,15 @@ refs.libraryBtn.addEventListener('click', libraryHandleClick);
 function updateHeaderMarkup() {
   refs.header.innerHTML = '';
   refs.header.insertAdjacentHTML('afterbegin', headerTemplates());
-  // refs.libraryBtn.addEventListener('click', libraryHandleClick);
+  refs.libraryBtn.addEventListener('click', libraryHandleClick);
 }
 
 function libraryHandleClick(event) {
   event.preventDefault();
   refs.homeLink.classList.remove('current');
   refs.libraryBtn.classList.add('current');
-  refs.header.classList.remove('header');
-  refs.header.classList.add('library');
+  //refs.header.classList.remove('header');
+  ///refs.header.classList.add('library');
   updateHeaderMarkup();
 
   if (document.querySelector('.modal')) {
@@ -38,17 +38,18 @@ function libraryHandleClick(event) {
 // refs.paginationContainer.style.display = 'none';
 // updateFilmsLibraryMarkup(watchedFilms);
 
-// function onLibraryButtonsClick(activeBtn, inactiveBtn, films) {
-//   activeBtn.addEventListener('click', event => {
-//     event.preventDefault();
-//     updateFilmsLibraryMarkup(films);
-//     inactiveBtn.classList.remove('is-active-btn');
-//     activeBtn.classList.add('is-active-btn');
-//   });
-// }
-
+function onLibraryButtonsClick(watchedBtn, queueBtn) {
+  watchedBtn.addEventListener('click', event => {
+    event.preventDefault();
+    updateFilmsLibraryMarkup();
+    queueBtn.classList.remove('is-active-btn');
+    watchedBtn.classList.add('is-active-btn');
+  });
+}
+onLibraryButtonsClick(watchedBtn, queueBtn);
+onLibraryButtonsClick(queueBtn, watchedBtn);
 // onLibraryButtonsClick(queueBtn, watchedBtn, queuedFilms);
-// onLibraryButtonsClick(watchedBtn, queueBtn, watchedFilms);
+//onLibraryButtonsClick(watchedBtn, queueBtn, watchedFilms);
 
 // function updateFilmsLibraryMarkup(localStorageFilms) {
 //   if (!localStorageFilms) {
