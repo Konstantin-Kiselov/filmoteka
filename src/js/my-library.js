@@ -6,6 +6,8 @@ const refs = {
   paginationContainer: document.querySelector('#pagination'),
   libraryBtn: document.querySelector('.navigation-list-item-link-my-library'),
   homeLink: document.querySelector('.navigation-list-item-link-home'),
+  //const watchedFilms = getUserWatchedFromDatabase(id юзера);
+  //const queuedFilms = getUserQueueFromDatabase(id юзера);
 };
 
 // console.log(refs.libraryBtn);
@@ -22,8 +24,8 @@ function libraryHandleClick(event) {
   event.preventDefault();
   refs.homeLink.classList.remove('current');
   refs.libraryBtn.classList.add('current');
-  //refs.header.classList.remove('header');
-  ///refs.header.classList.add('library');
+  // refs.header.classList.remove('header');
+  // refs.header.classList.add('library');
   updateHeaderMarkup();
 
   if (document.querySelector('.modal')) {
