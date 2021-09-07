@@ -6,6 +6,7 @@
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.25);
   opacity: 1;
+  z-index: 1000000;
   //   transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -27,6 +28,7 @@
   padding: 48px 20px 40px 20px;
   overflow-y: scroll;
   color: #000;
+  // z-index: 1000000;
   outline: 1px solid red;
 
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
@@ -70,21 +72,25 @@
   // display: flex;
   // justify-content: center;
   // align-items: center;
-  // top: 18px;
+  top: 18px;
   right: 18px;
+  width: 30px;
+  height: 30px;
   // margin-bottom: 16px;
   // padding: 6px;
   background: transparent;
   // border: 1px solid rgba(0, 0, 0, 0.1);
   // border-radius: 50%;
   cursor: pointer;
+
+  outline: 1px solid red;
 }
 
 .modal-close-btn__icon {
   width: 14px;
   height: 14px;
-  fill: #000;
-  transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  fill: #000000;
+  // transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .movie-card {
@@ -202,9 +208,12 @@
   height: 44px;
   background-color: #fff;
 
-  // background-color: #ff6b01;
-  // color: #fff;
-
   border: 1px solid #000;
   border-radius: 5px;
+}
+
+.add-collection {
+  background-color: #ff6b01;
+  color: #fff;
+  border: none;
 }
