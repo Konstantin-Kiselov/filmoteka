@@ -10,7 +10,7 @@ const refs = {
 
 // console.log(refs.libraryBtn);
 // console.log(refs.homeLink);
-refs.libraryBtn.addEventListener('click', libraryHandleClick);
+// refs.libraryBtn.addEventListener('click', libraryHandleClick);
 
 function libraryHandleClick(event) {
   event.preventDefault();

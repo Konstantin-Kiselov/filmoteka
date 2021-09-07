@@ -1,4 +1,5 @@
 import { newApiService, renderCardGallery } from './api-gallery';
+import { newApi2, renderSearchGallery } from './search-movies';
 
 const onEntry = entries => {
   entries.forEach(entry => {
@@ -8,6 +9,9 @@ const onEntry = entries => {
       renderCardGallery();
       // функция рендера картинок должна быть тут)
     }
+    // else if (entry.isIntersecting && newApiService.query === '' && newApiService.page > 1) {
+    //   renderSearchGallery();
+    // }
   });
 };
 
