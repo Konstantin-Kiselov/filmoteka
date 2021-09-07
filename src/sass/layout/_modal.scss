@@ -9,12 +9,12 @@
   //   transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-// .backdrop.is-hidden {
-//   opacity: 0;
-//   pointer-events: none;
-// }
+.backdrop.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
 
-.modal {
+.modal-container {
   position: absolute;
   //   width: 450px;
   //   height: 609px;
@@ -60,6 +60,13 @@
   }
 }
 
+.movie-card {
+  // width: 200px;
+  // height: 200px;
+  outline: 1px solid rgb(71, 30, 126);
+  // background-color: aqua;
+}
+
 .modal-img {
   @media screen and (max-width: 320px) {
     width: 240px;
@@ -79,4 +86,12 @@
       height: 478px;
     }
   }
+}
+
+.movie-metrics-title {
+  color: #8c8c8c;
+}
+
+.movie-card-item {
+  display: flex;
 }
