@@ -1,6 +1,6 @@
 import './sass/main.scss';
 
-import './js/api-key-word.js';
+// import './js/api-key-word.js';
 import './js/search-movies.js';
 import './js/api-gallery.js';
 import './js/switch-theme.js';

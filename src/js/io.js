@@ -1,13 +1,26 @@
 import { newApiService, renderCardGallery } from './api-gallery';
-import { newApi2, renderSearchGallery } from './search-movies';
+import { searchApiService, renderSearchGallery } from './search-movies';
+import { fetchMovieByKeyWord } from './api-key-word';
 
 const onEntry = entries => {
   entries.forEach(entry => {
-    if (entry.isIntersecting && newApiService.query !== '' && newApiService.page > 1) {
+    if (entry.isIntersecting && newApiService.query === '' && newApiService.page > 1) {
       //перед квери нужно влепить название класса получения fetch и точку)
       // console.log(entry);
       renderCardGallery();
       // функция рендера картинок должна быть тут)
+    }
+
+    if (entry.isIntersecting && newApiService.query !== '' && searchApiService.page > 1) {
+      searchApiService
+        .fetchMovieByKeyWord()
+        .then(data => {
+          console.log(data);
+          renderSearchGallery(data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
     }
     // else if (entry.isIntersecting && newApiService.query === '' && newApiService.page > 1) {
     //   renderSearchGallery();

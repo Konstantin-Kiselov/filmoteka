@@ -4,6 +4,7 @@ const galleryEl = document.querySelector('.gallery-list');
 
 class NewApiService {
   constructor() {
+    this.searchQuery = '';
     this.page = 1;
   }
 
@@ -43,6 +44,10 @@ document.addEventListener('DOMContentLoaded', renderCardGallery);
 const newApiService = new NewApiService();
 
 function renderCardGallery(results) {
+  if (newApiService.query !== '') {
+    console.log('Query not empty');
+    return;
+  }
   newApiService.fetchArticles().then(img => {
     const markup = templateGalleryFilms(img);
     galleryEl.insertAdjacentHTML('beforeend', markup);

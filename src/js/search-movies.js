@@ -1,6 +1,7 @@
 import debounce from 'lodash.debounce';
 import templateGalleryFilms from '../templates/films-gallery.hbs';
-import fetchMovieByKeyWord from './api-key-word.js';
+// import { fetchMovieByKeyWord } from './api-key-word.js';
+import { newApiService } from './api-gallery';
 
 const refs = {
   gallery: document.querySelector('.gallery-list'),
@@ -17,10 +18,15 @@ function renderSearchGallery(data) {
 function onSearchMovie(e) {
   refs.gallery.innerHTML = '';
   const searchQuery = e.target.value.trim();
+
+  newApiService.query = searchQuery;
+  searchApiService.query = searchQuery;
   console.log(searchQuery);
 
-  fetchMovieByKeyWord(searchQuery)
+  searchApiService
+    .fetchMovieByKeyWord()
     .then(data => {
+      console.log(data);
       renderSearchGallery(data);
     })
     .catch(e => {
@@ -28,41 +34,42 @@ function onSearchMovie(e) {
     });
 }
 
-// class Api2 {
-//   constructor() {
-//     this.page = 1;
-//     // this.searchQuery = '';
-//   }
+// ============ CLASS API 2 ============
+class Api2 {
+  constructor() {
+    this.page = 1;
+    this.searchQuery = '';
+  }
 
-//   fetchMovieByKeyWord() {
-//     const url = `https://api.themoviedb.org/3/search/movie?api_key=b32f977d148061c9ab22a471ff2c7792&language=en-US&page=${this.page}&include_adult=false&query=cat`;
+  fetchMovieByKeyWord() {
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=b32f977d148061c9ab22a471ff2c7792&language=en-US&page=${this.page}&include_adult=false&query=${this.searchQuery}`;
 
-//     return fetch(url)
-//       .then(response => response.json())
-//       .then(data => {
-//         this.incrementPage();
-//         console.log(data.results);
-//         return data.results;
-//       });
-//   }
+    return fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        this.incrementPage();
+        console.log(data.results);
+        return data.results;
+      });
+  }
 
-//   incrementPage() {
-//     this.page += 1;
-//   }
-//   resetPage() {
-//     this.page = 1;
-//   }
-//   get query() {
-//     return this.searchQuery;
-//   }
-//   set query(newQuery) {
-//     this.searchQuery = newQuery;
-//   }
-// }
+  incrementPage() {
+    this.page += 1;
+  }
+  resetPage() {
+    this.page = 1;
+  }
+  get query() {
+    return this.searchQuery;
+  }
+  set query(newQuery) {
+    this.searchQuery = newQuery;
+  }
+}
 
 // document.addEventListener('DOMContentLoaded', renderSearchGallery);
 
-// const newApi2 = new Api2();
+const searchApiService = new Api2();
 
 // function renderSearchGallery(results) {
 //   newApi2.fetchMovieByKeyWord().then(img => {
