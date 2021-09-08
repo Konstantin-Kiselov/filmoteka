@@ -6,8 +6,8 @@ const refs = {
   paginationContainer: document.querySelector('#pagination'),
   libraryBtn: document.querySelector('.navigation-list-item-link-my-library'),
   homeLink: document.querySelector('.navigation-list-item-link-home'),
-  //const watchedFilms = getUserWatchedFromDatabase(id юзера);
-  //const queuedFilms = getUserQueueFromDatabase(id юзера);
+  //const watchedFilms = (id юзера);
+  //const queuedFilms = (id юзера);
 };
 
 // console.log(refs.libraryBtn);
