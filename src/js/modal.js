@@ -21,7 +21,7 @@ function onModalOpen(event) {
   console.log(a);
   //если клик не на элемент li, тогда модальное окно не открывается
   const isCardElement = event.target.closest('li');
-  movieId = isCardElement.firstElementChild.getAttribute('data-action');
+  movieId = isCardElement.firstElementChild.getAttribute('data-movie-id');
   console.log(movieId);
   if (!isCardElement) {
     return;
