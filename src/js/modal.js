@@ -17,6 +17,7 @@ refs.openModalBtn.addEventListener('click', onModalOpen);
 
 refs.closeModalBtn.addEventListener('click', onModalClose);
 let movieId;
+let fffff;
 
 function onModalOpen(event) {
   const a = event.target;
@@ -24,6 +25,8 @@ function onModalOpen(event) {
   //если клик не на элемент li, тогда модальное окно не открывается
   const isCardElement = event.target.closest('li');
   movieId = isCardElement.firstElementChild.getAttribute('data-action');
+  fffff = movieId.toString();
+  console.log(fffff);
   console.log(movieId);
   if (!isCardElement) {
     return;
@@ -40,7 +43,30 @@ function onModalOpen(event) {
   // refs.closeModalBtn.removeEventListener();
 
   stopScroll();
+  ffffff();
 }
+
+//////////////////////////////////======================================///////////////////////////////////////////////////
+function ffffff() {
+  queueBtn.addEventListener('click', addToQueueStorage);
+
+  function addToQueueStorage() {
+    queueBtn.classList.toggle('add-collection');
+    const ddd = queueBtn.classList.contains('add-collection');
+    console.log(ddd);
+    if (ddd) {
+      hhhhhhhhhhhh();
+    }
+  }
+}
+
+function hhhhhhhhhhhh() {
+  localStorage.setItem('cat', movieId);
+  console.log(movieId);
+  let cat = localStorage.getItem('cat');
+}
+////////////////////////////////////////////////////////////////==========================///////////////////
+// console.log(fffff);
 
 function toggleModal() {
   window.addEventListener('keydown', onEscKeyPress);
@@ -140,15 +166,34 @@ function onScroll() {
 
 // serg:
 const queueBtn = document.querySelector('.modal-add-btn');
-queueBtn.addEventListener('click', addToQueueStorage);
+console.log(queueBtn);
+// queueBtn.addEventListener('click', addToQueueStorage);
 
-const myLibrarylink = document.querySelector('.navigation__link');
-myLibrarylink.addEventListener('.myLibrarylink');
+// const myLibrarylink = document.querySelector('.navigation__link');
+// myLibrarylink.addEventListener('.myLibrarylink');
 
-function addToQueueStorage(movieId) {
-  localStorage.setItem('cat', movieId);
-  console.log(movieId);
-  let cat = localStorage.getItem('cat');
-}
+// function aaaa() {
+//   queueBtn.addEventListener('click', addToQueueStorage);
+//   addToQueueStorage(movieId);
+//   console.log(movieId);
+// }
+// //////////////////////////////////======================================///////////////////////////////////////////////////
+// function ffffff() {
+//   queueBtn.addEventListener('click', addToQueueStorage);
 
-function renderCardLibrary() {}
+//   function addToQueueStorage() {
+//     queueBtn.classList.toggle('add-collection');
+//     const ddd = queueBtn.classList.contains('add-collection');
+//     console.log(ddd);
+//     if (ddd) {
+//       hhhhhhhhhhhh();
+//     }
+//   }
+// }
+
+// function hhhhhhhhhhhh() {
+//   localStorage.setItem('cat', movieId);
+//   console.log(movieId);
+//   let cat = localStorage.getItem('cat');
+// }
+// function renderCardLibrary() {}
