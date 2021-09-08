@@ -113,14 +113,14 @@ function stopScroll() {
     // refs.body.style.overflow = 'hidden';
     refs.body.classList.add('no-scroll');
   }
-  // if (!isBackdropIsHidden) {
-  //   refs.body.classList.remove('no-scroll');
-  // }
 }
 
+//чтобы скролилась страница после закрытия модального окна
 function onScroll() {
   refs.body.classList.remove('no-scroll');
+  //очистить контент, чтобы при новой загрузке информации в модальное окно предыдущий контент был очищен
   refs.modalWindow.textContent = '';
+  // refs.modalImg.setAttribute('src', '');
 }
 
 // function renderModalMarkUP(modalTemplate) {
