@@ -32,8 +32,8 @@ function libraryHandleClick(event) {
     document.querySelector('.modal').remove();
   }
 
-  const watchedBtn = document.querySelector('.header-button-watched');
-  const queueBtn = document.querySelector('.header-button-queue');
+  // const watchedBtn = document.querySelector('.header-button-watched');
+  // const queueBtn = document.querySelector('.header-button-queue');
 }
 
 // refs.filmsGallery.innerHTML = '';
@@ -48,8 +48,8 @@ function onLibraryButtonsClick(watchedBtn, queueBtn) {
     watchedBtn.classList.add('is-active-btn');
   });
 }
-onLibraryButtonsClick(watchedBtn, queueBtn);
-onLibraryButtonsClick(queueBtn, watchedBtn);
+// onLibraryButtonsClick(watchedBtn, queueBtn);
+// onLibraryButtonsClick(queueBtn, watchedBtn);
 // onLibraryButtonsClick(queueBtn, watchedBtn, queuedFilms);
 //onLibraryButtonsClick(watchedBtn, queueBtn, watchedFilms);
 
