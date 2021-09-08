@@ -1,6 +1,5 @@
 import { newApiService, renderCardGallery } from './api-gallery';
 import { searchApiService, renderSearchGallery } from './search-movies';
-import { fetchMovieByKeyWord } from './api-key-word';
 
 const onEntry = entries => {
   entries.forEach(entry => {
@@ -9,9 +8,7 @@ const onEntry = entries => {
       // console.log(entry);
       renderCardGallery();
       // функция рендера картинок должна быть тут)
-    }
-
-    if (entry.isIntersecting && newApiService.query !== '' && searchApiService.page > 1) {
+    } else if (entry.isIntersecting && newApiService.query !== '' && searchApiService.page > 1) {
       searchApiService
         .fetchMovieByKeyWord()
         .then(data => {
@@ -22,9 +19,6 @@ const onEntry = entries => {
           console.log(e);
         });
     }
-    // else if (entry.isIntersecting && newApiService.query === '' && newApiService.page > 1) {
-    //   renderSearchGallery();
-    // }
   });
 };
 

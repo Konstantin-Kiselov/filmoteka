@@ -1,5 +1,5 @@
 import modalTemplate from '../templates/modal-templates.hbs';
-console.log(modalTemplate);
+// console.log(modalTemplate);
 
 ///////////////////////////////api запрос
 
