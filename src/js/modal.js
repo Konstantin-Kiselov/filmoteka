@@ -1,6 +1,8 @@
 import modalTemplate from '../templates/modal-templates.hbs';
 console.log(modalTemplate);
-
+// serg
+import { galleryEl, newApiService, renderCardGallery } from '../js/api-gallery';
+// serg
 const refs = {
   body: document.querySelector('body'),
   openModalBtn: document.querySelector('.gallery-list'),
@@ -135,3 +137,18 @@ function onScroll() {
 
 //     console.log('one country');
 // }
+
+// serg:
+const queueBtn = document.querySelector('.modal-add-btn');
+queueBtn.addEventListener('click', addToQueueStorage);
+
+const myLibrarylink = document.querySelector('.navigation__link');
+myLibrarylink.addEventListener('.myLibrarylink');
+
+function addToQueueStorage(movieId) {
+  localStorage.setItem('cat', movieId);
+  console.log(movieId);
+  let cat = localStorage.getItem('cat');
+}
+
+function renderCardLibrary() {}
