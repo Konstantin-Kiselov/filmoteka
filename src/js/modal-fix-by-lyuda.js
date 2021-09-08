@@ -1,6 +1,8 @@
 import modalTemplate from '../templates/modal-templates.hbs';
 console.log(modalTemplate);
-
+// serg
+import { galleryEl, newApiService, renderCardGallery } from '../js/api-gallery';
+// serg
 const refs = {
   body: document.querySelector('body'),
   openModalBtn: document.querySelector('.gallery-list'),
@@ -11,27 +13,24 @@ const refs = {
   modalImg: document.querySelector('.modal-img'),
 };
 
-// ================ Serg & Olya ================
-
-const watchedBtn = document.querySelector('.modal-add-watched-btn');
-// =============================================
-
-let movieId;
-
 refs.openModalBtn.addEventListener('click', onModalOpen);
 
 refs.closeModalBtn.addEventListener('click', onModalClose);
+let movieId;
+let fffff;
 
 function onModalOpen(event) {
   const a = event.target;
   console.log(a);
   //если клик не на элемент li, тогда модальное окно не открывается
   const isCardElement = event.target.closest('li');
+  movieId = isCardElement.firstElementChild.getAttribute('data-action');
+  fffff = movieId.toString();
+  console.log(fffff);
+  console.log(movieId);
   if (!isCardElement) {
     return;
   }
-  movieId = isCardElement.firstElementChild.getAttribute('data-action');
-  console.log(movieId);
 
   // const a = event.target.value;
   // console.log(a);
@@ -44,25 +43,30 @@ function onModalOpen(event) {
   // refs.closeModalBtn.removeEventListener();
 
   stopScroll();
-
-  // ================ Serg & Olya ================
-
-  // ============ Проверяем локал сторадж на наличие данных ============
-  if (localStorage.getItem('watched') === null) {
-    localStorage.setItem('watched', JSON.stringify([]));
-  }
-
-  // ============ Вешаем слушателя на кнопку Watched ============
-  watchedBtn.addEventListener('click', () => {
-    console.log('Why?');
-    const watchedParse = JSON.parse(localStorage.getItem('watched'));
-    console.log(watchedParse);
-    console.log('А теперь добавляй');
-    addToWatchedStorage(movieId, watchedParse);
-  });
-  // ===========================================================
-  return;
+  ffffff();
 }
+
+//////////////////////////////////======================================///////////////////////////////////////////////////
+function ffffff() {
+  queueBtn.addEventListener('click', addToQueueStorage);
+
+  function addToQueueStorage() {
+    queueBtn.classList.toggle('add-collection');
+    const ddd = queueBtn.classList.contains('add-collection');
+    console.log(ddd);
+    if (ddd) {
+      hhhhhhhhhhhh();
+    }
+  }
+}
+
+function hhhhhhhhhhhh() {
+  localStorage.setItem('cat', movieId);
+  console.log(movieId);
+  let cat = localStorage.getItem('cat');
+}
+////////////////////////////////////////////////////////////////==========================///////////////////
+// console.log(fffff);
 
 function toggleModal() {
   window.addEventListener('keydown', onEscKeyPress);
@@ -160,22 +164,36 @@ function onScroll() {
 //     console.log('one country');
 // }
 
-// ================ Serg & Olya ================
+// serg:
+const queueBtn = document.querySelector('.modal-add-btn');
+console.log(queueBtn);
+// queueBtn.addEventListener('click', addToQueueStorage);
 
 // const myLibrarylink = document.querySelector('.navigation__link');
-// myLibrarylink.addEventListener('click', renderCardLibrary);
+// myLibrarylink.addEventListener('.myLibrarylink');
 
-function addToWatchedStorage(movieId, watchedParse) {
-  console.log(movieId);
-  if (watchedParse.includes(movieId)) {
-    return;
-  }
-  watchedParse.push(movieId);
-  // watchedBtn.textContent = 'REMOVE FROM WATCHED';
-
-  localStorage.setItem('watched', JSON.stringify(watchedParse));
-}
-
-// function renderCardLibrary() {
-//   console.log('Я отрендерил локал сторадж');
+// function aaaa() {
+//   queueBtn.addEventListener('click', addToQueueStorage);
+//   addToQueueStorage(movieId);
+//   console.log(movieId);
 // }
+// //////////////////////////////////======================================///////////////////////////////////////////////////
+// function ffffff() {
+//   queueBtn.addEventListener('click', addToQueueStorage);
+
+//   function addToQueueStorage() {
+//     queueBtn.classList.toggle('add-collection');
+//     const ddd = queueBtn.classList.contains('add-collection');
+//     console.log(ddd);
+//     if (ddd) {
+//       hhhhhhhhhhhh();
+//     }
+//   }
+// }
+
+// function hhhhhhhhhhhh() {
+//   localStorage.setItem('cat', movieId);
+//   console.log(movieId);
+//   let cat = localStorage.getItem('cat');
+// }
+// function renderCardLibrary() {}
