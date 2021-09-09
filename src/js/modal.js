@@ -48,22 +48,24 @@ function onModalOpen(event) {
   // ============ Вешаем слушателя на кнопку Watched ============
   refs.addWatchedBtn.addEventListener('click', addWatch);
 
-  function addWatch(e) {
-    const click = e.target.value;
-    console.log('click');
-    if (click === 1) {
-      refs.addWatchedBtn.classList.add('is-active');
-      refs.addWatchedBtn.textContent = 'REMOVE FROM WATCHED';
-    }
-    // else if () {
-    //     refs.addWatchedBtn.classList.remove ('is-active');
-    //     refs.addWatchedBtn.textContent = '';
-    //   }
-
+  function addWatch() {
     const watchedParse = JSON.parse(localStorage.getItem('watched'));
-    // console.log(watchedParse);
-    // console.log('А теперь добавляй');
-    addToWatchedStorage(movieId, watchedParse);
+
+    if (watchedParse.includes(movieId)) {
+      refs.addWatchedBtn.classList.toggle('add-collection');
+      refs.addWatchedBtn.textContent = 'ADD TO WATCHED';
+      console.log('Удалить');
+      return;
+    } else if (!watchedParse.includes(movieId)) {
+      refs.addWatchedBtn.classList.toggle('add-collection');
+      refs.addWatchedBtn.textContent = 'REMOVE FROM WATCHED';
+      addToWatchedStorage(movieId, watchedParse);
+      console.log('Удалить 2');
+      return;
+    }
+
+    console.log(watchedParse);
+    console.log('А теперь добавляй');
   }
   //============ Вешаем слушателя на кнопку Queue ============
   refs.addQueueBtn.addEventListener('click', addQueue);
@@ -89,6 +91,8 @@ function onModalClose() {
   toggleModal();
   onScroll();
   /////////////////
+  refs.addWatchedBtn.removeEventListener('click', addWatch);
+  refs.addQueueBtn.removeEventListener('click', addQueue);
   //   refs.modalWindow.removeEventListener();
   //   // refs.modalWindow.textContent = '';
   //   refs.modalImg.setAttribute('src', '');
