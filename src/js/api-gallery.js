@@ -44,11 +44,28 @@ document.addEventListener('DOMContentLoaded', renderCardGallery);
 
 const newApiService = new NewApiService();
 
-function renderCardGallery(results, genres) {
+fetchGenres();
+const getLocalGenres = localStorage.getItem(STORAGE_KEY);
+const localGenres = JSON.parse(getLocalGenres);
+// console.log(localGenres);
+
+// const getGenres = fetchGenres().then(({ genres }) => {
+//   // console.log(genres);
+//   const storageGenres = JSON.stringify(genres);
+//   localStorage.setItem(STORAGE_KEY, storageGenres);
+//   // const getLocalGenres = localStorage.getItem(STORAGE_KEY);
+//   // const localGenres = JSON.parse(getLocalGenres);
+//   // console.log(localGenres);
+//   return genres;
+// });
+// console.log(JSON.parse(getGenres));
+
+function renderCardGallery() {
   newApiService.fetchArticles().then(results => {
-    fetchGenres().then(genres => {
-      markupMovieFilm(results, genres);
-    });
+    // fetchGenres().then(genres => {
+    console.log(results);
+    console.log(localGenres);
+    markupMovieFilm(results, localGenres);
   });
 }
 
@@ -58,13 +75,15 @@ function fetchGenres() {
   )
     .then(response => response.json())
     .then(({ genres }) => {
-      console.log(genres);
+      // console.log(genres);
       const storageGenres = JSON.stringify(genres);
       localStorage.setItem(STORAGE_KEY, storageGenres);
-      const getLocalGenres = localStorage.getItem(STORAGE_KEY);
-      const localGenres = JSON.parse(getLocalGenres);
-      console.log(localGenres);
-      return genres;
+      // -----------------------------------------------------------
+      // const getLocalGenres = localStorage.getItem(STORAGE_KEY);
+      // const localGenres = JSON.parse(getLocalGenres);
+      // console.log(localGenres);
+      // -----------------------------------------------------------
+      // return genres;
     });
 }
 
