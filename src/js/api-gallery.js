@@ -44,9 +44,6 @@ document.addEventListener('DOMContentLoaded', renderCardGallery);
 
 const newApiService = new NewApiService();
 
-fetchGenres();
-const getLocalGenres = localStorage.getItem(STORAGE_KEY);
-const localGenres = JSON.parse(getLocalGenres);
 // console.log(localGenres);
 
 // const getGenres = fetchGenres().then(({ genres }) => {
@@ -60,7 +57,11 @@ const localGenres = JSON.parse(getLocalGenres);
 // });
 // console.log(JSON.parse(getGenres));
 
-function renderCardGallery() {
+async function renderCardGallery() {
+  await fetchGenres();
+  const getLocalGenres = localStorage.getItem(STORAGE_KEY);
+  const localGenres = JSON.parse(getLocalGenres);
+
   newApiService.fetchArticles().then(results => {
     // fetchGenres().then(genres => {
     console.log(results);
@@ -89,6 +90,8 @@ function fetchGenres() {
 
 function markupMovieFilm(results, genres) {
   results.map(({ id, poster_path, title, release_date, genre_ids, vote_average }) => {
+    // console.log(genres);
+
     const filterGenres = genres.filter(genre => genre_ids.includes(genre.id));
 
     const mapGenres = filterGenres.map(({ name }) => name);

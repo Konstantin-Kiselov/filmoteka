@@ -38,6 +38,59 @@ function onModalOpen(event) {
   // refs.closeModalBtn.removeEventListener();
 
   stopScroll();
+
+  // ============ Проверяем локал сторадж на наличие данных ============
+  if (localStorage.getItem('watched') === null) {
+    localStorage.setItem('watched', JSON.stringify([]));
+  }
+  if (localStorage.getItem('queue') === null) {
+    localStorage.setItem('queue', JSON.stringify([]));
+  }
+  // ============ Вешаем слушателя на кнопку Watched ============
+  refs.addWatchedBtn.addEventListener('click', addWatch);
+
+  function addWatch(e) {
+    const watchedParse = JSON.parse(localStorage.getItem('watched'));
+
+    if (refs.addWatchedBtn.classList.contains('add-collection')) {
+      refs.addWatchedBtn.classList.toggle('add-collection');
+      refs.addWatchedBtn.textContent = 'ADD TO WATCHED';
+
+      console.log('Прописать функцию удаления из локалстор WATCHED');
+
+      return;
+    }
+
+    if (!refs.addWatchedBtn.classList.contains('add-collection')) {
+      refs.addWatchedBtn.classList.toggle('add-collection');
+      refs.addWatchedBtn.textContent = 'REMOVE FROM WATCHED';
+      addToWatchedStorage(movieId, watchedParse);
+
+      if (refs.addQueueBtn.classList.contains('add-collection')) {
+        console.log('Удалить из локал стор QUEUE');
+      }
+
+      return;
+    }
+    // else if () {
+    //     refs.addWatchedBtn.classList.remove ('is-active');
+    //     refs.addWatchedBtn.textContent = '';
+    //   }
+
+    // console.log(watchedParse);
+    // console.log('А теперь добавляй');
+  }
+  //============ Вешаем слушателя на кнопку Queue ============
+  refs.addQueueBtn.addEventListener('click', addQueue);
+
+  function addQueue() {
+    const queueParse = JSON.parse(localStorage.getItem('queue'));
+    // console.log(queueParse);
+    // console.log('А теперь добавляй');
+    addToQueueStorage(movieId, queueParse);
+  }
+
+  return;
 }
 
 function toggleModal() {
@@ -51,6 +104,8 @@ function onModalClose() {
   toggleModal();
   onScroll();
   /////////////////
+  refs.addWatchedBtn.removeEventListener('click', addWatch);
+  refs.addQueueBtn.removeEventListener('click', addQueue);
   //   refs.modalWindow.removeEventListener();
   //   // refs.modalWindow.textContent = '';
   //   refs.modalImg.setAttribute('src', '');
