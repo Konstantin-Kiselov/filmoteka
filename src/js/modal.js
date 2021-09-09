@@ -41,13 +41,25 @@ function onModalOpen(event) {
   // ============ Проверяем локал сторадж на наличие данных ============
   if (localStorage.getItem('watched') === null) {
     localStorage.setItem('watched', JSON.stringify([]));
-  } else if (localStorage.getItem('queue') === null) {
+  }
+  if (localStorage.getItem('queue') === null) {
     localStorage.setItem('queue', JSON.stringify([]));
   }
   // ============ Вешаем слушателя на кнопку Watched ============
   refs.addWatchedBtn.addEventListener('click', addWatch);
 
-  function addWatch() {
+  function addWatch(e) {
+    const click = e.target.value;
+    console.log('click');
+    if (click === 1) {
+      refs.addWatchedBtn.classList.add('is-active');
+      refs.addWatchedBtn.textContent = 'REMOVE FROM WATCHED';
+    }
+    // else if () {
+    //     refs.addWatchedBtn.classList.remove ('is-active');
+    //     refs.addWatchedBtn.textContent = '';
+    //   }
+
     const watchedParse = JSON.parse(localStorage.getItem('watched'));
     // console.log(watchedParse);
     // console.log('А теперь добавляй');
@@ -163,21 +175,21 @@ function onScroll() {
 
 function addToWatchedStorage(movieId, watchedParse) {
   console.log(movieId);
+  // refs.addWatchedBtn.textContent = 'REMOVE FROM WATCHED';
   if (watchedParse.includes(movieId)) {
     return;
   }
-  // refs.addWatchedBtn.textContent = 'REMOVE FROM WATCHED';
   watchedParse.push(movieId);
   localStorage.setItem('watched', JSON.stringify(watchedParse));
 }
 
 function addToQueueStorage(movieId, queueParse) {
   console.log(movieId);
+  // refs.addQueueBtn.textContent = 'REMOVE FROM QUEUE';
   if (queueParse.includes(movieId)) {
     return;
   }
   queueParse.push(movieId);
-  // refs.addQueueBtn.textContent = 'REMOVE FROM QUEUE';
   localStorage.setItem('queue', JSON.stringify(queueParse));
 }
 

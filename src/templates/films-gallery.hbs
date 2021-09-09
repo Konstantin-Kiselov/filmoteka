@@ -1,12 +1,17 @@
 {{#each this}}
   <li class='film-gallery'>
-
+     {{#if poster_path}}
     <img
       src='https://image.tmdb.org/t/p/w500{{poster_path}}'
       alt='{{title}}'
       data-action={{id}}
       class='img-card'
     />
+     {{else}}
+    <img 
+      src='https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'>
+    {{/if}}
+
     <div class='film-card'>
       <h3 class='film-title'>{{original_title}}</h3>
 
