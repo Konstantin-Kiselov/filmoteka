@@ -1,5 +1,5 @@
 import modalTemplate from '../templates/modal-templates.hbs';
-console.log(modalTemplate);
+// console.log(modalTemplate);
 
 const refs = {
   body: document.querySelector('body'),
@@ -9,35 +9,61 @@ const refs = {
   modalWindow: document.querySelector('.modal-movie-card'),
   modalBackdrop: document.querySelector('.backdrop '),
   modalImg: document.querySelector('.modal-img'),
+  addWatchedBtn: document.querySelector('.add-watched-btn'),
+  addQueueBtn: document.querySelector('.add-queue-btn'),
 };
 
-refs.openModalBtn.addEventListener('click', onModalOpen);
-
-refs.closeModalBtn.addEventListener('click', onModalClose);
 let movieId;
+
+refs.openModalBtn.addEventListener('click', onModalOpen);
+refs.closeModalBtn.addEventListener('click', onModalClose);
 
 function onModalOpen(event) {
   const a = event.target;
-  console.log(a);
+  // console.log(a);
   //если клик не на элемент li, тогда модальное окно не открывается
   const isCardElement = event.target.closest('li');
-  movieId = isCardElement.firstElementChild.getAttribute('data-movie-id');
-  console.log(movieId);
   if (!isCardElement) {
     return;
   }
-
+  movieId = isCardElement.firstElementChild.getAttribute('data-movie-id');
+  // console.log(movieId);
   // const a = event.target.value;
   // console.log(a);
 
   event.preventDefault();
-
   toggleModal();
   // renderModalMarkUP(modalTemplate);
   fetchMovieInform();
   // refs.closeModalBtn.removeEventListener();
-
   stopScroll();
+
+  // ============ Проверяем локал сторадж на наличие данных ============
+  if (localStorage.getItem('watched') === null) {
+    localStorage.setItem('watched', JSON.stringify([]));
+  } else if (localStorage.getItem('queue') === null) {
+    localStorage.setItem('queue', JSON.stringify([]));
+  }
+  // ============ Вешаем слушателя на кнопку Watched ============
+  refs.addWatchedBtn.addEventListener('click', addWatch);
+
+  function addWatch() {
+    const watchedParse = JSON.parse(localStorage.getItem('watched'));
+    // console.log(watchedParse);
+    // console.log('А теперь добавляй');
+    addToWatchedStorage(movieId, watchedParse);
+  }
+  //============ Вешаем слушателя на кнопку Queue ============
+  refs.addQueueBtn.addEventListener('click', addQueue);
+
+  function addQueue() {
+    const queueParse = JSON.parse(localStorage.getItem('queue'));
+    // console.log(queueParse);
+    // console.log('А теперь добавляй');
+    addToQueueStorage(movieId, queueParse);
+  }
+  // ===========================================================
+  return;
 }
 
 function toggleModal() {
@@ -61,7 +87,6 @@ function onEscKeyPress(event) {
   const ESC_KEY_CODE = 'Escape';
   //console.log(event.code);
   const isEscKey = event.code === ESC_KEY_CODE;
-
   if (isEscKey) {
     toggleModal();
     onScroll();
@@ -69,11 +94,10 @@ function onEscKeyPress(event) {
 }
 
 // Закрытие модального окна по клику на backdrop.
-
 refs.modal.addEventListener('click', onModalCloseBackdrop);
 function onModalCloseBackdrop(evt) {
   const isBackdrop = evt.target.classList.contains('backdrop');
-  console.log(isBackdrop);
+  // console.log(isBackdrop);
   if (isBackdrop) {
     toggleModal();
     onScroll();
@@ -86,12 +110,11 @@ function renderModalMarkUP(movie) {
   // refs.modalImg.setAttribute('src', '');
   const markUp = modalTemplate(movie);
   refs.modalWindow.insertAdjacentHTML('beforeend', markUp);
-
-  console.log('render');
+  // console.log('render');
   stopScroll();
 }
 
-//запрос
+//запрос id фильма
 function fetchMovieInform() {
   const BASE_URL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=b32f977d148061c9ab22a471ff2c7792&language=en-US`;
 
@@ -99,8 +122,7 @@ function fetchMovieInform() {
 }
 
 function movieDetails(movie) {
-  console.log(movie);
-
+  // console.log(movie);
   // refs.modalWindow.textContent = '';
   renderModalMarkUP(movie);
 }
@@ -108,7 +130,7 @@ function movieDetails(movie) {
 //чтобы не скролился body под модалкой
 function stopScroll() {
   const isBackdropIsHidden = refs.modalBackdrop.classList.contains('is-hidden');
-  console.log(isBackdropIsHidden);
+  // console.log(isBackdropIsHidden);
   if (!isBackdropIsHidden) {
     // refs.body.style.overflow = 'hidden';
     refs.body.classList.add('no-scroll');
@@ -126,12 +148,39 @@ function onScroll() {
 // function renderModalMarkUP(modalTemplate) {
 //     const markUp = countre(modalTemplate);
 //     refs.modalWindow.insertAdjacentHTML('afterend', markUp);
-
 // }
 
 // function renderModalMarkUP(countries) {
 //     const markUp = countre(countries);
 //     refs.getCountriesList.innerHTML = markUp;
-
 //     console.log('one country');
+// }
+
+// ================ Добавляет фильмы в LocalStorage ================
+
+// const myLibrarylink = document.querySelector('.navigation__link');
+// myLibrarylink.addEventListener('click', renderCardLibrary);
+
+function addToWatchedStorage(movieId, watchedParse) {
+  console.log(movieId);
+  if (watchedParse.includes(movieId)) {
+    return;
+  }
+  // refs.addWatchedBtn.textContent = 'REMOVE FROM WATCHED';
+  watchedParse.push(movieId);
+  localStorage.setItem('watched', JSON.stringify(watchedParse));
+}
+
+function addToQueueStorage(movieId, queueParse) {
+  console.log(movieId);
+  if (queueParse.includes(movieId)) {
+    return;
+  }
+  queueParse.push(movieId);
+  // refs.addQueueBtn.textContent = 'REMOVE FROM QUEUE';
+  localStorage.setItem('queue', JSON.stringify(queueParse));
+}
+
+// function renderCardLibrary() {
+//   console.log('Я отрендерил локал сторадж');
 // }

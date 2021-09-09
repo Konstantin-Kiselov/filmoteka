@@ -117,7 +117,7 @@ function fetchGenres() {
 
 function markupMovieFilm(results, genres) {
   results.map(({ id, poster_path, title, release_date, genre_ids, vote_average }) => {
-    console.log(genres);
+    // console.log(genres);
     const filterGenres = genres.filter(genre => genre_ids.includes(genre.id));
     const mapGenres = filterGenres.map(({ name }) => name);
     if (mapGenres.length > 3) {
