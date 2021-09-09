@@ -2,10 +2,6 @@
 //$color: #49b8e5, #1e98d4, #2a92d0, #3a88c8, #507cbe;
 $color: #ffa500, #ff8c00, #ff7f24, #ee7621, #cd661d;
 
-// body {
-//   overflow: hidden;
-// }
-
 .preloader {
   position: fixed;
   left: 0px;
@@ -15,16 +11,10 @@ $color: #ffa500, #ff8c00, #ff7f24, #ee7621, #cd661d;
   z-index: 999999;
   display: flex;
   align-items: center;
-  //background: #fff;
   justify-content: center;
   transition: all 0.5s;
   opacity: 1;
-  //filter: blur(8px);
   backdrop-filter: blur(8px);
-
-  //   body {
-  //     filter: blur(8px);
-  //   }
 }
 
 .preloader-remove {
