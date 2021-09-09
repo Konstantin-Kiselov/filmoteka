@@ -40,13 +40,15 @@ class NewApiService {
 
 // // Функция для отрисовки фильмов через template  в HTML
 
-document.addEventListener('DOMContentLoaded', renderCardGallery);
-
-const newApiService = new NewApiService();
 
 fetchGenres();
 const getLocalGenres = localStorage.getItem(STORAGE_KEY);
 const localGenres = JSON.parse(getLocalGenres);
+
+document.addEventListener('DOMContentLoaded', renderCardGallery);
+
+const newApiService = new NewApiService();
+
 // console.log(localGenres);
 
 // const getGenres = fetchGenres().then(({ genres }) => {
@@ -90,7 +92,7 @@ function fetchGenres() {
 function markupMovieFilm(results, genres) {
   results.map(({ id, poster_path, title, release_date, genre_ids, vote_average }) => {
     // console.log(genres);
-    
+
     const filterGenres = genres.filter(genre => genre_ids.includes(genre.id));
 
     const mapGenres = filterGenres.map(({ name }) => name);
