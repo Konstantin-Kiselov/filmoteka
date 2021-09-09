@@ -50,7 +50,6 @@ function onModalOpen(event) {
   // refs.closeModalBtn.removeEventListener();
   stopScroll();
 
-
   // ============ Вешаем слушателя на кнопку Watched ============
   refs.addWatchedBtn.addEventListener('click', onClickWatch);
 
@@ -84,7 +83,7 @@ function onClickQueue(e) {
 
 function onClickWatch(e) {
   // если есть класс-- Удаляем класс  и удаляем с локал стор
-  if (!refs.addWatchedBtn.classList.contains('add-collection')) {
+  if (!watchedParse.includes(movieId)) {
     refs.addWatchedBtn.classList.add('add-collection');
     refs.addWatchedBtn.textContent = 'REMOVE FROM WATCHED';
     addToWatchedStorage(movieId, watchedParse);
@@ -92,12 +91,14 @@ function onClickWatch(e) {
     return;
   }
 
-  if (refs.addWatchedBtn.classList.contains('add-collection')) {
+  if (watchedParse.includes(movieId)) {
     refs.addWatchedBtn.classList.remove('add-collection');
     refs.addWatchedBtn.textContent = 'ADD TO WATCHED';
     const indexWatchedLocalStorage = watchedParse.indexOf(movieId);
+    console.log(indexWatchedLocalStorage);
     watchedParse.splice(indexWatchedLocalStorage, 1);
     // addToWatchedStorage(movieId, watchedParse);
+
     return;
   }
 
@@ -114,7 +115,6 @@ function onClickWatch(e) {
   //   if (refs.addQueueBtn.classList.contains('add-collection')) {
   //     console.log('Удалить из локал стор QUEUE');
   //   }
-
 }
 // else if () {
 //     refs.addWatchedBtn.classList.remove ('is-active');
@@ -135,9 +135,9 @@ function onModalClose() {
   toggleModal();
   onScroll();
   /////////////////
-  refs.addWatchedBtn.classList.remove('add-collection');
+  // refs.addWatchedBtn.classList.remove('add-collection');
   refs.addWatchedBtn.removeEventListener('click', addWatch);
-  refs.addQueueBtn.classList.remove('add-collection');
+  // refs.addQueueBtn.classList.remove('add-collection');
   refs.addQueueBtn.removeEventListener('click', addQueue);
   //   refs.modalWindow.removeEventListener();
   //   // refs.modalWindow.textContent = '';
