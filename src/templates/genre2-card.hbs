@@ -1,0 +1,12 @@
+{{#each this}}
+  <li class='movie-card'>
+    <img class='movie-poster' src={{img}} alt='{{title}}' data-movie-id='{{id}}' />
+    <h1 class='film-title'>{{title}}</h1>
+    <p class='film-genres'>
+      {{#if filmGenres}}{{filmGenres}}{{else}}Genre{{/if}}
+      |
+      {{releaseYear}}
+      <span class='vote-average'>{{vote_average}}</span></p>
+
+  </li>
+{{/each}}
