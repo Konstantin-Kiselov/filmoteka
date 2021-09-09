@@ -44,3 +44,22 @@
   border: 1px solid #ff6b08;
   margin-left: 10px;
 }
+
+//====================== Люда =============================
+.movie-card {
+  cursor: pointer;
+}
+
+.movie-poster {
+  transform: scale(1);
+  border-radius: 5px;
+}
+
+.movie-poster:hover,
+.movie-poster:focus {
+  transition: transform box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  transform: scale(1.02);
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
+    0px 2px 1px rgba(0, 0, 0, 0.2);
+}
