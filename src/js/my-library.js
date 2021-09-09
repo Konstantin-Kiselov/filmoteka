@@ -6,7 +6,7 @@ const refs = {
   header: document.querySelector('.header'),
   filmsGallery: document.querySelector('#films-gallery'),
   // paginationContainer: document.querySelector('#pagination'),
-  libraryBtn: document.querySelector('.navigation-link'),
+  libraryBtn: document.querySelector('.navigation-link-my-library'),
   homeLink: document.querySelector('.navigation__link'),
 };
 
