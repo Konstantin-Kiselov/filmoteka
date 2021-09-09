@@ -50,6 +50,7 @@ function onModalOpen(event) {
   // refs.closeModalBtn.removeEventListener();
   stopScroll();
 
+
   // ============ Вешаем слушателя на кнопку Watched ============
   refs.addWatchedBtn.addEventListener('click', onClickWatch);
 
@@ -113,6 +114,7 @@ function onClickWatch(e) {
   //   if (refs.addQueueBtn.classList.contains('add-collection')) {
   //     console.log('Удалить из локал стор QUEUE');
   //   }
+
 }
 // else if () {
 //     refs.addWatchedBtn.classList.remove ('is-active');

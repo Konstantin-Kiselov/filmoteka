@@ -40,6 +40,7 @@ class NewApiService {
 
 // // Функция для отрисовки фильмов через template  в HTML
 
+
 fetchGenres();
 const getLocalGenres = localStorage.getItem(STORAGE_KEY);
 const localGenres = JSON.parse(getLocalGenres);
