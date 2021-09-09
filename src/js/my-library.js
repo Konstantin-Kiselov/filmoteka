@@ -1,11 +1,11 @@
 import headerTemplates from './header-tpl';
 
 const refs = {
-  header: document.querySelector('.header-container-js'),
+  header: document.querySelector('.header'),
   filmsGallery: document.querySelector('#films-gallery'),
   paginationContainer: document.querySelector('#pagination'),
   libraryBtn: document.querySelector('.navigation-list-item-link-my-library'),
-  homeLink: document.querySelector('.navigation-list-item-link-home'),
+  homeLink: document.querySelector('.navigation__link-home'),
 };
 
 // console.log(refs.libraryBtn);
@@ -16,8 +16,8 @@ function libraryHandleClick(event) {
   event.preventDefault();
   refs.homeLink.classList.remove('current');
   refs.libraryBtn.classList.add('current');
-  const watchedFilms = getUserWatchedFromDatabase(currentUserId);
-  const queuedFilms = getUserQueueFromDatabase(currentUserId);
+  //const watchedFilms = getUserWatchedFromDatabase(currentUserId);
+  //const queuedFilms = getUserQueueFromDatabase(currentUserId);
   updateHeaderMarkup(headerTemplates.myLibraryHeader);
 
   if (document.querySelector('.modal')) {
