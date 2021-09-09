@@ -6,7 +6,7 @@ const refs = {
   header: document.querySelector('.header'),
   filmsGallery: document.querySelector('#films-gallery'),
   // paginationContainer: document.querySelector('#pagination'),
-  libraryBtn: document.querySelector('.navigation-link-my-library'),
+  libraryBtn: document.querySelector('.navigation-link'),
   homeLink: document.querySelector('.navigation__link'),
 };
 
@@ -32,8 +32,8 @@ function libraryHandleClick(event) {
     document.querySelector('.modal').remove();
   }
 
-  const watchedBtn = document.querySelector('.header-button-watched');
-  const queueBtn = document.querySelector('.header-button-queue');
+  //const watchedBtn = document.querySelector('.header-button-watched');
+  //const queueBtn = document.querySelector('.header-button-queue');
 
   // refs.filmsGallery.innerHTML = '';
   // refs.paginationContainer.style.display = 'none';
