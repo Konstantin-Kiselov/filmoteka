@@ -57,11 +57,11 @@ const newApiService = new NewApiService();
 // });
 // console.log(JSON.parse(getGenres));
 
-async function renderCardGallery() {
-  await fetchGenres();
-  const getLocalGenres = localStorage.getItem(STORAGE_KEY);
-  const localGenres = JSON.parse(getLocalGenres);
+fetchGenres();
+const getLocalGenres = localStorage.getItem(STORAGE_KEY);
+const localGenres = JSON.parse(getLocalGenres);
 
+function renderCardGallery() {
   newApiService.fetchArticles().then(results => {
     // fetchGenres().then(genres => {
     console.log(results);
@@ -70,8 +70,8 @@ async function renderCardGallery() {
   });
 }
 
-function fetchGenres() {
-  return fetch(
+async function fetchGenres() {
+  return await fetch(
     `https://api.themoviedb.org/3/genre/movie/list?api_key=b32f977d148061c9ab22a471ff2c7792`,
   )
     .then(response => response.json())
