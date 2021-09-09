@@ -49,21 +49,35 @@ function onModalOpen(event) {
   refs.addWatchedBtn.addEventListener('click', addWatch);
 
   function addWatch(e) {
-    const click = e.target.value;
-    console.log('click');
-    if (click === 1) {
-      refs.addWatchedBtn.classList.add('is-active');
+    const watchedParse = JSON.parse(localStorage.getItem('watched'));
+
+    if (refs.addWatchedBtn.classList.contains('add-collection')) {
+      refs.addWatchedBtn.classList.remove('add-collection');
+      refs.addWatchedBtn.textContent = 'ADD TO WATCHED';
+
+      console.log('Прописать функцию удаления из локалстор WATCHED');
+
+      return;
+    }
+
+    if (!refs.addWatchedBtn.classList.contains('add-collection')) {
+      refs.addWatchedBtn.classList.add('add-collection');
       refs.addWatchedBtn.textContent = 'REMOVE FROM WATCHED';
+      addToWatchedStorage(movieId, watchedParse);
+
+      if (refs.addQueueBtn.classList.contains('add-collection')) {
+        console.log('Удалить из локал стор QUEUE');
+      }
+
+      return;
     }
     // else if () {
     //     refs.addWatchedBtn.classList.remove ('is-active');
     //     refs.addWatchedBtn.textContent = '';
     //   }
 
-    const watchedParse = JSON.parse(localStorage.getItem('watched'));
     // console.log(watchedParse);
     // console.log('А теперь добавляй');
-    addToWatchedStorage(movieId, watchedParse);
   }
   //============ Вешаем слушателя на кнопку Queue ============
   refs.addQueueBtn.addEventListener('click', addQueue);
