@@ -40,9 +40,10 @@ class NewApiService {
 
 // // Функция для отрисовки фильмов через template  в HTML
 
+// fetchGenres();
+// const getLocalGenres = localStorage.getItem(STORAGE_KEY);
+// const localGenres = JSON.parse(getLocalGenres);
 fetchGenres();
-const getLocalGenres = localStorage.getItem(STORAGE_KEY);
-const localGenres = JSON.parse(getLocalGenres);
 
 document.addEventListener('DOMContentLoaded', renderCardGallery);
 
@@ -60,13 +61,20 @@ const newApiService = new NewApiService();
 //   return genres;
 // });
 // console.log(JSON.parse(getGenres));
+let localGenres;
 
 function renderCardGallery() {
   newApiService.fetchArticles().then(results => {
     // fetchGenres().then(genres => {
+    if (localGenres === undefined) {
+      const getLocalGenres = localStorage.getItem(STORAGE_KEY);
+      localGenres = JSON.parse(getLocalGenres);
+      console.log(localGenres);
+    }
     console.log(results);
-    console.log(localGenres);
     markupMovieFilm(results, localGenres);
+
+    return localGenres;
   });
 }
 
@@ -79,12 +87,13 @@ function fetchGenres() {
       // console.log(genres);
       const storageGenres = JSON.stringify(genres);
       localStorage.setItem(STORAGE_KEY, storageGenres);
+
       // -----------------------------------------------------------
       // const getLocalGenres = localStorage.getItem(STORAGE_KEY);
       // const localGenres = JSON.parse(getLocalGenres);
       // console.log(localGenres);
       // -----------------------------------------------------------
-      // return genres;
+      // return localGenres;
     });
 }
 
