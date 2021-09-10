@@ -1,6 +1,6 @@
 import debounce from 'lodash.debounce';
 import templateGalleryFilms from '../templates/films-gallery.hbs';
-// import { newApiService } from './api-gallery';
+import { newApiService } from './api-gallery';
 import genresJson from './genres.json';
 import genreCard from '../templates/genre-card.hbs';
 
@@ -56,7 +56,7 @@ function onSearchMovie(e) {
   refs.gallery.innerHTML = '';
   const searchQuery = e.target.value.trim();
 
-  // newApiService.query = searchQuery;
+  newApiService.query = searchQuery;
   searchApiService.query = searchQuery;
   // console.log(searchQuery);
 
