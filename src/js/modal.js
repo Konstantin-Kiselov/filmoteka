@@ -92,10 +92,16 @@ function onClickQueue(e) {
     // watchedParse.splice(indexWatchedLocalStorage, 1);
     // addToWatchedStorage(movieId, watchedParse);
 
+    const indexWatchedLocalStorage = queueParse.indexOf(movieId);
+    console.log(indexWatchedLocalStorage);
+    queueParse.splice(indexWatchedLocalStorage, 1);
+    console.log(queueParse);
+    localStorage.setItem('queue', JSON.stringify(queueParse));
+
     return;
   }
 
-  refs.addQueueBtn.classList.add('add-collection');
+  // refs.addQueueBtn.classList.add('add-collection');
 
   // console.log(queueParse);
   // console.log('А теперь добавляй');
@@ -118,6 +124,8 @@ function onClickWatch(e) {
     const indexWatchedLocalStorage = watchedParse.indexOf(movieId);
     console.log(indexWatchedLocalStorage);
     watchedParse.splice(indexWatchedLocalStorage, 1);
+    console.log(watchedParse);
+    localStorage.setItem('watched', JSON.stringify(watchedParse));
     // addToWatchedStorage(movieId, watchedParse);
 
     return;
