@@ -75,6 +75,18 @@ function onModalOpen(event) {
 
 //////////////// КНОПКА add ToQueue
 function onClickQueue(e) {
+  if (watchedParse.includes(movieId)) {
+    addClassFromQueueBtn();
+    removeClassFromWatchedBtn();
+
+    addToQueueStorage(movieId, queueParse);
+    const indexWatchedLocalStorage = watchedParse.indexOf(movieId);
+    console.log(indexWatchedLocalStorage);
+    watchedParse.splice(indexWatchedLocalStorage, 1);
+    console.log(watchedParse);
+    localStorage.setItem('watched', JSON.stringify(watchedParse));
+    return;
+  }
   // если есть класс-- Удаляем класс  и удаляем с локал стор
   if (!queueParse.includes(movieId)) {
     addClassFromQueueBtn();
@@ -109,6 +121,20 @@ function onClickQueue(e) {
 
 //////////////// КНОПКА add To Watched
 function onClickWatch(e) {
+  if (queueParse.includes(movieId)) {
+    addClassFromWatchedBtn();
+    removeClassFromQueueBtn();
+
+    addToWatchedStorage(movieId, watchedParse);
+    const indexWatchedLocalStorage = queueParse.indexOf(movieId);
+    console.log(indexWatchedLocalStorage);
+    queueParse.splice(indexWatchedLocalStorage, 1);
+    console.log(queueParse);
+    localStorage.setItem('queue', JSON.stringify(queueParse));
+    return;
+  }
+  // if(refs.addWatchedBtn.classList.contains('add-collection'));
+
   // если есть класс-- Удаляем класс  и удаляем с локал стор
   if (!watchedParse.includes(movieId)) {
     addClassFromWatchedBtn();
@@ -130,7 +156,6 @@ function onClickWatch(e) {
 
     return;
   }
-
   //   refs.addWatchedBtn.classList.remove('add-collection');
   //   refs.addWatchedBtn.textContent = 'ADD TO WATCHED';
 
