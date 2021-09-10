@@ -8,7 +8,9 @@ const onEntry = entries => {
       // console.log(entry);
       renderCardGallery();
       // функция рендера картинок должна быть тут)
-    } else if (entry.isIntersecting && newApiService.query !== '' && searchApiService.page > 1) {
+    }
+
+    if (entry.isIntersecting && searchApiService.query !== '' && searchApiService.page > 1) {
       searchApiService
         .fetchMovieByKeyWord()
         .then(data => {
