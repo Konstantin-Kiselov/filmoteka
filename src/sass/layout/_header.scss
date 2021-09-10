@@ -13,6 +13,16 @@ button {
 // ============ HEADER ============
 .current {
   border-bottom: 1px solid #ff6b08;
+  &::after {
+    left: 0;
+    bottom: 0;
+
+    display: block;
+    background-color: #ff6b08;
+    content: '';
+    width: 100%;
+    height: 3px;
+  }
 }
 @media screen and (min-width: 320px) {
   .header {
@@ -48,7 +58,8 @@ button {
   .navigation__item:not(:last-child) {
     margin-right: 39px;
   }
-  .navigation__link {
+  .navigation__link-home,
+  .navigation__link-library {
     font-family: Roboto;
     font-style: normal;
     font-weight: 500;
