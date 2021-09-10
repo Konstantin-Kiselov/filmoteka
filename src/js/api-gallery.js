@@ -7,6 +7,7 @@ const galleryEl = document.querySelector('.gallery-list');
 
 class NewApiService {
   constructor() {
+    this.searchQuery = '';
     this.page = 1;
   }
 
