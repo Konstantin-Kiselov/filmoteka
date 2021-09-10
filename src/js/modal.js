@@ -73,35 +73,89 @@ function onModalOpen(event) {
   return movieId;
 }
 
+//////////////// КНОПКА add ToQueue
 function onClickQueue(e) {
-  refs.addQueueBtn.classList.add('add-collection');
-  refs.addQueueBtn.textContent = 'REMOVE FROM QUEUE';
+  if (watchedParse.includes(movieId)) {
+    addClassFromQueueBtn();
+    removeClassFromWatchedBtn();
+
+    addToQueueStorage(movieId, queueParse);
+    const indexWatchedLocalStorage = watchedParse.indexOf(movieId);
+    console.log(indexWatchedLocalStorage);
+    watchedParse.splice(indexWatchedLocalStorage, 1);
+    console.log(watchedParse);
+    localStorage.setItem('watched', JSON.stringify(watchedParse));
+    return;
+  }
+  // если есть класс-- Удаляем класс  и удаляем с локал стор
+  if (!queueParse.includes(movieId)) {
+    addClassFromQueueBtn();
+
+    addToQueueStorage(movieId, queueParse);
+
+    return;
+  }
+
+  if (queueParse.includes(movieId)) {
+    removeClassFromQueueBtn();
+
+    // const indexWatchedLocalStorage = watchedParse.indexOf(movieId);
+    // console.log(indexWatchedLocalStorage);
+    // watchedParse.splice(indexWatchedLocalStorage, 1);
+    // addToWatchedStorage(movieId, watchedParse);
+
+    const indexWatchedLocalStorage = queueParse.indexOf(movieId);
+    console.log(indexWatchedLocalStorage);
+    queueParse.splice(indexWatchedLocalStorage, 1);
+    console.log(queueParse);
+    localStorage.setItem('queue', JSON.stringify(queueParse));
+
+    return;
+  }
+
+  // refs.addQueueBtn.classList.add('add-collection');
+
   // console.log(queueParse);
   // console.log('А теперь добавляй');
-  addToQueueStorage(movieId, queueParse);
 }
 
+//////////////// КНОПКА add To Watched
 function onClickWatch(e) {
+  if (queueParse.includes(movieId)) {
+    addClassFromWatchedBtn();
+    removeClassFromQueueBtn();
+
+    addToWatchedStorage(movieId, watchedParse);
+    const indexWatchedLocalStorage = queueParse.indexOf(movieId);
+    console.log(indexWatchedLocalStorage);
+    queueParse.splice(indexWatchedLocalStorage, 1);
+    console.log(queueParse);
+    localStorage.setItem('queue', JSON.stringify(queueParse));
+    return;
+  }
+  // if(refs.addWatchedBtn.classList.contains('add-collection'));
+
   // если есть класс-- Удаляем класс  и удаляем с локал стор
   if (!watchedParse.includes(movieId)) {
-    refs.addWatchedBtn.classList.add('add-collection');
-    refs.addWatchedBtn.textContent = 'REMOVE FROM WATCHED';
+    addClassFromWatchedBtn();
+
     addToWatchedStorage(movieId, watchedParse);
 
     return;
   }
 
   if (watchedParse.includes(movieId)) {
-    refs.addWatchedBtn.classList.remove('add-collection');
-    refs.addWatchedBtn.textContent = 'ADD TO WATCHED';
+    removeClassFromWatchedBtn();
+
     const indexWatchedLocalStorage = watchedParse.indexOf(movieId);
     console.log(indexWatchedLocalStorage);
     watchedParse.splice(indexWatchedLocalStorage, 1);
+    console.log(watchedParse);
+    localStorage.setItem('watched', JSON.stringify(watchedParse));
     // addToWatchedStorage(movieId, watchedParse);
 
     return;
   }
-
   //   refs.addWatchedBtn.classList.remove('add-collection');
   //   refs.addWatchedBtn.textContent = 'ADD TO WATCHED';
 
@@ -132,13 +186,20 @@ function toggleModal() {
 // Закрытие модального окна по нажатию на кнопку закрыть
 function onModalClose() {
   // refs.modal.classList.remove('is-hidden');
+  // refs.addWatchedBtn.classList.remove('add-collection');
+  // refs.addWatchedBtn.textContent = 'ADD TO WATCHED';
+
   toggleModal();
   onScroll();
+  /////////////////////========================10.09 Люда====================================
+  removeClassFromWatchedBtn();
+  removeClassFromQueueBtn();
   /////////////////
+
   // refs.addWatchedBtn.classList.remove('add-collection');
-  refs.addWatchedBtn.removeEventListener('click', addWatch);
+  // refs.addWatchedBtn.removeEventListener('click', addWatch);
   // refs.addQueueBtn.classList.remove('add-collection');
-  refs.addQueueBtn.removeEventListener('click', addQueue);
+  // refs.addQueueBtn.removeEventListener('click', addQueue);
   //   refs.modalWindow.removeEventListener();
   //   // refs.modalWindow.textContent = '';
   //   refs.modalImg.setAttribute('src', '');
@@ -152,6 +213,10 @@ function onEscKeyPress(event) {
   if (isEscKey) {
     toggleModal();
     onScroll();
+    /////////////////////========================10.09 Люда====================================
+    removeClassFromWatchedBtn();
+    removeClassFromQueueBtn();
+    /////////////////
   }
 }
 
@@ -163,8 +228,39 @@ function onModalCloseBackdrop(evt) {
   if (isBackdrop) {
     toggleModal();
     onScroll();
+    /////////////////////========================10.09 Люда====================================
+    removeClassFromWatchedBtn();
+    removeClassFromQueueBtn();
+    /////////////////
   }
 }
+
+//======================================== 10.09 Люда ======================
+function addClassFromWatchedBtn() {
+  refs.addWatchedBtn.classList.add('add-collection');
+  refs.addWatchedBtn.textContent = 'REMOVE FROM WATCHED';
+}
+
+function removeClassFromWatchedBtn() {
+  refs.addWatchedBtn.classList.remove('add-collection');
+  refs.addWatchedBtn.textContent = 'ADD TO WATCHED';
+
+  console.log('hhhhhhhhhhhhhhhh');
+}
+
+function addClassFromQueueBtn() {
+  refs.addQueueBtn.classList.add('add-collection');
+  refs.addQueueBtn.textContent = 'REMOVE FROM QUEUE';
+}
+
+function removeClassFromQueueBtn() {
+  refs.addQueueBtn.classList.remove('add-collection');
+  refs.addQueueBtn.textContent = 'ADD TO QUEUE';
+
+  console.log('hhhhhhhhhhhhhhhh');
+}
+
+//========================================
 
 //рендер информации о фильме
 function renderModalMarkUP(movie) {
