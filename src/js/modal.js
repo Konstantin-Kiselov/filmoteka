@@ -342,3 +342,5 @@ function addToQueueStorage(movieId, queueParse) {
 // function renderCardLibrary() {
 //   console.log('Я отрендерил локал сторадж');
 // }
+
+export { watchedParse, queueParse };

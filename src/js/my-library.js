@@ -1,4 +1,7 @@
 import emptyLibrary from '../templates/empty-library.hbs';
+import headerLibrary from '../templates/header-library.hbs';
+import libraryCard from '../templates/library-card.hbs';
+import { watchedParse, queueParse } from './modal.js';
 
 // import headerTemplates from './header-tpl';
 // import filmsGallery from '../templates/films-gallery.hbs';
@@ -15,12 +18,46 @@ const refs = {
   library: document.querySelector('.library'),
 };
 
-refs.library.classList.add('hidden_library');
-refs.libraryBtn.addEventListener('click', changeClass);
+// refs.library.classList.add('hidden_library');
+refs.libraryBtn.addEventListener('click', changeHeader);
+
+function changeHeader(event) {
+  event.preventDefault();
+  refs.header.innerHTML = '';
+  refs.header.classList.remove('header');
+  refs.header.classList.add('library');
+  refs.header.insertAdjacentHTML('afterbegin', headerLibrary());
+  console.log(watchedParse);
+  console.log(queueParse);
+  if (watchedParse.length === 0 && queueParse.length === 0) {
+    refs.galleryList.insertAdjacentHTML('beforebegin', emptyLibrary());
+
+    // refs.galleryList.insertAdjacentHTML('afterbegin', emptyLibrary());
+  } else {
+    console.log('Рендерим карточки массива из локалстор');
+    const libraryFromLocalStorage = watchedParse.concat(queueParse);
+    libraryFromLocalStorage.map(Id => {
+      // console.log(Id);
+      fetchMovieListById(Id).then(data => {
+        console.log(data);
+        const markupLibrary = libraryCard(data);
+        console.log(markupLibrary);
+        refs.galleryList.insertAdjacentHTML('afterbegin', markupLibrary);
+        // console.log('Рендерим карточки по запросу');
+      });
+    });
+  }
+}
+
+function fetchMovieListById(movieId) {
+  const BASE_URL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=b32f977d148061c9ab22a471ff2c7792&language=en-US`;
+
+  return fetch(BASE_URL).then(response => response.json());
+}
 
 // refs.homeLink.classList.add('current');
 
-function changeClass() {
+function changeClass(event) {
   event.preventDefault();
   refs.library.classList.remove('hidden_library');
   refs.header.classList.add('hidden_library');
