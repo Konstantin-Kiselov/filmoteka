@@ -196,6 +196,16 @@ function onModalClose() {
   removeClassFromQueueBtn();
   /////////////////
 
+  //снимаем слушатели
+  window.removeEventListener('keydown', onEscKeyPress);
+  refs.modal.removeEventListener('click', onModalCloseBackdrop);
+  refs.addWatchedBtn.addEventListener('click', onClickWatch);
+  refs.addWatchedBtn.removeEventListener('click', onClickWatch);
+  refs.addQueueBtn.removeEventListener('click', onClickQueue);
+
+  // refs.addWatchedBtn.removeEventListener('click', addWatch);
+  // refs.addQueueBtn.removeEventListener('click', addQueue);
+
   // refs.addWatchedBtn.classList.remove('add-collection');
   // refs.addWatchedBtn.removeEventListener('click', addWatch);
   // refs.addQueueBtn.classList.remove('add-collection');
@@ -276,14 +286,14 @@ function renderModalMarkUP(movie) {
 function fetchMovieInform() {
   const BASE_URL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=b32f977d148061c9ab22a471ff2c7792&language=en-US`;
 
-  fetch(BASE_URL).then(response => response.json().then(movieDetails));
+  fetch(BASE_URL).then(response => response.json().then(renderModalMarkUP));
 }
 
-function movieDetails(movie) {
-  // console.log(movie);
-  // refs.modalWindow.textContent = '';
-  renderModalMarkUP(movie);
-}
+// function movieDetails(movie) {
+//   // console.log(movie);
+//   // refs.modalWindow.textContent = '';
+//   renderModalMarkUP(movie);
+// }
 
 //чтобы не скролился body под модалкой
 function stopScroll() {
