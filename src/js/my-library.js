@@ -8,10 +8,12 @@ const refs = {
 };
 
 refs.libraryBtn.addEventListener('click', libraryHandleClick);
+
 function libraryHandleClick(event) {
   event.preventDefault();
   refs.homeLink.classList.remove('current');
   refs.libraryBtn.classList.add('current');
+
   updateHeaderMarkup(headerTemplates);
 
   if (document.querySelector('.modal')) {
@@ -49,22 +51,22 @@ function libraryHandleClick(event) {
       return;
     }
 
-    refs.filmsGallery.innerHTML = '';
-    localStorageFilms.map(({ id, poster_path, title, release_date, genres, vote_average }) => {
-      const markup = `
-    <li class="films-gallery-item" data-id="${id}">
-  <img
-    class="films-gallery-item-image"
-    src="https://image.tmdb.org/t/p/w342${poster_path}"
-    alt="«${title}» film poster"
-  >
-  <p class="films-gallery-item-title">${title.toUpperCase()}</p>
-  <p class="films-gallery-item-info">${genres.join(
-    ', ',
-  )} | ${release_date}<span class="modal-info-vote-average library">${vote_average}</span></p>
-  </li>
-  `;
-      refs.filmsGallery.insertAdjacentHTML('beforeend', markup);
-    });
+    //   refs.filmsGallery.innerHTML = '';
+    //   localStorageFilms.map(({ id, poster_path, title, release_date, genres, vote_average }) => {
+    //     const markup = `
+    //   <li class="films-gallery-item" data-id="${id}">
+    // <img
+    //   class="films-gallery-item-image"
+    //   src="https://image.tmdb.org/t/p/w342${poster_path}"
+    //   alt="«${title}» film poster"
+    // >
+    // <p class="films-gallery-item-title">${title.toUpperCase()}</p>
+    // <p class="films-gallery-item-info">${genres.join(
+    //   ', ',
+    // )} | ${release_date}<span class="modal-info-vote-average library">${vote_average}</span></p>
+    // </li>
+    // `;
+    //     refs.filmsGallery.insertAdjacentHTML('beforeend', markup);
+    //   });
   }
 }
