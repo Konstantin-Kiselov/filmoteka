@@ -7,7 +7,7 @@ const refs = {
   header: document.querySelector('.header'),
   //   filmsGallery: document.querySelector('#films-gallery'),
   libraryBtn: document.querySelector('.navigation-link-my-library'),
-  // homeLink: document.querySelector('.navigation-link-home'),
+  //   homeLink: document.querySelector('.navigation-link-home'),
   galleryList: document.querySelector('.gallery-list'),
   library: document.querySelector('.library'),
 };
