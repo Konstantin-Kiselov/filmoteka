@@ -7,7 +7,7 @@ const refs = {
   header: document.querySelector('.header'),
   //   filmsGallery: document.querySelector('#films-gallery'),
   libraryBtn: document.querySelector('.navigation-link-my-library'),
-  // homeLink: document.querySelector('.navigation-link-home'),
+  homeLink: document.querySelector('.navigation-link-home'),
   galleryList: document.querySelector('.gallery-list'),
   library: document.querySelector('.library'),
 };
@@ -15,24 +15,35 @@ const refs = {
 refs.library.classList.add('hidden_library');
 refs.libraryBtn.addEventListener('click', changeClass);
 
+// refs.homeLink.classList.add('current');
+
 function changeClass() {
+  event.preventDefault();
   refs.library.classList.remove('hidden_library');
   refs.header.classList.add('hidden_library');
+  console.log('click');
+  // currentLink();
+  // refs.homeLink.classList.remove('current');
+  // refs.libraryBtn.classList.add('current');
 }
 
+// function currentLink() {
+//   refs.homeLink.classList.remove('current');
+//   refs.libraryBtn.classList.add('current');
+// }
 // // console.log(refs.libraryBtn);
 // // console.log(refs.homeLink);
-refs.libraryBtn.addEventListener('click', renderLibraryTest);
+// refs.libraryBtn.addEventListener('click', renderLibraryTest);
 console.log(refs.libraryBtn);
 
-function renderLibraryTest() {
-  // if (localStorage.getItem('watched') === [] && localStorage.getItem('queue') === []) {
-  // const empty = '';
-  // const watched = localStorage.getItem('watched');
-  // console.log('watched');
-  // refs.galleryList.innerHTML = '';
-  refs.galleryList.insertAdjacentHTML('beforeend', emptyLibrary);
-}
+// function renderLibraryTest() {
+//   // if (localStorage.getItem('watched') === [] && localStorage.getItem('queue') === []) {
+//   // const empty = '';
+//   // const watched = localStorage.getItem('watched');
+//   // console.log('watched');
+//   // refs.galleryList.innerHTML = '';
+//   refs.galleryList.insertAdjacentHTML('beforeend', emptyLibrary);
+// }
 // function libraryHandleClick(event) {
 //   event.preventDefault();
 //   refs.homeLink.classList.remove('current');

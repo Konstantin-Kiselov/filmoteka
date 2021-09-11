@@ -3,6 +3,8 @@
     height: 230px;
     background: rgba(0, 0, 0, 0.56);
     background-image: url(../images/library/header-library-background-mobile@1x.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
   }
   .main__navigationLibrary {
     display: flex;
