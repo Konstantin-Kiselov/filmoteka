@@ -1,4 +1,9 @@
 import modalTemplate from '../templates/modal-templates.hbs';
+import emptyLibrary from '../templates/empty-library.hbs';
+import headerLibrary from '../templates/header-library.hbs';
+import libraryCard from '../templates/library-card.hbs';
+import { fetchMovieListById } from './my-library';
+
 // console.log(modalTemplate);
 
 // ============ Проверяем локал сторадж на наличие данных ============
@@ -12,6 +17,7 @@ if (localStorage.getItem('queue') === null) {
 
 const watchedParse = JSON.parse(localStorage.getItem('watched'));
 const queueParse = JSON.parse(localStorage.getItem('queue'));
+const libraryParse = JSON.parse(localStorage.getItem('libraryId'));
 
 const refs = {
   body: document.querySelector('body'),
@@ -23,6 +29,7 @@ const refs = {
   modalImg: document.querySelector('.modal-img'),
   addWatchedBtn: document.querySelector('.add-watched-btn'),
   addQueueBtn: document.querySelector('.add-queue-btn'),
+  galleryList: document.querySelector('.gallery-list'),
 };
 
 let movieId;
@@ -80,6 +87,7 @@ function onClickQueue(e) {
     removeClassFromWatchedBtn();
 
     addToQueueStorage(movieId, queueParse);
+
     const indexWatchedLocalStorage = watchedParse.indexOf(movieId);
     console.log(indexWatchedLocalStorage);
     watchedParse.splice(indexWatchedLocalStorage, 1);
@@ -92,6 +100,8 @@ function onClickQueue(e) {
     addClassFromQueueBtn();
 
     addToQueueStorage(movieId, queueParse);
+    const libraryFromLocalStorage = watchedParse.concat(queueParse);
+    localStorage.setItem('libraryId', JSON.stringify(libraryFromLocalStorage));
 
     return;
   }
@@ -109,6 +119,17 @@ function onClickQueue(e) {
     queueParse.splice(indexWatchedLocalStorage, 1);
     console.log(queueParse);
     localStorage.setItem('queue', JSON.stringify(queueParse));
+
+    return;
+  }
+
+  if (libraryParse.includes(movieId)) {
+    const indexWatchedLocalStorageLibrary = libraryParse.indexOf(movieId);
+    console.log(libraryParse);
+    console.log(indexWatchedLocalStorageLibrary);
+    libraryParse.splice(indexWatchedLocalStorageLibrary, 1);
+    console.log(libraryParse);
+    localStorage.setItem('libraryId', JSON.stringify(libraryParse));
 
     return;
   }
@@ -141,6 +162,9 @@ function onClickWatch(e) {
 
     addToWatchedStorage(movieId, watchedParse);
 
+    const libraryFromLocalStorage = watchedParse.concat(queueParse);
+    localStorage.setItem('libraryId', JSON.stringify(libraryFromLocalStorage));
+
     return;
   }
 
@@ -153,6 +177,17 @@ function onClickWatch(e) {
     console.log(watchedParse);
     localStorage.setItem('watched', JSON.stringify(watchedParse));
     // addToWatchedStorage(movieId, watchedParse);
+
+    return;
+  }
+
+  if (libraryParse.includes(movieId)) {
+    const indexWatchedLocalStorageLibrary = libraryParse.indexOf(movieId);
+    console.log(libraryParse);
+    console.log(indexWatchedLocalStorageLibrary);
+    libraryParse.splice(indexWatchedLocalStorageLibrary, 1);
+    console.log(libraryParse);
+    localStorage.setItem('libraryId', JSON.stringify(libraryParse));
 
     return;
   }
@@ -194,6 +229,7 @@ function onModalClose() {
   /////////////////////========================10.09 Люда====================================
   removeClassFromWatchedBtn();
   removeClassFromQueueBtn();
+
   /////////////////
 
   // refs.addWatchedBtn.classList.remove('add-collection');
@@ -239,23 +275,36 @@ function onModalCloseBackdrop(evt) {
 function addClassFromWatchedBtn() {
   refs.addWatchedBtn.classList.add('add-collection');
   refs.addWatchedBtn.textContent = 'REMOVE FROM WATCHED';
+
+  // const libraryFromLocalStorage = watchedParse.concat(queueParse);
+  // localStorage.setItem('libraryId', JSON.stringify(libraryFromLocalStorage));
 }
 
 function removeClassFromWatchedBtn() {
   refs.addWatchedBtn.classList.remove('add-collection');
   refs.addWatchedBtn.textContent = 'ADD TO WATCHED';
 
-  console.log('hhhhhhhhhhhhhhhh');
+  // const libraryFromLocalStorage = watchedParse.concat(queueParse);
+  // localStorage.setItem('libraryId', JSON.stringify(libraryFromLocalStorage));
+
+  // renderLibCard();
 }
+
+console.log('hhhhhhhhhhhhhhhh');
 
 function addClassFromQueueBtn() {
   refs.addQueueBtn.classList.add('add-collection');
   refs.addQueueBtn.textContent = 'REMOVE FROM QUEUE';
+
+  // const libraryFromLocalStorage = watchedParse.concat(queueParse);
+  // localStorage.setItem('libraryId', JSON.stringify(libraryFromLocalStorage));
 }
 
 function removeClassFromQueueBtn() {
   refs.addQueueBtn.classList.remove('add-collection');
   refs.addQueueBtn.textContent = 'ADD TO QUEUE';
+  // const libraryFromLocalStorage = watchedParse.concat(queueParse);
+  // localStorage.setItem('libraryId', JSON.stringify(libraryFromLocalStorage));
 
   console.log('hhhhhhhhhhhhhhhh');
 }
@@ -342,5 +391,55 @@ function addToQueueStorage(movieId, queueParse) {
 // function renderCardLibrary() {
 //   console.log('Я отрендерил локал сторадж');
 // }
+
+function renderLibCard() {
+  if (watchedParse.length === 0 && queueParse.length === 0) {
+    refs.galleryList.insertAdjacentHTML('beforebegin', emptyLibrary());
+
+    // refs.galleryList.insertAdjacentHTML('afterbegin', emptyLibrary());
+  } else {
+    const libraryFromLocalStorage = watchedParse.concat(queueParse);
+
+    localStorage.setItem('libraryId', JSON.stringify(libraryFromLocalStorage));
+    const genresName = [];
+    refs.galleryList.innerHTML = '';
+    libraryFromLocalStorage.map(Id => {
+      // console.log(Id);
+      fetchMovieListById(Id).then(data => {
+        console.log(data);
+        console.log(data.genres);
+        //[data].map(({ release_date, genres }) => {
+        // console.log(genresName);
+        const dataGenres = data.genres.map(({ name }) => {
+          genresName.push(name);
+          console.log(genresName.length);
+
+          return genresName;
+        });
+        if (genresName.length > 3) {
+          genresName.splice(3, 0, 'Other');
+          console.log(genresName);
+        }
+        const filmGenres = genresName.slice(0, 4).join(', ');
+        console.log(filmGenres);
+
+        const releaseYear = data.release_date.slice(0, 4);
+        console.log(data.release_date);
+
+        const movie = { filmGenres, releaseYear };
+        console.log(movie);
+        console.log(filmGenres);
+
+        const markupLibrary = libraryCard(data, movie);
+
+        refs.galleryList.insertAdjacentHTML('afterbegin', markupLibrary);
+
+        return movie;
+      });
+      // console.log('Рендерим карточки по запросу');
+      // });
+    });
+  }
+}
 
 export { watchedParse, queueParse };
