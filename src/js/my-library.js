@@ -48,7 +48,7 @@ function changeHeader(event) {
       fetchMovieListById(Id).then(data => {
         console.log(data);
         console.log(data.genres);
-
+        //[data].map(({ release_date, genres }) => {
         // console.log(genresName);
         const dataGenres = data.genres.map(({ name }) => {
           genresName.push(name);
@@ -66,17 +66,18 @@ function changeHeader(event) {
         const releaseYear = data.release_date.slice(0, 4);
         console.log(data.release_date);
 
-        const movie = [{ filmGenres, releaseYear }];
+        const movie = { filmGenres, releaseYear };
+        console.log(movie);
         console.log(filmGenres);
 
         const markupLibrary = libraryCard(data, movie);
-        console.log(movie);
+
         refs.galleryList.insertAdjacentHTML('afterbegin', markupLibrary);
 
         return movie;
-
-        // console.log('Рендерим карточки по запросу');
       });
+      // console.log('Рендерим карточки по запросу');
+      // });
     });
   }
 }
