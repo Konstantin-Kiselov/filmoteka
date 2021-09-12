@@ -70,6 +70,7 @@ function changeHeader(event) {
         const markupLibrary = libraryCard(data);
         console.log(markupLibrary);
         refs.galleryList.insertAdjacentHTML('afterbegin', markupLibrary);
+        console.log(filmGenres);
         return filmGenres;
         // console.log('Рендерим карточки по запросу');
       });
