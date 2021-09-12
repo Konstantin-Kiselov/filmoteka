@@ -53,6 +53,7 @@ function changeHeader(event) {
         const dataGenres = data.genres.map(({ name }) => {
           genresName.push(name);
           console.log(genresName.length);
+
           return genresName;
         });
         if (genresName.length > 3) {
@@ -62,15 +63,16 @@ function changeHeader(event) {
         const filmGenres = genresName.slice(0, 4).join(', ');
         console.log(filmGenres);
 
-        // if (data.release_date === data.release_date) {
-        //   data.release_date.slice(0, 4);
-        //   console.log(data.release_date);
-        // }
+        const releaseYear = data.release_date.slice(0, 4);
+        console.log(data.release_date);
 
-        const markupLibrary = libraryCard(data);
-        console.log(markupLibrary);
+        const movie = [{ filmGenres, releaseYear }];
+        console.log(filmGenres);
+
+        const markupLibrary = libraryCard(data, movie);
+        console.log(movie);
         refs.galleryList.insertAdjacentHTML('afterbegin', markupLibrary);
-        return filmGenres;
+        return movie;
         // console.log('Рендерим карточки по запросу');
       });
     });

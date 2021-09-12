@@ -7,10 +7,10 @@
   />
   <h1 class='film-title'>{{title}}</h1>
   <p class='film-genres'>
-
-    {{#if filmGenres}}{{filmGenres}}{{else}}Genre{{/if}}
+    {{#each movie}}
+      {{#if this.filmGenres}}{{this.filmGenres}}{{else}}Genre{{/if}}{{/each}}
     |
-    {{release_date}}
+    {{releaseYear}}
     <span class='vote-average'>{{vote_average}}</span></p>
 
 </li>

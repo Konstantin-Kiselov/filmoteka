@@ -113,6 +113,7 @@ function markupMovieFilm(results, genres) {
 
     const movie = [{ id, img, title, filmGenres, releaseYear, vote_average }];
     updateMarkup(movie);
+    //console.log(movie);
     return movie;
   });
 }
