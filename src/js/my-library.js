@@ -17,13 +17,14 @@ const refs = {
   galleryList: document.querySelector('.gallery-list'),
   library: document.querySelector('.library'),
   //////////////////////////// io
-  ioContainer: document.getElementById('intersection-observer'),
+  // ioContainer: document.getElementById('intersection-observer'),
   libraryWatchedBtn: document.querySelector('#libraryWatchedBtn'),
   libraryQueueBtn: document.querySelector('#libraryQueueBtn'),
 };
 
 function renderWatchedList() {
   if (watchedParse.length === 0) {
+    refs.galleryList.innerHTML = '';
     refs.galleryList.insertAdjacentHTML('beforebegin', emptyLibrary());
   } else {
     // const libraryFromLocalStorage = watchedParse.concat(queueParse);
@@ -73,6 +74,7 @@ function renderWatchedList() {
 
 function renderQueueList() {
   if (queueParse.length === 0) {
+    refs.galleryList.innerHTML = '';
     refs.galleryList.insertAdjacentHTML('beforebegin', emptyLibrary());
   } else {
     // const libraryFromLocalStorage = watchedParse.concat(queueParse);
@@ -136,7 +138,7 @@ refs.libraryBtn.addEventListener('click', changeHeader);
 function changeHeader(event) {
   event.preventDefault();
   refs.header.innerHTML = '';
-  refs.ioContainer.classList.add('hidden_library');
+  // refs.ioContainer.classList.add('hidden_library');
   refs.header.classList.remove('header');
   refs.header.classList.add('library');
   refs.header.insertAdjacentHTML('afterbegin', headerLibrary());
@@ -151,12 +153,51 @@ function changeHeader(event) {
   }
 
   function renderLibCard() {
-    const libraryFromLocalStorage = watchedParse.concat(queueParse);
+    // const libraryFromLocalStorage = watchedParse.concat(queueParse);
 
-    localStorage.setItem('libraryId', JSON.stringify(libraryFromLocalStorage));
+    // localStorage.setItem('libraryId', JSON.stringify(libraryFromLocalStorage));
+    localStorage.setItem('watched', JSON.stringify(watchedParse));
+    localStorage.setItem('queue', JSON.stringify(queueParse));
+
     const genresName = [];
     refs.galleryList.innerHTML = '';
-    libraryFromLocalStorage.map(Id => {
+    watchedParse.map(Id => {
+      // console.log(Id);
+      fetchMovieListById(Id).then(data => {
+        console.log(data);
+        console.log(data.genres);
+        //[data].map(({ release_date, genres }) => {
+        // console.log(genresName);
+        const dataGenres = data.genres.map(({ name }) => {
+          genresName.push(name);
+          console.log(genresName.length);
+
+          return genresName;
+        });
+        if (genresName.length > 3) {
+          genresName.splice(3, 0, 'Other');
+          console.log(genresName);
+        }
+        const filmGenres = genresName.slice(0, 4).join(', ');
+        console.log(filmGenres);
+
+        const releaseYear = data.release_date.slice(0, 4);
+        console.log(data.release_date);
+
+        const movie = { filmGenres, releaseYear };
+        console.log(movie);
+        console.log(filmGenres);
+
+        const markupLibrary = libraryCard(data, movie);
+
+        refs.galleryList.insertAdjacentHTML('afterbegin', markupLibrary);
+
+        return movie;
+      });
+      // console.log('Рендерим карточки по запросу');
+      // });
+    });
+    queueParse.map(Id => {
       // console.log(Id);
       fetchMovieListById(Id).then(data => {
         console.log(data);

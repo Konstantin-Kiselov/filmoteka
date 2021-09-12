@@ -17,7 +17,7 @@ if (localStorage.getItem('queue') === null) {
 
 const watchedParse = JSON.parse(localStorage.getItem('watched'));
 const queueParse = JSON.parse(localStorage.getItem('queue'));
-const libraryParse = JSON.parse(localStorage.getItem('libraryId'));
+// const libraryParse = JSON.parse(localStorage.getItem('libraryId'));
 
 const refs = {
   body: document.querySelector('body'),
@@ -100,8 +100,8 @@ function onClickQueue(e) {
     addClassFromQueueBtn();
 
     addToQueueStorage(movieId, queueParse);
-    const libraryFromLocalStorage = watchedParse.concat(queueParse);
-    localStorage.setItem('libraryId', JSON.stringify(libraryFromLocalStorage));
+    // const libraryFromLocalStorage = watchedParse.concat(queueParse);
+    // localStorage.setItem('libraryId', JSON.stringify(libraryFromLocalStorage));
 
     return;
   }
@@ -120,17 +120,92 @@ function onClickQueue(e) {
     console.log(queueParse);
     localStorage.setItem('queue', JSON.stringify(queueParse));
 
-    return;
-  }
+    const genresName = [];
+    refs.galleryList.innerHTML = '';
+    watchedParse.map(Id => {
+      // console.log(Id);
+      fetchMovieListById(Id).then(data => {
+        console.log(data);
+        console.log(data.genres);
+        //[data].map(({ release_date, genres }) => {
+        // console.log(genresName);
+        const dataGenres = data.genres.map(({ name }) => {
+          genresName.push(name);
+          console.log(genresName.length);
 
-  if (libraryParse.includes(movieId)) {
-    const indexWatchedLocalStorageLibrary = libraryParse.indexOf(movieId);
-    console.log(libraryParse);
-    console.log(indexWatchedLocalStorageLibrary);
-    libraryParse.splice(indexWatchedLocalStorageLibrary, 1);
-    console.log(libraryParse);
-    localStorage.setItem('libraryId', JSON.stringify(libraryParse));
+          return genresName;
+        });
+        if (genresName.length > 3) {
+          genresName.splice(3, 0, 'Other');
+          console.log(genresName);
+        }
+        const filmGenres = genresName.slice(0, 4).join(', ');
+        console.log(filmGenres);
 
+        const releaseYear = data.release_date.slice(0, 4);
+        console.log(data.release_date);
+
+        const movie = { filmGenres, releaseYear };
+        console.log(movie);
+        console.log(filmGenres);
+
+        const markupLibrary = libraryCard(data, movie);
+
+        refs.galleryList.insertAdjacentHTML('afterbegin', markupLibrary);
+        console.log(markupLibrary);
+
+        return movie;
+      });
+      // console.log('Рендерим карточки по запросу');
+      // });
+    });
+    queueParse.map(Id => {
+      // console.log(Id);
+      fetchMovieListById(Id).then(data => {
+        console.log(data);
+        console.log(data.genres);
+        //[data].map(({ release_date, genres }) => {
+        // console.log(genresName);
+        const dataGenres = data.genres.map(({ name }) => {
+          genresName.push(name);
+          console.log(genresName.length);
+
+          return genresName;
+        });
+        if (genresName.length > 3) {
+          genresName.splice(3, 0, 'Other');
+          console.log(genresName);
+        }
+        const filmGenres = genresName.slice(0, 4).join(', ');
+        console.log(filmGenres);
+
+        const releaseYear = data.release_date.slice(0, 4);
+        console.log(data.release_date);
+
+        const movie = { filmGenres, releaseYear };
+        console.log(movie);
+        console.log(filmGenres);
+
+        const markupLibrary = libraryCard(data, movie);
+
+        refs.galleryList.insertAdjacentHTML('afterbegin', markupLibrary);
+
+        return movie;
+      });
+      // console.log('Рендерим карточки по запросу');
+      // });
+    });
+
+    // if (libraryParse.includes(movieId)) {
+    //   const indexWatchedLocalStorageLibrary = libraryParse.indexOf(movieId);
+    //   console.log(libraryParse);
+    //   console.log(indexWatchedLocalStorageLibrary);
+    //   libraryParse.splice(indexWatchedLocalStorageLibrary, 1);
+    //   console.log(libraryParse);
+    //   localStorage.setItem('libraryId', JSON.stringify(libraryParse));
+
+    //   return;
+    // }
     return;
   }
 
@@ -162,8 +237,8 @@ function onClickWatch(e) {
 
     addToWatchedStorage(movieId, watchedParse);
 
-    const libraryFromLocalStorage = watchedParse.concat(queueParse);
-    localStorage.setItem('libraryId', JSON.stringify(libraryFromLocalStorage));
+    // const libraryFromLocalStorage = watchedParse.concat(queueParse);
+    // localStorage.setItem('libraryId', JSON.stringify(libraryFromLocalStorage));
 
     return;
   }
@@ -176,18 +251,96 @@ function onClickWatch(e) {
     watchedParse.splice(indexWatchedLocalStorage, 1);
     console.log(watchedParse);
     localStorage.setItem('watched', JSON.stringify(watchedParse));
+
+    // localStorage.setItem('queue', JSON.stringify(queueParse));
+
+    const genresName = [];
+    refs.galleryList.innerHTML = '';
+    watchedParse.map(Id => {
+      // console.log(Id);
+      fetchMovieListById(Id).then(data => {
+        console.log(data);
+        console.log(data.genres);
+        //[data].map(({ release_date, genres }) => {
+        // console.log(genresName);
+        const dataGenres = data.genres.map(({ name }) => {
+          genresName.push(name);
+          console.log(genresName.length);
+
+          return genresName;
+        });
+        if (genresName.length > 3) {
+          genresName.splice(3, 0, 'Other');
+          console.log(genresName);
+        }
+        const filmGenres = genresName.slice(0, 4).join(', ');
+        console.log(filmGenres);
+
+        const releaseYear = data.release_date.slice(0, 4);
+        console.log(data.release_date);
+
+        const movie = { filmGenres, releaseYear };
+        console.log(movie);
+        console.log(filmGenres);
+
+        const markupLibrary = libraryCard(data, movie);
+
+        refs.galleryList.insertAdjacentHTML('afterbegin', markupLibrary);
+
+        return movie;
+      });
+      // console.log('Рендерим карточки по запросу');
+      // });
+    });
+    queueParse.map(Id => {
+      // console.log(Id);
+      fetchMovieListById(Id).then(data => {
+        console.log(data);
+        console.log(data.genres);
+        //[data].map(({ release_date, genres }) => {
+        // console.log(genresName);
+        const dataGenres = data.genres.map(({ name }) => {
+          genresName.push(name);
+          console.log(genresName.length);
+
+          return genresName;
+        });
+        if (genresName.length > 3) {
+          genresName.splice(3, 0, 'Other');
+          console.log(genresName);
+        }
+        const filmGenres = genresName.slice(0, 4).join(', ');
+        console.log(filmGenres);
+
+        const releaseYear = data.release_date.slice(0, 4);
+        console.log(data.release_date);
+
+        const movie = { filmGenres, releaseYear };
+        console.log(movie);
+        console.log(filmGenres);
+
+        const markupLibrary = libraryCard(data, movie);
+
+        refs.galleryList.insertAdjacentHTML('afterbegin', markupLibrary);
+
+        return movie;
+      });
+      // console.log('Рендерим карточки по запросу');
+      // });
+    });
+
     // addToWatchedStorage(movieId, watchedParse);
 
-    return;
-  }
+    // if (refs.addWatchedBtn.classList === 'add-collection') {
+    //   const indexWatchedLocalStorageLibrary = libraryParse.indexOf(movieId);
+    //   console.log(libraryParse);
+    //   console.log(indexWatchedLocalStorageLibrary);
+    //   libraryParse.splice(indexWatchedLocalStorageLibrary, 1);
+    //   console.log(libraryParse);
+    //   localStorage.setItem('libraryId', JSON.stringify(libraryParse));
 
-  if (libraryParse.includes(movieId)) {
-    const indexWatchedLocalStorageLibrary = libraryParse.indexOf(movieId);
-    console.log(libraryParse);
-    console.log(indexWatchedLocalStorageLibrary);
-    libraryParse.splice(indexWatchedLocalStorageLibrary, 1);
-    console.log(libraryParse);
-    localStorage.setItem('libraryId', JSON.stringify(libraryParse));
+    //   return;
+    // }
 
     return;
   }
