@@ -39,18 +39,45 @@ function changeHeader(event) {
   } else {
     console.log('Рендерим карточки массива из локалстор');
     const libraryFromLocalStorage = watchedParse.concat(queueParse);
+
+    localStorage.setItem('libraryId', JSON.stringify(libraryFromLocalStorage));
+    const genresName = [];
+    refs.galleryList.innerHTML = '';
     libraryFromLocalStorage.map(Id => {
       // console.log(Id);
       fetchMovieListById(Id).then(data => {
         console.log(data);
+        console.log(data.genres);
+
+        // console.log(genresName);
+        const dataGenres = data.genres.map(({ name }) => {
+          genresName.push(name);
+          console.log(genresName.length);
+          return genresName;
+        });
+        if (genresName.length > 3) {
+          genresName.splice(3, 0, 'Other');
+          console.log(genresName);
+        }
+        const filmGenres = genresName.slice(0, 4).join(', ');
+        console.log(filmGenres);
+
+        // if (data.release_date === data.release_date) {
+        //   data.release_date.slice(0, 4);
+        //   console.log(data.release_date);
+        // }
+
         const markupLibrary = libraryCard(data);
         console.log(markupLibrary);
         refs.galleryList.insertAdjacentHTML('afterbegin', markupLibrary);
+        return filmGenres;
         // console.log('Рендерим карточки по запросу');
       });
     });
   }
 }
+
+//function filterCard() {}
 
 function fetchMovieListById(movieId) {
   const BASE_URL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=b32f977d148061c9ab22a471ff2c7792&language=en-US`;
@@ -78,6 +105,28 @@ function changeClass(event) {
 // // console.log(refs.homeLink);
 // refs.libraryBtn.addEventListener('click', renderLibraryTest);
 console.log(refs.libraryBtn);
+
+// function markupMovieFilm(results, genres) {
+//   results.map(({ id, poster_path, title, release_date, genre_ids, vote_average }) => {
+//     // console.log(genres);
+
+//     const filterGenres = genres.filter(genre => genre_ids.includes(genre.id));
+
+//     const mapGenres = filterGenres.map(({ name }) => name);
+//     if (mapGenres.length > 3) {
+//       mapGenres.splice(3, 0, 'Other');
+//     }
+//     const filmGenres = mapGenres.slice(0, 4).join(', ');
+
+//     const releaseYear = release_date.slice(0, 4);
+
+//     let img = poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : emptyJpg;
+
+//     const movie = [{ id, img, title, filmGenres, releaseYear, vote_average }];
+//     updateMarkup(movie);
+//     return movie;
+//   });
+// }
 
 // function renderLibraryTest() {
 //   // if (localStorage.getItem('watched') === [] && localStorage.getItem('queue') === []) {
