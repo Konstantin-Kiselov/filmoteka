@@ -72,7 +72,9 @@ function changeHeader(event) {
         const markupLibrary = libraryCard(data, movie);
         console.log(movie);
         refs.galleryList.insertAdjacentHTML('afterbegin', markupLibrary);
+
         return movie;
+
         // console.log('Рендерим карточки по запросу');
       });
     });
