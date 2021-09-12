@@ -16,6 +16,8 @@ const refs = {
 
   galleryList: document.querySelector('.gallery-list'),
   library: document.querySelector('.library'),
+  //////////////////////////// io
+  ioContainer: document.getElementById('intersection-observer'),
 };
 
 // refs.library.classList.add('hidden_library');
@@ -24,6 +26,7 @@ refs.libraryBtn.addEventListener('click', changeHeader);
 function changeHeader(event) {
   event.preventDefault();
   refs.header.innerHTML = '';
+  refs.ioContainer.classList.add('hidden_library');
   refs.header.classList.remove('header');
   refs.header.classList.add('library');
   refs.header.insertAdjacentHTML('afterbegin', headerLibrary());
