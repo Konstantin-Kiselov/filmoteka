@@ -58,15 +58,48 @@ button {
 
     color: #ffffff;
   }
+
+  //=============INPUT===============\
+  .film-search {
+    position: relative;
+    display: inline;
+  }
   .navigation__search {
+    position: relative;
+    margin-top: 52px;
+    background-color: transparent;
+    color: #ffffff;
     width: 100%;
-    margin-top: 41px;
-    background: inherit;
-    color: #ffffff;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid #ffffff;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.17;
+
+    &::placeholder {
+      color: #ffffff;
+    }
+
+    &:hover,
+    &:focus {
+      outline: none;
+      border-bottom: 1px solid #ff6b01;
+    }
+
+    transition-property: border-bottom;
+    transition-duration: 250ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
-  input::placeholder {
-    color: #ffffff;
+
+  .film-search__icon {
+    position: absolute;
+    margin: 3px;
+    top: 0;
+    right: 0;
   }
+  //===========================
 }
 @media screen and (min-width: 768px) {
   .header {
@@ -77,7 +110,7 @@ button {
   }
   .navigation__search {
     width: 336px;
-    margin-top: 36px;
+    margin-top: 57px;
     margin-left: 23%;
   }
 }
