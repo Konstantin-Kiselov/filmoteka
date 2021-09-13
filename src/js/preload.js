@@ -1,12 +1,15 @@
 //myLibraryLink = document.querySelector('.navigation__link');
 //myLibraryLink.addEventListener('click', onLoadPreloader);
 
-window.onload = function () {
-  document.querySelector('.preloader').classList.add('preloader-remove');
-};
+inputListener = document.querySelector('.navigation__search');
+inputListener.addEventListener('input', removePreloader);
 
-// window.onload = onLoadPreloader();
-
-// function onLoadPreloader() {
+// window.onload = function () {
 //   document.querySelector('.preloader').classList.add('preloader-remove');
-// }
+// };
+
+window.onload = removePreloader();
+
+function removePreloader() {
+  document.querySelector('.preloader').classList.add('preloader-remove');
+}

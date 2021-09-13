@@ -324,6 +324,13 @@
   border-radius: 5px;
   cursor: pointer;
 
+  &:hover,
+  &:focus {
+    animation: swing;
+    animation-duration: 1s;
+    animation-iteration-count: 2;
+  }
+
   @media screen and (min-width: 320px) {
     width: 112px;
     height: 44px;
