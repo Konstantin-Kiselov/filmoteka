@@ -22,6 +22,9 @@ const refs = {
   // ioContainer: document.getElementById('intersection-observer'),
   libraryWatchedBtn: document.querySelector('#libraryWatchedBtn'),
   libraryQueueBtn: document.querySelector('#libraryQueueBtn'),
+  /////////////////////////////////////////// 13.09 Люда
+  container: document.querySelector('.container'),
+  /////////////////////////////////////////// 13.09 Люда
 };
 
 function renderWatchedList() {
@@ -93,14 +96,47 @@ function renderQueueList() {
 function addWatchedListener() {
   const watchedBtnListener = document.querySelector('#libraryWatchedBtn');
   const queueBtnListener = document.querySelector('#libraryQueueBtn');
+  console.log(watchedBtnListener);
 
   watchedBtnListener.addEventListener('click', renderWatchedList);
+  /////////////////////////////////////////// 13.09 Люда
+  watchedBtnListener.addEventListener('click', () => {
+    console.log('активная кнопка watched');
+    queueBtnListener.classList.remove('is-active-header-btn');
+    watchedBtnListener.classList.add('is-active-header-btn');
+
+    if (watchedBtnListener.classList.contains('is-active-header-btn')) {
+      // refs.galleryList.innerHTML = '';
+      // refs.container.textContent = '';
+      renderWatchedList();
+      // return;
+    }
+  });
+  /////////////////////////////////////////// 13.09 Люда
+
   queueBtnListener.addEventListener('click', renderQueueList);
+  /////////////////////////////////////////// 13.09 Люда
+  queueBtnListener.addEventListener('click', () => {
+    console.log('активная кнопка queue');
+    queueBtnListener.classList.add('is-active-header-btn');
+    watchedBtnListener.classList.remove('is-active-header-btn');
+  });
+
+  /////////////////////////////////////////// 13.09 Люда
+  watchedBtnListener.classList.add('is-active-header-btn');
+  /////////////////////////////////////////// 13.09 Люда
 }
+
+// function a() {
+//   console.log('llllllllllllllll');
+//   queueBtnListener.classList.add('is-active-header-btn');
+// }
+// console.log(watchedBtnListener);
 
 // refs.library.classList.add('hidden_library');
 refs.libraryBtn.addEventListener('click', changeHeader);
 
+/////////////////////////////////////////// 13.09 Люда
 function changeHeader(event) {
   event.preventDefault();
   if (refs.header.classList.contains('header')) {
@@ -118,10 +154,36 @@ function changeHeader(event) {
       refs.galleryList.insertAdjacentHTML('beforebegin', emptyLibrary());
     } else {
       console.log('Рендерим карточки массива из локалстор');
-      renderLibCard();
+      // renderLibCard();
+
+      //////////////////// при переходе в библиотеку по умолчанию выбрана кнопка просмотреных
+      renderWatchedList();
     }
   }
 }
+/////////////////////////////////////////// 13.09 Люда
+
+// function changeHeader(event) {
+//   event.preventDefault();
+//   if (refs.header.classList.contains('header')) {
+//     refs.header.classList.remove('header');
+//     refs.header.classList.add('library');
+
+//     refs.header.innerHTML = '';
+//     // refs.ioContainer.classList.add('hidden_library');
+
+//     refs.header.insertAdjacentHTML('afterbegin', headerLibrary());
+//     console.log(watchedParse);
+//     console.log(queueParse);
+//     addWatchedListener();
+//     if (watchedParse.length === 0 && queueParse.length === 0) {
+//       refs.galleryList.insertAdjacentHTML('beforebegin', emptyLibrary());
+//     } else {
+//       console.log('Рендерим карточки массива из локалстор');
+//       renderLibCard();
+//     }
+//   }
+// }
 
 function renderLibCard() {
   const libraryFromLocalStorage = queueParse.concat(watchedParse);

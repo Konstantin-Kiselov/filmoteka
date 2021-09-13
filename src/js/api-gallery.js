@@ -5,6 +5,10 @@ const STORAGE_KEY = 'genres';
 
 const galleryEl = document.querySelector('.gallery-list');
 
+///////////////////////////////////////////// 13.09 Люда
+const container = document.querySelector('.container');
+///////////////////////////////////////////// 13.09 Люда
+
 class NewApiService {
   constructor() {
     this.searchQuery = '';
