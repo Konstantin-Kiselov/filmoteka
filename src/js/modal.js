@@ -126,10 +126,19 @@ function onClickQueue(e) {
       return;
     }
 
-    if (refs.header.classList.contains('library')) {
+    /////////////////////////////////////////// 14.09 Люда    && refs.header.classList.contains('queue')
+    // if (refs.header.classList.contains('watched')) {
+    //   renderWatchedList();
+    //   console.log('jjjjjjjjjjjjjjjj');
+    //   return;
+    // }
+
+    if (refs.header.classList.contains('library') && refs.header.classList.contains('queue')) {
       renderQueueList();
       return;
     }
+    /////////////////////////////////////////// 14.09 Люда
+
     // else {
     //   renderLibCard();
     // }
@@ -180,7 +189,8 @@ function onClickWatch(e) {
       return;
     }
 
-    if (refs.header.classList.contains('library')) {
+    /////////////////////////////////////////// 14.09 Люда    && refs.header.classList.contains('queue')
+    if (refs.header.classList.contains('library') && refs.header.classList.contains('watched')) {
       renderWatchedList();
       return;
     }

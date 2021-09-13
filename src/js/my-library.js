@@ -101,6 +101,10 @@ function addWatchedListener() {
 
   /////////////////////////////////////////// 13.09 Люда
   watchedBtnListener.classList.add('is-active-header-btn');
+  /////////////////////////////////////////// 14.09 Люда
+  refs.header.classList.add('watched');
+  /////////////////////////////////////////// 14.09 Люда
+
   // if (watchedBtnListener.classList.contains('is-active-header-btn')) {
   // refs.galleryList.innerHTML = '';
   // refs.container.textContent = '';
@@ -115,6 +119,10 @@ function addWatchedListener() {
 
     watchedBtnListener.classList.remove('is-active-header-btn');
     queueBtnListener.classList.add('is-active-header-btn');
+    /////////////////////////////////////////// 14.09 Люда
+    refs.header.classList.remove('watched');
+    refs.header.classList.add('queue');
+    /////////////////////////////////////////// 14.09 Люда
 
     renderQueueList();
   });
@@ -128,6 +136,10 @@ function addWatchedListener() {
       return;
     }
 
+    /////////////////////////////////////////// 14.09 Люда
+    refs.header.classList.remove('queue');
+    refs.header.classList.add('watched');
+    /////////////////////////////////////////// 14.09 Люда
     queueBtnListener.classList.remove('is-active-header-btn');
     watchedBtnListener.classList.add('is-active-header-btn');
 
