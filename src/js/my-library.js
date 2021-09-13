@@ -98,33 +98,49 @@ function addWatchedListener() {
   const queueBtnListener = document.querySelector('#libraryQueueBtn');
   console.log(watchedBtnListener);
 
-  watchedBtnListener.addEventListener('click', renderWatchedList);
+  /////////////////////////////////////////// 13.09 Люда
+  watchedBtnListener.classList.add('is-active-header-btn');
+  // if (watchedBtnListener.classList.contains('is-active-header-btn')) {
+  // refs.galleryList.innerHTML = '';
+  // refs.container.textContent = '';
+  renderWatchedList();
+  // return;
+  // }
+
+  queueBtnListener.addEventListener('click', () => {
+    if (queueBtnListener.classList.contains('is-active-header-btn')) {
+      return;
+    }
+
+    watchedBtnListener.classList.remove('is-active-header-btn');
+    queueBtnListener.classList.add('is-active-header-btn');
+
+    renderQueueList();
+  });
+  /////////////////////////////////////////// 13.09 Люда
+
+  // watchedBtnListener.addEventListener('click', renderWatchedList);
   /////////////////////////////////////////// 13.09 Люда
   watchedBtnListener.addEventListener('click', () => {
     console.log('активная кнопка watched');
+    if (watchedBtnListener.classList.contains('is-active-header-btn')) {
+      return;
+    }
+
     queueBtnListener.classList.remove('is-active-header-btn');
     watchedBtnListener.classList.add('is-active-header-btn');
 
-    if (watchedBtnListener.classList.contains('is-active-header-btn')) {
-      // refs.galleryList.innerHTML = '';
-      // refs.container.textContent = '';
-      renderWatchedList();
-      // return;
-    }
+    renderWatchedList();
   });
   /////////////////////////////////////////// 13.09 Люда
 
-  queueBtnListener.addEventListener('click', renderQueueList);
   /////////////////////////////////////////// 13.09 Люда
-  queueBtnListener.addEventListener('click', () => {
-    console.log('активная кнопка queue');
-    queueBtnListener.classList.add('is-active-header-btn');
-    watchedBtnListener.classList.remove('is-active-header-btn');
-  });
-
-  /////////////////////////////////////////// 13.09 Люда
-  watchedBtnListener.classList.add('is-active-header-btn');
-  /////////////////////////////////////////// 13.09 Люда
+  // queueBtnListener.addEventListener('click', () => {
+  // console.log('активная кнопка queue');
+  // queueBtnListener.classList.add('is-active-header-btn');
+  // watchedBtnListener.classList.remove('is-active-header-btn');
+  // });
+  return;
 }
 
 // function a() {
@@ -150,15 +166,15 @@ function changeHeader(event) {
     console.log(watchedParse);
     console.log(queueParse);
     addWatchedListener();
-    if (watchedParse.length === 0 && queueParse.length === 0) {
-      refs.galleryList.insertAdjacentHTML('beforebegin', emptyLibrary());
-    } else {
-      console.log('Рендерим карточки массива из локалстор');
-      // renderLibCard();
+    // if (watchedParse.length === 0 && queueParse.length === 0) {
+    //   refs.galleryList.insertAdjacentHTML('beforebegin', emptyLibrary());
+    // } else {
+    //   console.log('Рендерим карточки массива из локалстор');
+    // renderLibCard();
 
-      //////////////////// при переходе в библиотеку по умолчанию выбрана кнопка просмотреных
-      renderWatchedList();
-    }
+    //////////////////// при переходе в библиотеку по умолчанию выбрана кнопка просмотреных
+    // renderWatchedList();
+    // }
   }
 }
 /////////////////////////////////////////// 13.09 Люда

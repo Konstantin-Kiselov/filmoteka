@@ -126,12 +126,13 @@ function onClickQueue(e) {
       return;
     }
 
-    if (watchedBtnListener.classList.contains('is-active-header-btn')) {
+    if (refs.header.classList.contains('library')) {
       renderQueueList();
       return;
-    } else {
-      renderLibCard();
     }
+    // else {
+    //   renderLibCard();
+    // }
   }
 }
 
@@ -179,12 +180,13 @@ function onClickWatch(e) {
       return;
     }
 
-    if (watchedBtnListener.classList.contains('is-active-header-btn')) {
+    if (refs.header.classList.contains('library')) {
       renderWatchedList();
       return;
-    } else {
-      renderLibCard();
     }
+    // else {
+    //   renderLibCard();
+    // }
   }
 }
 
