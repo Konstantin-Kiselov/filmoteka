@@ -113,7 +113,9 @@ function markupMovieFilm(results, genres) {
 
     const releaseYear = release_date.slice(0, 4);
 
-    let img = poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : emptyJpg;
+    let img = poster_path
+      ? `https://image.tmdb.org/t/p/w500${poster_path}`
+      : 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
 
     const movie = [{ id, img, title, filmGenres, releaseYear, vote_average }];
     updateMarkup(movie);
@@ -169,4 +171,5 @@ function updateMarkup(movie) {
 //   return [];
 // }
 
-export { galleryEl, newApiService, renderCardGallery, updateMarkup };
+export { galleryEl, newApiService, renderCardGallery, markupMovieFilm, updateMarkup };
+
