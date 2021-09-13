@@ -1,6 +1,8 @@
 import { newApiService, renderCardGallery } from './api-gallery';
 import { searchApiService, renderSearchGallery } from './api-key-word';
 
+export const ioContainer = document.querySelector('#intersection-observer');
+
 const onEntry = entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting && newApiService.query === '' && newApiService.page > 1) {
@@ -29,4 +31,4 @@ const options = {
 };
 const observer = new IntersectionObserver(onEntry, options);
 
-observer.observe(document.querySelector('#intersection-observer'));
+observer.observe(ioContainer);

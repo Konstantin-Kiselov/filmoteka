@@ -6,7 +6,6 @@
 
     background-repeat: no-repeat;
     background-size: cover;
-
   }
   .main__navigationLibrary {
     display: flex;
@@ -38,7 +37,6 @@
     animation: pulse;
     animation-duration: 1s;
     animation-iteration-count: 2;
-
   }
 }
 @media screen and (min-width: 768px) {
@@ -72,3 +70,6 @@
   border: none;
 }
 
+.io-hidden {
+  display: none;
+}
