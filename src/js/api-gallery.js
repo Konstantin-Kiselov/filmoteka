@@ -113,7 +113,7 @@ function markupMovieFilm(results, genres) {
 
     const movie = [{ id, img, title, filmGenres, releaseYear, vote_average }];
     updateMarkup(movie);
-    //console.log(movie);
+    // console.log(movie);
     return movie;
   });
 }
@@ -123,6 +123,7 @@ function updateMarkup(movie) {
 
   if (movie.status !== '404') {
     markup = genreCard(movie);
+    // console.log(markup);
   }
   galleryEl.insertAdjacentHTML('beforeend', markup);
 }
@@ -164,4 +165,4 @@ function updateMarkup(movie) {
 //   return [];
 // }
 
-export { galleryEl, newApiService, renderCardGallery };
+export { galleryEl, newApiService, renderCardGallery, updateMarkup };

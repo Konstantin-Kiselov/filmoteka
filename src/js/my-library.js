@@ -1,6 +1,8 @@
 import emptyLibrary from '../templates/empty-library.hbs';
 import headerLibrary from '../templates/header-library.hbs';
 import libraryCard from '../templates/library-card.hbs';
+import genreCard from '../templates/genre-card.hbs';
+import { updateMarkup } from './api-gallery.js';
 import { watchedParse, queueParse } from './modal.js';
 
 // import headerTemplates from './header-tpl';
@@ -23,101 +25,67 @@ const refs = {
 };
 
 function renderWatchedList() {
+  refs.galleryList.innerHTML = '';
+
   if (watchedParse.length === 0) {
-    refs.galleryList.innerHTML = '';
     refs.galleryList.insertAdjacentHTML('beforebegin', emptyLibrary());
   } else {
-    // const libraryFromLocalStorage = watchedParse.concat(queueParse);
-
-    // localStorage.setItem('libraryId', JSON.stringify(libraryFromLocalStorage));
-    //  localStorage.getItem('watched')
-    const genresName = [];
-    refs.galleryList.innerHTML = '';
     watchedParse.map(Id => {
       // console.log(Id);
       fetchMovieListById(Id).then(data => {
-        console.log(data);
-        console.log(data.genres);
-        //[data].map(({ release_date, genres }) => {
-        // console.log(genresName);
-        const dataGenres = data.genres.map(({ name }) => {
-          genresName.push(name);
-          console.log(genresName.length);
+        // console.log(data);
 
-          return genresName;
-        });
-        if (genresName.length > 3) {
-          genresName.splice(3, 0, 'Other');
-          console.log(genresName);
+        let { poster_path, title, id, vote_average, genres, release_date } = data;
+
+        const mapGenres = genres.map(({ name }) => name);
+
+        if (mapGenres.length > 3) {
+          mapGenres.splice(3, 0, 'Other');
         }
-        const filmGenres = genresName.slice(0, 4).join(', ');
-        console.log(filmGenres);
+        const filmGenres = mapGenres.slice(0, 4).join(', ');
+        // console.log(filmGenres);
 
-        const releaseYear = data.release_date.slice(0, 4);
-        console.log(data.release_date);
+        let img = poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : emptyJpg;
 
-        const movie = { filmGenres, releaseYear };
-        console.log(movie);
-        console.log(filmGenres);
+        const releaseYear = release_date.slice(0, 4);
+        // console.log(releaseYear);
 
-        const markupLibrary = libraryCard(data, movie);
-
-        refs.galleryList.insertAdjacentHTML('afterbegin', markupLibrary);
-
-        return movie;
+        const movie = [{ id, img, title, filmGenres, releaseYear, vote_average }];
+        updateMarkup(movie);
       });
-      // console.log('Рендерим карточки по запросу');
-      // });
     });
   }
 }
 
 function renderQueueList() {
+  refs.galleryList.innerHTML = '';
+
   if (queueParse.length === 0) {
-    refs.galleryList.innerHTML = '';
     refs.galleryList.insertAdjacentHTML('beforebegin', emptyLibrary());
   } else {
-    // const libraryFromLocalStorage = watchedParse.concat(queueParse);
-
-    // localStorage.setItem('libraryId', JSON.stringify(libraryFromLocalStorage));
-    //  localStorage.getItem('watched')
-    const genresName = [];
-    refs.galleryList.innerHTML = '';
     queueParse.map(Id => {
       // console.log(Id);
       fetchMovieListById(Id).then(data => {
-        console.log(data);
-        console.log(data.genres);
-        //[data].map(({ release_date, genres }) => {
-        // console.log(genresName);
-        const dataGenres = data.genres.map(({ name }) => {
-          genresName.push(name);
-          console.log(genresName.length);
+        // console.log(data);
 
-          return genresName;
-        });
-        if (genresName.length > 3) {
-          genresName.splice(3, 0, 'Other');
-          console.log(genresName);
+        let { poster_path, title, id, vote_average, genres, release_date } = data;
+
+        const mapGenres = genres.map(({ name }) => name);
+
+        if (mapGenres.length > 3) {
+          mapGenres.splice(3, 0, 'Other');
         }
-        const filmGenres = genresName.slice(0, 4).join(', ');
-        console.log(filmGenres);
+        const filmGenres = mapGenres.slice(0, 4).join(', ');
+        // console.log(filmGenres);
 
-        const releaseYear = data.release_date.slice(0, 4);
-        console.log(data.release_date);
+        let img = poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : emptyJpg;
 
-        const movie = { filmGenres, releaseYear };
-        console.log(movie);
-        console.log(filmGenres);
+        const releaseYear = release_date.slice(0, 4);
+        // console.log(releaseYear);
 
-        const markupLibrary = libraryCard(data, movie);
-
-        refs.galleryList.insertAdjacentHTML('afterbegin', markupLibrary);
-
-        return movie;
+        const movie = [{ id, img, title, filmGenres, releaseYear, vote_average }];
+        updateMarkup(movie);
       });
-      // console.log('Рендерим карточки по запросу');
-      // });
     });
   }
 }
@@ -125,9 +93,7 @@ function renderQueueList() {
 function addWatchedListener() {
   const watchedBtnListener = document.querySelector('#libraryWatchedBtn');
   const queueBtnListener = document.querySelector('#libraryQueueBtn');
-  console.log(watchedBtnListener);
-  console.log(queueBtnListener);
-  console.log(watchedParse);
+
   watchedBtnListener.addEventListener('click', renderWatchedList);
   queueBtnListener.addEventListener('click', renderQueueList);
 }
@@ -137,106 +103,56 @@ refs.libraryBtn.addEventListener('click', changeHeader);
 
 function changeHeader(event) {
   event.preventDefault();
-  refs.header.innerHTML = '';
-  // refs.ioContainer.classList.add('hidden_library');
-  refs.header.classList.remove('header');
-  refs.header.classList.add('library');
-  refs.header.insertAdjacentHTML('afterbegin', headerLibrary());
-  console.log(watchedParse);
-  console.log(queueParse);
-  addWatchedListener();
-  if (watchedParse.length === 0 && queueParse.length === 0) {
-    refs.galleryList.insertAdjacentHTML('beforebegin', emptyLibrary());
-  } else {
-    console.log('Рендерим карточки массива из локалстор');
-    renderLibCard();
-  }
+  if (refs.header.classList.contains('header')) {
+    refs.header.classList.remove('header');
+    refs.header.classList.add('library');
 
-  function renderLibCard() {
-    // const libraryFromLocalStorage = watchedParse.concat(queueParse);
+    refs.header.innerHTML = '';
+    // refs.ioContainer.classList.add('hidden_library');
 
-    // localStorage.setItem('libraryId', JSON.stringify(libraryFromLocalStorage));
-    localStorage.setItem('watched', JSON.stringify(watchedParse));
-    localStorage.setItem('queue', JSON.stringify(queueParse));
-
-    const genresName = [];
-    refs.galleryList.innerHTML = '';
-    watchedParse.map(Id => {
-      // console.log(Id);
-      fetchMovieListById(Id).then(data => {
-        console.log(data);
-        console.log(data.genres);
-        //[data].map(({ release_date, genres }) => {
-        // console.log(genresName);
-        const dataGenres = data.genres.map(({ name }) => {
-          genresName.push(name);
-          console.log(genresName.length);
-
-          return genresName;
-        });
-        if (genresName.length > 3) {
-          genresName.splice(3, 0, 'Other');
-          console.log(genresName);
-        }
-        const filmGenres = genresName.slice(0, 4).join(', ');
-        console.log(filmGenres);
-
-        const releaseYear = data.release_date.slice(0, 4);
-        console.log(data.release_date);
-
-        const movie = { filmGenres, releaseYear };
-        console.log(movie);
-        console.log(filmGenres);
-
-        const markupLibrary = libraryCard(data, movie);
-
-        refs.galleryList.insertAdjacentHTML('afterbegin', markupLibrary);
-
-        return movie;
-      });
-      // console.log('Рендерим карточки по запросу');
-      // });
-    });
-    queueParse.map(Id => {
-      // console.log(Id);
-      fetchMovieListById(Id).then(data => {
-        console.log(data);
-        console.log(data.genres);
-        //[data].map(({ release_date, genres }) => {
-        // console.log(genresName);
-        const dataGenres = data.genres.map(({ name }) => {
-          genresName.push(name);
-          console.log(genresName.length);
-
-          return genresName;
-        });
-        if (genresName.length > 3) {
-          genresName.splice(3, 0, 'Other');
-          console.log(genresName);
-        }
-        const filmGenres = genresName.slice(0, 4).join(', ');
-        console.log(filmGenres);
-
-        const releaseYear = data.release_date.slice(0, 4);
-        console.log(data.release_date);
-
-        const movie = { filmGenres, releaseYear };
-        console.log(movie);
-        console.log(filmGenres);
-
-        const markupLibrary = libraryCard(data, movie);
-
-        refs.galleryList.insertAdjacentHTML('afterbegin', markupLibrary);
-
-        return movie;
-      });
-      // console.log('Рендерим карточки по запросу');
-      // });
-    });
+    refs.header.insertAdjacentHTML('afterbegin', headerLibrary());
+    console.log(watchedParse);
+    console.log(queueParse);
+    addWatchedListener();
+    if (watchedParse.length === 0 && queueParse.length === 0) {
+      refs.galleryList.insertAdjacentHTML('beforebegin', emptyLibrary());
+    } else {
+      console.log('Рендерим карточки массива из локалстор');
+      renderLibCard();
+    }
   }
 }
 
-//function filterCard() {}
+function renderLibCard() {
+  const libraryFromLocalStorage = queueParse.concat(watchedParse);
+
+  refs.galleryList.innerHTML = '';
+
+  libraryFromLocalStorage.map(Id => {
+    // console.log(Id);
+    fetchMovieListById(Id).then(data => {
+      // console.log(data);
+
+      let { poster_path, title, id, vote_average, genres, release_date } = data;
+
+      const mapGenres = genres.map(({ name }) => name);
+
+      if (mapGenres.length > 3) {
+        mapGenres.splice(3, 0, 'Other');
+      }
+      const filmGenres = mapGenres.slice(0, 4).join(', ');
+      // console.log(filmGenres);
+
+      let img = poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : emptyJpg;
+
+      const releaseYear = release_date.slice(0, 4);
+      // console.log(releaseYear);
+
+      const movie = [{ id, img, title, filmGenres, releaseYear, vote_average }];
+      updateMarkup(movie);
+    });
+  });
+}
 
 function fetchMovieListById(movieId) {
   const BASE_URL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=b32f977d148061c9ab22a471ff2c7792&language=en-US`;
@@ -244,4 +160,4 @@ function fetchMovieListById(movieId) {
   return fetch(BASE_URL).then(response => response.json());
 }
 
-export { fetchMovieListById };
+export { fetchMovieListById, renderWatchedList, renderQueueList, renderLibCard };

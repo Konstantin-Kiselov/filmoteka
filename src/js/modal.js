@@ -2,7 +2,12 @@ import modalTemplate from '../templates/modal-templates.hbs';
 import emptyLibrary from '../templates/empty-library.hbs';
 import headerLibrary from '../templates/header-library.hbs';
 import libraryCard from '../templates/library-card.hbs';
-import { fetchMovieListById } from './my-library';
+import {
+  fetchMovieListById,
+  renderWatchedList,
+  renderQueueList,
+  renderLibCard,
+} from './my-library';
 
 // console.log(modalTemplate);
 
@@ -30,6 +35,7 @@ const refs = {
   addWatchedBtn: document.querySelector('.add-watched-btn'),
   addQueueBtn: document.querySelector('.add-queue-btn'),
   galleryList: document.querySelector('.gallery-list'),
+  header: document.querySelector('.header'),
 };
 
 let movieId;
@@ -109,110 +115,24 @@ function onClickQueue(e) {
   if (queueParse.includes(movieId)) {
     removeClassFromQueueBtn();
 
-    // const indexWatchedLocalStorage = watchedParse.indexOf(movieId);
-    // console.log(indexWatchedLocalStorage);
-    // watchedParse.splice(indexWatchedLocalStorage, 1);
-    // addToWatchedStorage(movieId, watchedParse);
-
     const indexWatchedLocalStorage = queueParse.indexOf(movieId);
     console.log(indexWatchedLocalStorage);
     queueParse.splice(indexWatchedLocalStorage, 1);
     console.log(queueParse);
     localStorage.setItem('queue', JSON.stringify(queueParse));
 
-    const genresName = [];
-    refs.galleryList.innerHTML = '';
-    watchedParse.map(Id => {
-      // console.log(Id);
-      fetchMovieListById(Id).then(data => {
-        console.log(data);
-        console.log(data.genres);
-        //[data].map(({ release_date, genres }) => {
-        // console.log(genresName);
-        const dataGenres = data.genres.map(({ name }) => {
-          genresName.push(name);
-          console.log(genresName.length);
+    if (refs.header.classList.contains('header')) {
+      // watchedParse = JSON.parse(localStorage.getItem('watched'));
+      return;
+    }
 
-          return genresName;
-        });
-        if (genresName.length > 3) {
-          genresName.splice(3, 0, 'Other');
-          console.log(genresName);
-        }
-        const filmGenres = genresName.slice(0, 4).join(', ');
-        console.log(filmGenres);
-
-        const releaseYear = data.release_date.slice(0, 4);
-        console.log(data.release_date);
-
-        const movie = { filmGenres, releaseYear };
-        console.log(movie);
-        console.log(filmGenres);
-
-        const markupLibrary = libraryCard(data, movie);
-
-        refs.galleryList.insertAdjacentHTML('afterbegin', markupLibrary);
-        console.log(markupLibrary);
-
-        return movie;
-      });
-      // console.log('Рендерим карточки по запросу');
-      // });
-    });
-    queueParse.map(Id => {
-      // console.log(Id);
-      fetchMovieListById(Id).then(data => {
-        console.log(data);
-        console.log(data.genres);
-        //[data].map(({ release_date, genres }) => {
-        // console.log(genresName);
-        const dataGenres = data.genres.map(({ name }) => {
-          genresName.push(name);
-          console.log(genresName.length);
-
-          return genresName;
-        });
-        if (genresName.length > 3) {
-          genresName.splice(3, 0, 'Other');
-          console.log(genresName);
-        }
-        const filmGenres = genresName.slice(0, 4).join(', ');
-        console.log(filmGenres);
-
-        const releaseYear = data.release_date.slice(0, 4);
-        console.log(data.release_date);
-
-        const movie = { filmGenres, releaseYear };
-        console.log(movie);
-        console.log(filmGenres);
-
-        const markupLibrary = libraryCard(data, movie);
-
-        refs.galleryList.insertAdjacentHTML('afterbegin', markupLibrary);
-
-        return movie;
-      });
-      // console.log('Рендерим карточки по запросу');
-      // });
-    });
-
-    // if (libraryParse.includes(movieId)) {
-    //   const indexWatchedLocalStorageLibrary = libraryParse.indexOf(movieId);
-    //   console.log(libraryParse);
-    //   console.log(indexWatchedLocalStorageLibrary);
-    //   libraryParse.splice(indexWatchedLocalStorageLibrary, 1);
-    //   console.log(libraryParse);
-    //   localStorage.setItem('libraryId', JSON.stringify(libraryParse));
-
-    //   return;
-    // }
-    return;
+    if (watchedBtnListener.classList.contains('is-active-header-btn')) {
+      renderQueueList();
+      return;
+    } else {
+      renderLibCard();
+    }
   }
-
-  // refs.addQueueBtn.classList.add('add-collection');
-
-  // console.log(queueParse);
-  // console.log('А теперь добавляй');
 }
 
 //////////////// КНОПКА add To Watched
@@ -254,117 +174,19 @@ function onClickWatch(e) {
 
     // localStorage.setItem('queue', JSON.stringify(queueParse));
 
-    const genresName = [];
-    refs.galleryList.innerHTML = '';
-    watchedParse.map(Id => {
-      // console.log(Id);
-      fetchMovieListById(Id).then(data => {
-        console.log(data);
-        console.log(data.genres);
-        //[data].map(({ release_date, genres }) => {
-        // console.log(genresName);
-        const dataGenres = data.genres.map(({ name }) => {
-          genresName.push(name);
-          console.log(genresName.length);
+    if (refs.header.classList.contains('header')) {
+      // watchedParse = JSON.parse(localStorage.getItem('watched'));
+      return;
+    }
 
-          return genresName;
-        });
-        if (genresName.length > 3) {
-          genresName.splice(3, 0, 'Other');
-          console.log(genresName);
-        }
-        const filmGenres = genresName.slice(0, 4).join(', ');
-        console.log(filmGenres);
-
-        const releaseYear = data.release_date.slice(0, 4);
-        console.log(data.release_date);
-
-        const movie = { filmGenres, releaseYear };
-        console.log(movie);
-        console.log(filmGenres);
-
-        const markupLibrary = libraryCard(data, movie);
-
-        refs.galleryList.insertAdjacentHTML('afterbegin', markupLibrary);
-
-        return movie;
-      });
-      // console.log('Рендерим карточки по запросу');
-      // });
-    });
-    queueParse.map(Id => {
-      // console.log(Id);
-      fetchMovieListById(Id).then(data => {
-        console.log(data);
-        console.log(data.genres);
-        //[data].map(({ release_date, genres }) => {
-        // console.log(genresName);
-        const dataGenres = data.genres.map(({ name }) => {
-          genresName.push(name);
-          console.log(genresName.length);
-
-          return genresName;
-        });
-        if (genresName.length > 3) {
-          genresName.splice(3, 0, 'Other');
-          console.log(genresName);
-        }
-        const filmGenres = genresName.slice(0, 4).join(', ');
-        console.log(filmGenres);
-
-        const releaseYear = data.release_date.slice(0, 4);
-        console.log(data.release_date);
-
-        const movie = { filmGenres, releaseYear };
-        console.log(movie);
-        console.log(filmGenres);
-
-        const markupLibrary = libraryCard(data, movie);
-
-        refs.galleryList.insertAdjacentHTML('afterbegin', markupLibrary);
-
-        return movie;
-      });
-      // console.log('Рендерим карточки по запросу');
-      // });
-    });
-
-    // addToWatchedStorage(movieId, watchedParse);
-
-    // if (refs.addWatchedBtn.classList === 'add-collection') {
-    //   const indexWatchedLocalStorageLibrary = libraryParse.indexOf(movieId);
-    //   console.log(libraryParse);
-    //   console.log(indexWatchedLocalStorageLibrary);
-    //   libraryParse.splice(indexWatchedLocalStorageLibrary, 1);
-    //   console.log(libraryParse);
-    //   localStorage.setItem('libraryId', JSON.stringify(libraryParse));
-
-    //   return;
-    // }
-
-    return;
+    if (watchedBtnListener.classList.contains('is-active-header-btn')) {
+      renderWatchedList();
+      return;
+    } else {
+      renderLibCard();
+    }
   }
-  //   refs.addWatchedBtn.classList.remove('add-collection');
-  //   refs.addWatchedBtn.textContent = 'ADD TO WATCHED';
-
-  //   console.log('Прописать функцию удаления из локалстор WATCHED');
-
-  //   return;
-  // }
-
-  // if (!refs.addWatchedBtn.classList.contains('add-collection')) {
-
-  //   if (refs.addQueueBtn.classList.contains('add-collection')) {
-  //     console.log('Удалить из локал стор QUEUE');
-  //   }
 }
-// else if () {
-//     refs.addWatchedBtn.classList.remove ('is-active');
-//     refs.addWatchedBtn.textContent = '';
-//   }
-
-// console.log(watchedParse);
-// console.log('А теперь добавляй');
 
 function toggleModal() {
   window.addEventListener('keydown', onEscKeyPress);
@@ -539,60 +361,6 @@ function addToQueueStorage(movieId, queueParse) {
   }
   queueParse.push(movieId);
   localStorage.setItem('queue', JSON.stringify(queueParse));
-}
-
-// function renderCardLibrary() {
-//   console.log('Я отрендерил локал сторадж');
-// }
-
-function renderLibCard() {
-  if (watchedParse.length === 0 && queueParse.length === 0) {
-    refs.galleryList.insertAdjacentHTML('beforebegin', emptyLibrary());
-
-    // refs.galleryList.insertAdjacentHTML('afterbegin', emptyLibrary());
-  } else {
-    const libraryFromLocalStorage = watchedParse.concat(queueParse);
-
-    localStorage.setItem('libraryId', JSON.stringify(libraryFromLocalStorage));
-    const genresName = [];
-    refs.galleryList.innerHTML = '';
-    libraryFromLocalStorage.map(Id => {
-      // console.log(Id);
-      fetchMovieListById(Id).then(data => {
-        console.log(data);
-        console.log(data.genres);
-        //[data].map(({ release_date, genres }) => {
-        // console.log(genresName);
-        const dataGenres = data.genres.map(({ name }) => {
-          genresName.push(name);
-          console.log(genresName.length);
-
-          return genresName;
-        });
-        if (genresName.length > 3) {
-          genresName.splice(3, 0, 'Other');
-          console.log(genresName);
-        }
-        const filmGenres = genresName.slice(0, 4).join(', ');
-        console.log(filmGenres);
-
-        const releaseYear = data.release_date.slice(0, 4);
-        console.log(data.release_date);
-
-        const movie = { filmGenres, releaseYear };
-        console.log(movie);
-        console.log(filmGenres);
-
-        const markupLibrary = libraryCard(data, movie);
-
-        refs.galleryList.insertAdjacentHTML('afterbegin', markupLibrary);
-
-        return movie;
-      });
-      // console.log('Рендерим карточки по запросу');
-      // });
-    });
-  }
 }
 
 export { watchedParse, queueParse };
