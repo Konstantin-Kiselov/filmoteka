@@ -3,17 +3,17 @@
     height: 230px;
     background: rgba(0, 0, 0, 0.56);
     background-image: url(../images/library/header-library-background-mobile@1x.jpg);
+
     background-repeat: no-repeat;
     background-size: cover;
+
   }
   .main__navigationLibrary {
     display: flex;
     justify-content: space-between;
     margin-top: 49px;
   }
-  .hidden_library {
-    display: none;
-  }
+
   .main__navigationLibraryButton {
     width: 130px;
     height: 44px;
@@ -34,6 +34,11 @@
   .main__navigationLibraryButton:focus {
     background: #ff6b01;
     border: none;
+
+    animation: pulse;
+    animation-duration: 1s;
+    animation-iteration-count: 2;
+
   }
 }
 @media screen and (min-width: 768px) {
@@ -66,3 +71,4 @@
   background: #ff6b01;
   border: none;
 }
+
