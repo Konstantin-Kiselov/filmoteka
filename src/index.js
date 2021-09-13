@@ -11,3 +11,4 @@ import './js/header-tpl.js';
 import './js/my-library.js';
 
 import './js/modal.js';
+import './js/modal-team.js';

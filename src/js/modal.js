@@ -1,4 +1,14 @@
 import modalTemplate from '../templates/modal-templates.hbs';
+import emptyLibrary from '../templates/empty-library.hbs';
+import headerLibrary from '../templates/header-library.hbs';
+import libraryCard from '../templates/library-card.hbs';
+import {
+  fetchMovieListById,
+  renderWatchedList,
+  renderQueueList,
+  renderLibCard,
+} from './my-library';
+
 // console.log(modalTemplate);
 
 // ============ Проверяем локал сторадж на наличие данных ============
@@ -12,6 +22,7 @@ if (localStorage.getItem('queue') === null) {
 
 const watchedParse = JSON.parse(localStorage.getItem('watched'));
 const queueParse = JSON.parse(localStorage.getItem('queue'));
+// const libraryParse = JSON.parse(localStorage.getItem('libraryId'));
 
 const refs = {
   body: document.querySelector('body'),
@@ -23,6 +34,8 @@ const refs = {
   modalImg: document.querySelector('.modal-img'),
   addWatchedBtn: document.querySelector('.add-watched-btn'),
   addQueueBtn: document.querySelector('.add-queue-btn'),
+  galleryList: document.querySelector('.gallery-list'),
+  header: document.querySelector('.header'),
 };
 
 let movieId;
@@ -80,6 +93,7 @@ function onClickQueue(e) {
     removeClassFromWatchedBtn();
 
     addToQueueStorage(movieId, queueParse);
+
     const indexWatchedLocalStorage = watchedParse.indexOf(movieId);
     console.log(indexWatchedLocalStorage);
     watchedParse.splice(indexWatchedLocalStorage, 1);
@@ -92,6 +106,8 @@ function onClickQueue(e) {
     addClassFromQueueBtn();
 
     addToQueueStorage(movieId, queueParse);
+    // const libraryFromLocalStorage = watchedParse.concat(queueParse);
+    // localStorage.setItem('libraryId', JSON.stringify(libraryFromLocalStorage));
 
     return;
   }
@@ -99,24 +115,25 @@ function onClickQueue(e) {
   if (queueParse.includes(movieId)) {
     removeClassFromQueueBtn();
 
-    // const indexWatchedLocalStorage = watchedParse.indexOf(movieId);
-    // console.log(indexWatchedLocalStorage);
-    // watchedParse.splice(indexWatchedLocalStorage, 1);
-    // addToWatchedStorage(movieId, watchedParse);
-
     const indexWatchedLocalStorage = queueParse.indexOf(movieId);
     console.log(indexWatchedLocalStorage);
     queueParse.splice(indexWatchedLocalStorage, 1);
     console.log(queueParse);
     localStorage.setItem('queue', JSON.stringify(queueParse));
 
-    return;
+    if (refs.header.classList.contains('header')) {
+      // watchedParse = JSON.parse(localStorage.getItem('watched'));
+      return;
+    }
+
+    if (refs.header.classList.contains('library')) {
+      renderQueueList();
+      return;
+    }
+    // else {
+    //   renderLibCard();
+    // }
   }
-
-  // refs.addQueueBtn.classList.add('add-collection');
-
-  // console.log(queueParse);
-  // console.log('А теперь добавляй');
 }
 
 //////////////// КНОПКА add To Watched
@@ -141,6 +158,9 @@ function onClickWatch(e) {
 
     addToWatchedStorage(movieId, watchedParse);
 
+    // const libraryFromLocalStorage = watchedParse.concat(queueParse);
+    // localStorage.setItem('libraryId', JSON.stringify(libraryFromLocalStorage));
+
     return;
   }
 
@@ -152,31 +172,23 @@ function onClickWatch(e) {
     watchedParse.splice(indexWatchedLocalStorage, 1);
     console.log(watchedParse);
     localStorage.setItem('watched', JSON.stringify(watchedParse));
-    // addToWatchedStorage(movieId, watchedParse);
 
-    return;
+    // localStorage.setItem('queue', JSON.stringify(queueParse));
+
+    if (refs.header.classList.contains('header')) {
+      // watchedParse = JSON.parse(localStorage.getItem('watched'));
+      return;
+    }
+
+    if (refs.header.classList.contains('library')) {
+      renderWatchedList();
+      return;
+    }
+    // else {
+    //   renderLibCard();
+    // }
   }
-  //   refs.addWatchedBtn.classList.remove('add-collection');
-  //   refs.addWatchedBtn.textContent = 'ADD TO WATCHED';
-
-  //   console.log('Прописать функцию удаления из локалстор WATCHED');
-
-  //   return;
-  // }
-
-  // if (!refs.addWatchedBtn.classList.contains('add-collection')) {
-
-  //   if (refs.addQueueBtn.classList.contains('add-collection')) {
-  //     console.log('Удалить из локал стор QUEUE');
-  //   }
 }
-// else if () {
-//     refs.addWatchedBtn.classList.remove ('is-active');
-//     refs.addWatchedBtn.textContent = '';
-//   }
-
-// console.log(watchedParse);
-// console.log('А теперь добавляй');
 
 function toggleModal() {
   window.addEventListener('keydown', onEscKeyPress);
@@ -194,7 +206,18 @@ function onModalClose() {
   /////////////////////========================10.09 Люда====================================
   removeClassFromWatchedBtn();
   removeClassFromQueueBtn();
+
   /////////////////
+
+  //снимаем слушатели
+  window.removeEventListener('keydown', onEscKeyPress);
+  refs.modal.removeEventListener('click', onModalCloseBackdrop);
+  refs.addWatchedBtn.addEventListener('click', onClickWatch);
+  refs.addWatchedBtn.removeEventListener('click', onClickWatch);
+  refs.addQueueBtn.removeEventListener('click', onClickQueue);
+
+  // refs.addWatchedBtn.removeEventListener('click', addWatch);
+  // refs.addQueueBtn.removeEventListener('click', addQueue);
 
   // refs.addWatchedBtn.classList.remove('add-collection');
   // refs.addWatchedBtn.removeEventListener('click', addWatch);
@@ -239,23 +262,36 @@ function onModalCloseBackdrop(evt) {
 function addClassFromWatchedBtn() {
   refs.addWatchedBtn.classList.add('add-collection');
   refs.addWatchedBtn.textContent = 'REMOVE FROM WATCHED';
+
+  // const libraryFromLocalStorage = watchedParse.concat(queueParse);
+  // localStorage.setItem('libraryId', JSON.stringify(libraryFromLocalStorage));
 }
 
 function removeClassFromWatchedBtn() {
   refs.addWatchedBtn.classList.remove('add-collection');
   refs.addWatchedBtn.textContent = 'ADD TO WATCHED';
 
-  console.log('hhhhhhhhhhhhhhhh');
+  // const libraryFromLocalStorage = watchedParse.concat(queueParse);
+  // localStorage.setItem('libraryId', JSON.stringify(libraryFromLocalStorage));
+
+  // renderLibCard();
 }
+
+console.log('hhhhhhhhhhhhhhhh');
 
 function addClassFromQueueBtn() {
   refs.addQueueBtn.classList.add('add-collection');
   refs.addQueueBtn.textContent = 'REMOVE FROM QUEUE';
+
+  // const libraryFromLocalStorage = watchedParse.concat(queueParse);
+  // localStorage.setItem('libraryId', JSON.stringify(libraryFromLocalStorage));
 }
 
 function removeClassFromQueueBtn() {
   refs.addQueueBtn.classList.remove('add-collection');
   refs.addQueueBtn.textContent = 'ADD TO QUEUE';
+  // const libraryFromLocalStorage = watchedParse.concat(queueParse);
+  // localStorage.setItem('libraryId', JSON.stringify(libraryFromLocalStorage));
 
   console.log('hhhhhhhhhhhhhhhh');
 }
@@ -276,14 +312,14 @@ function renderModalMarkUP(movie) {
 function fetchMovieInform() {
   const BASE_URL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=b32f977d148061c9ab22a471ff2c7792&language=en-US`;
 
-  fetch(BASE_URL).then(response => response.json().then(movieDetails));
+  fetch(BASE_URL).then(response => response.json().then(renderModalMarkUP));
 }
 
-function movieDetails(movie) {
-  // console.log(movie);
-  // refs.modalWindow.textContent = '';
-  renderModalMarkUP(movie);
-}
+// function movieDetails(movie) {
+//   // console.log(movie);
+//   // refs.modalWindow.textContent = '';
+//   renderModalMarkUP(movie);
+// }
 
 //чтобы не скролился body под модалкой
 function stopScroll() {
@@ -339,6 +375,4 @@ function addToQueueStorage(movieId, queueParse) {
   localStorage.setItem('queue', JSON.stringify(queueParse));
 }
 
-// function renderCardLibrary() {
-//   console.log('Я отрендерил локал сторадж');
-// }
+export { watchedParse, queueParse };
