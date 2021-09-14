@@ -109,7 +109,7 @@ function markupMovieFilm(results, genres) {
 
     const releaseYear = release_date.slice(0, 4);
 
-    let img = poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : emptyJpg;
+    let img = poster_path ? `https://image.tmdb.org/t/p/w300${poster_path}` : emptyJpg;
 
     const movie = [{ id, img, title, filmGenres, releaseYear, vote_average }];
     updateMarkup(movie);
