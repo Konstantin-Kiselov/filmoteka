@@ -17,12 +17,12 @@ body.dark-theme {
 
 @media screen and (min-width: 320px) {
   .theme-switch {
-    position: relative;
+    position: absolute;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    top: -30px;
     right: 15px;
+    top: 200px;
   }
 }
 
