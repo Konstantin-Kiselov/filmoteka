@@ -109,6 +109,17 @@ function onClickQueue(e) {
     // const libraryFromLocalStorage = watchedParse.concat(queueParse);
     // localStorage.setItem('libraryId', JSON.stringify(libraryFromLocalStorage));
 
+    if (refs.header.classList.contains('library') && refs.header.classList.contains('queue')) {
+      renderQueueList();
+      return;
+    }
+
+    if (refs.header.classList.contains('library') && refs.header.classList.contains('watched')) {
+      console.log('jjjjjjjjjjjjjjjj');
+      renderWatchedList();
+      return;
+    }
+
     return;
   }
 
