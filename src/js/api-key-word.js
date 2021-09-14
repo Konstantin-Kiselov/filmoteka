@@ -1,12 +1,10 @@
 import debounce from 'lodash.debounce';
-import templateGalleryFilms from '../templates/films-gallery.hbs';
-import { newApiService, markupMovieFilm, updateMarkup } from './api-gallery';
-import genresJson from './genres.json';
-import genreCard from '../templates/genre-card.hbs';
+import { newApiService, markupMovieFilm, renderCardGallery } from './api-gallery';
 
 const refs = {
   gallery: document.querySelector('.gallery-list'),
   input: document.querySelector('.navigation__search'),
+  errorMessage: document.querySelector('.error__message'),
 };
 
 refs.input.addEventListener('input', debounce(onSearchMovie, 1000));
@@ -23,20 +21,13 @@ class ApiKeyWord {
 
   fetchMovieByKeyWord() {
     const url = `${BASE_URL}search/movie?api_key=${API_KEY}&language=en-US&page=${this.page}&include_adult=false&query=${this.searchQuery}`;
-    return (
-      fetch(url)
-        .then(response => response.json())
-        // .then(data => {
-        //     this.incrementPage();
-        //     // console.log(data.results);
-        //     return data.results;
-
-        .then(({ results }) => {
-          this.incrementPage();
-          console.log(results);
-          return results;
-        })
-    );
+    return fetch(url)
+      .then(response => response.json())
+      .then(({ results }) => {
+        this.incrementPage();
+        console.log(results);
+        return results;
+      });
   }
   incrementPage() {
     this.page += 1;
@@ -56,46 +47,44 @@ const searchApiService = new ApiKeyWord();
 
 const STORAGE_KEY = 'genres';
 let localGenres;
+
 function renderSearchGallery2() {
   searchApiService.fetchMovieByKeyWord().then(results => {
-    // fetchGenres().then(genres => {
     if (localGenres === undefined) {
       const getLocalGenres = localStorage.getItem(STORAGE_KEY);
       localGenres = JSON.parse(getLocalGenres);
-      // console.log(localGenres);
     }
-    console.log(results);
+    if (results.length === 0) {
+      refs.errorMessage.classList.remove('hide_message');
+      refs.errorMessage.textContent = 'По такому запросу ничего не найдено. Попробуйте еще раз';
+      newApiService.resetPage();
+      refs.input.value = '';
+
+      renderCardGallery();
+    } else if (results.length >= 1) {
+      refs.errorMessage.classList.add('hide_message');
+    }
+
     markupMovieFilm(results, localGenres);
     return localGenres;
   });
 }
 
-// function renderSearchGallery(data) {
-//   const markup = templateGalleryFilms(data);
-//   refs.gallery.insertAdjacentHTML('beforeend', markup);
-// }
-
 function onSearchMovie(e) {
   refs.gallery.innerHTML = '';
+
   const searchQuery = e.target.value.trim();
-  if (searchQuery.length <= 1) {
-    console.log('nooooo');
+  if (searchQuery.length === 0) {
+    newApiService.resetPage();
+    renderCardGallery();
+    return;
   }
 
   newApiService.query = searchQuery;
   searchApiService.query = searchQuery;
+  searchApiService.resetPage();
 
   renderSearchGallery2();
-
-  // searchApiService
-  //   .fetchMovieByKeyWord()
-  //   .then(({ results }) => {
-  //     // console.log(data);
-  //     renderSearchGallery2(data);
-  //   })
-  //   .catch(e => {
-  //     console.log(e);
-  //   });
 }
 
 export { renderSearchGallery2, searchApiService };
