@@ -153,6 +153,10 @@
   }
 
   //=============INPUT===============\
+  .hide_message {
+    display: none;
+  }
+
   .film-search {
     position: relative;
     display: inline;
@@ -191,6 +195,16 @@
     margin: 3px;
     top: 0;
     right: 0;
+  }
+
+  .error__message {
+    width: 336px;
+    margin-top: 5px;
+    margin-left: 23%;
+    font-size: 14px;
+    line-height: 1.17;
+    font-weight: 400;
+    color: #ff001b;
   }
   //===========================
 }
