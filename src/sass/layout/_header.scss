@@ -1,37 +1,131 @@
-button {
-  border: none;
-}
-
-.list {
-  list-style-type: none;
-}
-
-.address {
-  font-style: normal;
-}
-
 // ============ HEADER ============
 .current {
   border-bottom: 1px solid #ff6b08;
 }
-@media screen and (min-width: 320px) {
+
+.header {
+  background: rgba(0, 0, 0, 0.56);
+  background-image: url(../images/header-background-mobile@1x.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+// .navigation {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+
+//   padding: 45px 20px;
+// }
+
+.logo_svg {
+  // content: url(../images/icons/film.svg);
+  // background-image: url(../images/icons/film.svg);
+  width: 24px;
+  height: 24px;
+  align-self: center;
+}
+
+.list__icon {
+  width: 24px;
+  height: 24px;
+  align-self: center;
+}
+
+.navigation {
+  margin-bottom: 49px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navigation__logo {
+  display: flex;
+  align-items: center;
+}
+
+.navigation__logo-link {
+  margin-right: 112px;
+  display: flex;
+  align-self: flex-end;
+}
+
+// .navigation__logo-link::before {
+//   content: url(../images/icons/film.svg);
+//   margin-right: 10px;
+// }
+.navigation__list {
+  display: flex;
+}
+.navigation__item:not(:last-child) {
+  margin-right: 39px;
+}
+
+.navigation__link {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.16;
+  text-transform: uppercase;
+
+  color: #ffffff;
+}
+
+.search {
+  display: flex;
+  justify-content: center;
+  width: 280px;
+  margin: 0 auto 22px;
+}
+.navigation__search {
+  width: 280px;
+  height: 30px;
+  padding: 4px 0;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.17;
+  border-bottom: 0.5px solid #ffffff;
+  transition-property: border-bottom;
+  color: #ffffff;
+}
+
+@media screen and (max-width: 768px) {
+  .logo {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 768px) {
   .header {
-    background: rgba(0, 0, 0, 0.56);
-    background-image: url(../images/header-background-mobile@1x.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-image: url(../images/header-background-tablet@1x.jpg);
   }
-  .conteiner {
-    height: 230px;
-    padding: 46px 20px 97px;
+  // .conteiner {
+  //   padding: 41px 71px 97px;
+  // }
+  .navigation__search {
+    width: 336px;
   }
+
   .navigation {
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 37px;
   }
+
+  .navigation__logo {
+    align-items: flex-end;
+  }
+
   .navigation__logo-link {
-    font-family: Roboto;
+    margin-right: 303px;
+  }
+
+  .logo {
+    //display: flex;
     font-style: normal;
     font-weight: 500;
     font-size: 30px;
@@ -47,28 +141,22 @@ button {
       animation-play-state: paused;
     }
   }
-  .navigation__logo-link::before {
-    content: url(../images/icons/film.svg);
+
+  // .logo_svg {
+  //   margin-right: 10px;
+  // }
+
+  .list__icon {
     margin-right: 10px;
-  }
-  .navigation__list {
-    display: flex;
-  }
-  .navigation__item:not(:last-child) {
-    margin-right: 39px;
-  }
-  .navigation__link {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 14px;
-    text-transform: uppercase;
 
     color: #ffffff;
   }
 
   //=============INPUT===============\
+  .hide_message {
+    display: none;
+  }
+
   .film-search {
     position: relative;
     display: inline;
@@ -108,6 +196,16 @@ button {
     top: 0;
     right: 0;
   }
+
+  .error__message {
+    width: 336px;
+    margin-top: 5px;
+    margin-left: 23%;
+    font-size: 14px;
+    line-height: 1.17;
+    font-weight: 400;
+    color: #ff001b;
+  }
   //===========================
 }
 @media screen and (min-width: 768px) {
@@ -121,16 +219,15 @@ button {
     width: 336px;
     margin-top: 57px;
     margin-left: 23%;
+
   }
 }
 @media screen and (min-width: 1024px) {
   .header {
     background-image: url(../images/header-backgroung-desktop@1x.jpg);
   }
-  .conteiner {
-    padding: 41px 71px 97px;
-  }
-  .navigation__search {
-    margin-left: 31%;
+
+  .navigation__logo-link {
+    margin-right: 564px;
   }
 }
