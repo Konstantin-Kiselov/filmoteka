@@ -172,4 +172,3 @@ function updateMarkup(movie) {
 // }
 
 export { galleryEl, newApiService, renderCardGallery, markupMovieFilm, updateMarkup };
-
