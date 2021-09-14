@@ -26,13 +26,15 @@ const refs = {
   /////////////////////////////////////////// 13.09 Люда
   container: document.querySelector('.container'),
   /////////////////////////////////////////// 13.09 Люда
+  emptyLib: document.querySelector('.js-empty-lib'),
 };
 
 function renderWatchedList() {
   refs.galleryList.innerHTML = '';
+  refs.emptyLib.innerHTML = '';
 
   if (watchedParse.length === 0) {
-    refs.galleryList.insertAdjacentHTML('beforebegin', emptyLibrary());
+    refs.emptyLib.insertAdjacentHTML('afterbegin', emptyLibrary());
   } else {
     watchedParse.map(Id => {
       // console.log(Id);
@@ -63,9 +65,10 @@ function renderWatchedList() {
 
 function renderQueueList() {
   refs.galleryList.innerHTML = '';
+  refs.emptyLib.innerHTML = '';
 
   if (queueParse.length === 0) {
-    refs.galleryList.insertAdjacentHTML('beforebegin', emptyLibrary());
+    refs.emptyLib.insertAdjacentHTML('afterbegin', emptyLibrary());
   } else {
     queueParse.map(Id => {
       // console.log(Id);
@@ -131,7 +134,7 @@ function addWatchedListener() {
   // watchedBtnListener.addEventListener('click', renderWatchedList);
   /////////////////////////////////////////// 13.09 Люда
   watchedBtnListener.addEventListener('click', () => {
-    console.log('активная кнопка watched');
+    // console.log('активная кнопка watched');
     if (watchedBtnListener.classList.contains('is-active-header-btn')) {
       return;
     }
