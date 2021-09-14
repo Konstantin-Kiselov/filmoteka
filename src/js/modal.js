@@ -126,10 +126,9 @@ function onClickQueue(e) {
       return;
     }
 
-    /////////////////////////////////////////// 14.09 Люда    && refs.header.classList.contains('queue')
-    // if (refs.header.classList.contains('watched')) {
+    /////////////////////////////////////////// 14.09 Люда
+    // if (refs.header.classList.contains('library')) {
     //   renderWatchedList();
-    //   console.log('jjjjjjjjjjjjjjjj');
     //   return;
     // }
 
@@ -137,6 +136,13 @@ function onClickQueue(e) {
       renderQueueList();
       return;
     }
+
+    if (refs.header.classList.contains('library') && refs.header.classList.contains('watched')) {
+      console.log('jjjjjjjjjjjjjjjj');
+      renderWatchedList();
+      return;
+    }
+
     /////////////////////////////////////////// 14.09 Люда
 
     // else {
@@ -194,6 +200,12 @@ function onClickWatch(e) {
       renderWatchedList();
       return;
     }
+
+    if (refs.header.classList.contains('library') && refs.header.classList.contains('queue')) {
+      renderQueueList();
+      return;
+    }
+
     // else {
     //   renderLibCard();
     // }
