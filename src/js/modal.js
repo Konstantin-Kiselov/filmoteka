@@ -72,7 +72,7 @@ function onModalOpen(event) {
   // ===========================================================
 
   if (watchedParse.includes(movieId)) {
-    console.log('ura');
+    // console.log('ura');
     refs.addWatchedBtn.classList.add('add-collection');
     refs.addWatchedBtn.textContent = 'REMOVE FROM WATCHED';
   }
@@ -80,7 +80,7 @@ function onModalOpen(event) {
   if (queueParse.includes(movieId)) {
     refs.addQueueBtn.classList.add('add-collection');
     refs.addQueueBtn.textContent = 'REMOVE FROM QUEUE';
-    console.log('u!!ra');
+    // console.log('u!!ra');
   }
 
   return movieId;
@@ -99,6 +99,19 @@ function onClickQueue(e) {
     watchedParse.splice(indexWatchedLocalStorage, 1);
     console.log(watchedParse);
     localStorage.setItem('watched', JSON.stringify(watchedParse));
+
+    if (refs.header.classList.contains('library') && refs.header.classList.contains('watched')) {
+      // console.log('jjjjjjjjjjjjjjjj');
+      renderWatchedList();
+      return;
+    }
+
+    if (refs.header.classList.contains('library') && refs.header.classList.contains('queue')) {
+      // console.log('jjjjjjjjjjjjjjjj');
+      renderQueueList();
+      return;
+    }
+
     return;
   }
   // если есть класс-- Удаляем класс  и удаляем с локал стор
@@ -108,6 +121,11 @@ function onClickQueue(e) {
     addToQueueStorage(movieId, queueParse);
     // const libraryFromLocalStorage = watchedParse.concat(queueParse);
     // localStorage.setItem('libraryId', JSON.stringify(libraryFromLocalStorage));
+
+    if (refs.header.classList.contains('library') && refs.header.classList.contains('queue')) {
+      renderQueueList();
+      return;
+    }
 
     return;
   }
@@ -126,10 +144,25 @@ function onClickQueue(e) {
       return;
     }
 
-    if (refs.header.classList.contains('library')) {
+    /////////////////////////////////////////// 14.09 Люда
+    // if (refs.header.classList.contains('library')) {
+    //   renderWatchedList();
+    //   return;
+    // }
+
+    if (refs.header.classList.contains('library') && refs.header.classList.contains('queue')) {
       renderQueueList();
       return;
     }
+
+    if (refs.header.classList.contains('library') && refs.header.classList.contains('watched')) {
+      console.log('jjjjjjjjjjjjjjjj');
+      renderWatchedList();
+      return;
+    }
+
+    /////////////////////////////////////////// 14.09 Люда
+
     // else {
     //   renderLibCard();
     // }
@@ -148,6 +181,17 @@ function onClickWatch(e) {
     queueParse.splice(indexWatchedLocalStorage, 1);
     console.log(queueParse);
     localStorage.setItem('queue', JSON.stringify(queueParse));
+
+    if (refs.header.classList.contains('library') && refs.header.classList.contains('watched')) {
+      renderWatchedList();
+      return;
+    }
+
+    if (refs.header.classList.contains('library') && refs.header.classList.contains('queue')) {
+      renderQueueList();
+      return;
+    }
+
     return;
   }
   // if(refs.addWatchedBtn.classList.contains('add-collection'));
@@ -157,6 +201,11 @@ function onClickWatch(e) {
     addClassFromWatchedBtn();
 
     addToWatchedStorage(movieId, watchedParse);
+
+    if (refs.header.classList.contains('library') && refs.header.classList.contains('watched')) {
+      renderWatchedList();
+      return;
+    }
 
     // const libraryFromLocalStorage = watchedParse.concat(queueParse);
     // localStorage.setItem('libraryId', JSON.stringify(libraryFromLocalStorage));
@@ -180,10 +229,17 @@ function onClickWatch(e) {
       return;
     }
 
-    if (refs.header.classList.contains('library')) {
+    /////////////////////////////////////////// 14.09 Люда    && refs.header.classList.contains('queue')
+    if (refs.header.classList.contains('library') && refs.header.classList.contains('watched')) {
       renderWatchedList();
       return;
     }
+
+    if (refs.header.classList.contains('library') && refs.header.classList.contains('queue')) {
+      renderQueueList();
+      return;
+    }
+
     // else {
     //   renderLibCard();
     // }
