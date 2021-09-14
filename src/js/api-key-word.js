@@ -1,6 +1,6 @@
 import debounce from 'lodash.debounce';
 import templateGalleryFilms from '../templates/films-gallery.hbs';
-import { newApiService } from './api-gallery';
+import { newApiService, markupMovieFilm, updateMarkup } from './api-gallery';
 import genresJson from './genres.json';
 import genreCard from '../templates/genre-card.hbs';
 
@@ -23,13 +23,20 @@ class ApiKeyWord {
 
   fetchMovieByKeyWord() {
     const url = `${BASE_URL}search/movie?api_key=${API_KEY}&language=en-US&page=${this.page}&include_adult=false&query=${this.searchQuery}`;
-    return fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        this.incrementPage();
-        // console.log(data.results);
-        return data.results;
-      });
+    return (
+      fetch(url)
+        .then(response => response.json())
+        // .then(data => {
+        //     this.incrementPage();
+        //     // console.log(data.results);
+        //     return data.results;
+
+        .then(({ results }) => {
+          this.incrementPage();
+          console.log(results);
+          return results;
+        })
+    );
   }
   incrementPage() {
     this.page += 1;
@@ -47,28 +54,48 @@ class ApiKeyWord {
 
 const searchApiService = new ApiKeyWord();
 
-function renderSearchGallery(data) {
-  const markup = templateGalleryFilms(data);
-  refs.gallery.insertAdjacentHTML('beforeend', markup);
+const STORAGE_KEY = 'genres';
+let localGenres;
+function renderSearchGallery2() {
+  searchApiService.fetchMovieByKeyWord().then(results => {
+    // fetchGenres().then(genres => {
+    if (localGenres === undefined) {
+      const getLocalGenres = localStorage.getItem(STORAGE_KEY);
+      localGenres = JSON.parse(getLocalGenres);
+      // console.log(localGenres);
+    }
+    console.log(results);
+    markupMovieFilm(results, localGenres);
+    return localGenres;
+  });
 }
+
+// function renderSearchGallery(data) {
+//   const markup = templateGalleryFilms(data);
+//   refs.gallery.insertAdjacentHTML('beforeend', markup);
+// }
 
 function onSearchMovie(e) {
   refs.gallery.innerHTML = '';
   const searchQuery = e.target.value.trim();
+  if (searchQuery.length <= 1) {
+    console.log('nooooo');
+  }
 
   newApiService.query = searchQuery;
   searchApiService.query = searchQuery;
-  // console.log(searchQuery);
 
-  searchApiService
-    .fetchMovieByKeyWord()
-    .then(data => {
-      // console.log(data);
-      renderSearchGallery(data);
-    })
-    .catch(e => {
-      console.log(e);
-    });
+  renderSearchGallery2();
+
+  // searchApiService
+  //   .fetchMovieByKeyWord()
+  //   .then(({ results }) => {
+  //     // console.log(data);
+  //     renderSearchGallery2(data);
+  //   })
+  //   .catch(e => {
+  //     console.log(e);
+  //   });
 }
 
-export { renderSearchGallery, searchApiService };
+export { renderSearchGallery2, searchApiService };

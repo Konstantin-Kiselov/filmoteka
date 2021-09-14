@@ -24,37 +24,16 @@
         </li>
       </ul>
     </nav>
-<form class="search" >
-  <input class="navigation__search" type="text" placeholder="Поиск фильмов" />
-</form>
-    
-    
-    <div class="theme-switch">
-      <svg class="theme-switch__icon" role="img" aria-label="Light theme">
-        <use href="./images/icons/sprite.svg#sun"></use>
-      </svg>
-  
-      <div class="theme-switch__control">
-        <input
-          class="theme-switch__toggle"
-          type="checkbox"
-          name="theme"
-          id="theme-switch-toggle"
-          aria-label="Переключить между тёмной и светлой темой"
-        />
-        <label
-          aria-hidden="true"
-          class="theme-switch__track"
-          for="theme-switch-toggle"
-        >
-        </label>
-        <div aria-hidden="true" class="theme-switch__marker"></div>
-      </div>
-  
-      <svg class="theme-switch__icon" aria-label="Dark theme">
-        <use href="./images/icons/sprite.svg#moon"></use>
-      </svg>
+
+// <form class="search" >
+//  <input class="navigation__search" type="text" placeholder="Поиск фильмов" />
+// </form>
+
+    <div class="film-search">
+      <input class="navigation__search" type="text" placeholder="Поиск фильмов" />
+      <svg class="film-search__icon" width="12px" height="12px">
+        <use href="./images/icons/search.svg#search-icon"></use>
+      <!-- <p class="error__message hidden">По такому запросу ничего не найдено</p> -->
     </div>
-  
-  </div>
+
 </header>

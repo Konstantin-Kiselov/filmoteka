@@ -1,5 +1,7 @@
 import { newApiService, renderCardGallery } from './api-gallery';
-import { searchApiService, renderSearchGallery } from './api-key-word';
+import { searchApiService, renderSearchGallery2 } from './api-key-word';
+
+export const ioContainer = document.querySelector('#intersection-observer');
 
 const onEntry = entries => {
   entries.forEach(entry => {
@@ -11,15 +13,17 @@ const onEntry = entries => {
     }
 
     if (entry.isIntersecting && searchApiService.query !== '' && searchApiService.page > 1) {
-      searchApiService
-        .fetchMovieByKeyWord()
-        .then(data => {
-          console.log(data);
-          renderSearchGallery(data);
-        })
-        .catch(e => {
-          console.log(e);
-        });
+      renderSearchGallery2();
+
+      // searchApiService
+      //   .fetchMovieByKeyWord()
+      //   .then(({ results }) => {
+      //     // console.log(data);
+      //     renderSearchGallery2(results);
+      //   })
+      //   .catch(e => {
+      //     console.log(e);
+      //   });
     }
   });
 };
@@ -29,4 +33,4 @@ const options = {
 };
 const observer = new IntersectionObserver(onEntry, options);
 
-observer.observe(document.querySelector('#intersection-observer'));
+observer.observe(ioContainer);

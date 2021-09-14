@@ -4,6 +4,7 @@ import libraryCard from '../templates/library-card.hbs';
 import genreCard from '../templates/genre-card.hbs';
 import { updateMarkup } from './api-gallery.js';
 import { watchedParse, queueParse } from './modal.js';
+import { ioContainer } from './io.js';
 
 // import headerTemplates from './header-tpl';
 // import filmsGallery from '../templates/films-gallery.hbs';
@@ -155,9 +156,14 @@ refs.libraryBtn.addEventListener('click', changeHeader);
 /////////////////////////////////////////// 13.09 Люда
 function changeHeader(event) {
   event.preventDefault();
+
   if (refs.header.classList.contains('header')) {
     refs.header.classList.remove('header');
     refs.header.classList.add('library');
+
+    if (refs.header.classList.contains('library')) {
+      ioContainer.classList.add('io-hidden');
+    }
 
     refs.header.innerHTML = '';
     // refs.ioContainer.classList.add('hidden_library');

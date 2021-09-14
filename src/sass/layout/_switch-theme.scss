@@ -10,14 +10,26 @@ body.light-theme {
 
 body.dark-theme {
   background-color: #333333;
+  // background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+  //   url(../images/3.jpg);
   color: #fff;
 }
 
-.theme-switch {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  margin-top: 60px;
+@media screen and (min-width: 320px) {
+  .theme-switch {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    top: -30px;
+    right: 15px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .theme-switch {
+    right: 60px;
+  }
 }
 
 .theme-switch__icon {
