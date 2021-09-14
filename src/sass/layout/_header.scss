@@ -33,7 +33,7 @@
 }
 
 .navigation {
-  margin-bottom: 49px;
+  margin-bottom: 45px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,6 +72,7 @@
 }
 
 .search {
+  position: relative;
   display: flex;
   justify-content: center;
   width: 280px;
@@ -88,7 +89,6 @@
   font-weight: 400;
   line-height: 1.17;
   border-bottom: 0.5px solid #ffffff;
-  transition-property: border-bottom;
   color: #ffffff;
 }
 
@@ -106,6 +106,10 @@
   //   padding: 41px 71px 97px;
   // }
   .navigation__search {
+    width: 336px;
+  }
+
+  .search {
     width: 336px;
   }
 
@@ -153,23 +157,23 @@
   }
 
   //=============INPUT===============\
-  .film-search {
-    position: relative;
-    display: inline;
-  }
+  // .film-search {
+  //   position: relative;
+  //   display: inline;
+  // }
   .navigation__search {
-    position: relative;
-    margin-top: 52px;
-    background-color: transparent;
-    color: #ffffff;
-    width: 100%;
-    border-top: none;
-    border-right: none;
-    border-left: none;
-    border-bottom: 1px solid #ffffff;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.17;
+    //position: relative;
+    //margin-top: 52px;
+    // background-color: transparent;
+    //color: #ffffff;
+    //width: 100%;
+    //border-top: none;
+    //border-right: none;
+    //border-left: none;
+    //border-bottom: 1px solid #ffffff;
+    //font-size: 14px;
+    //font-weight: 400;
+    //line-height: 1.17;
 
     &::placeholder {
       color: #ffffff;
@@ -194,20 +198,14 @@
   }
   //===========================
 }
-@media screen and (min-width: 768px) {
-  .header {
-    background-image: url(../images/header-background-tablet@1x.jpg);
-  }
-  .conteiner {
-    padding: 41px 71px 97px;
-  }
-  .navigation__search {
-    width: 336px;
-    margin-top: 57px;
-    margin-left: 23%;
-
-  }
-}
+// @media screen and (min-width: 768px) {
+//   .header {
+//     background-image: url(../images/header-background-tablet@1x.jpg);
+//   }
+//   .conteiner {
+//     padding: 41px 71px 97px;
+//   }
+// }
 @media screen and (min-width: 1024px) {
   .header {
     background-image: url(../images/header-backgroung-desktop@1x.jpg);
