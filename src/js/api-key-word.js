@@ -67,10 +67,15 @@ function renderSearchGallery2() {
       newApiService.query = '';
       searchApiService.query = '';
 
+      setTimeout(() => {
+        refs.errorMessage.classList.add('hide_message');
+      }, 3000);
+
       renderCardGallery();
-    } else if (results.length >= 1) {
-      refs.errorMessage.classList.add('hide_message');
     }
+    // else if (results.length >= 1) {
+    //   refs.errorMessage.classList.add('hide_message');
+    // }
 
     markupMovieFilm(results, localGenres);
     return localGenres;
