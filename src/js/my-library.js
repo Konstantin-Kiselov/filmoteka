@@ -26,13 +26,15 @@ const refs = {
   /////////////////////////////////////////// 13.09 Люда
   container: document.querySelector('.container'),
   /////////////////////////////////////////// 13.09 Люда
+  emptyLib: document.querySelector('.js-empty-lib'),
 };
 
 function renderWatchedList() {
   refs.galleryList.innerHTML = '';
+  refs.emptyLib.innerHTML = '';
 
   if (watchedParse.length === 0) {
-    refs.galleryList.insertAdjacentHTML('beforebegin', emptyLibrary());
+    refs.emptyLib.insertAdjacentHTML('afterbegin', emptyLibrary());
   } else {
     watchedParse.map(Id => {
       // console.log(Id);
@@ -63,9 +65,10 @@ function renderWatchedList() {
 
 function renderQueueList() {
   refs.galleryList.innerHTML = '';
+  refs.emptyLib.innerHTML = '';
 
   if (queueParse.length === 0) {
-    refs.galleryList.insertAdjacentHTML('beforebegin', emptyLibrary());
+    refs.emptyLib.insertAdjacentHTML('afterbegin', emptyLibrary());
   } else {
     queueParse.map(Id => {
       // console.log(Id);
@@ -101,6 +104,10 @@ function addWatchedListener() {
 
   /////////////////////////////////////////// 13.09 Люда
   watchedBtnListener.classList.add('is-active-header-btn');
+  /////////////////////////////////////////// 14.09 Люда
+  refs.header.classList.add('watched');
+  /////////////////////////////////////////// 14.09 Люда
+
   // if (watchedBtnListener.classList.contains('is-active-header-btn')) {
   // refs.galleryList.innerHTML = '';
   // refs.container.textContent = '';
@@ -115,6 +122,10 @@ function addWatchedListener() {
 
     watchedBtnListener.classList.remove('is-active-header-btn');
     queueBtnListener.classList.add('is-active-header-btn');
+    /////////////////////////////////////////// 14.09 Люда
+    refs.header.classList.remove('watched');
+    refs.header.classList.add('queue');
+    /////////////////////////////////////////// 14.09 Люда
 
     renderQueueList();
   });
@@ -123,11 +134,15 @@ function addWatchedListener() {
   // watchedBtnListener.addEventListener('click', renderWatchedList);
   /////////////////////////////////////////// 13.09 Люда
   watchedBtnListener.addEventListener('click', () => {
-    console.log('активная кнопка watched');
+    // console.log('активная кнопка watched');
     if (watchedBtnListener.classList.contains('is-active-header-btn')) {
       return;
     }
 
+    /////////////////////////////////////////// 14.09 Люда
+    refs.header.classList.remove('queue');
+    refs.header.classList.add('watched');
+    /////////////////////////////////////////// 14.09 Люда
     queueBtnListener.classList.remove('is-active-header-btn');
     watchedBtnListener.classList.add('is-active-header-btn');
 
