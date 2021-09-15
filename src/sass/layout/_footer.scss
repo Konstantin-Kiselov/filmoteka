@@ -1,16 +1,16 @@
 .footer {
-  background-color: $secondary-background-color;
+  background-color: #f7f7f7;
   padding-right: 36px;
   padding-left: 48px;
   text-align: center;
-  min-width: $mobile;
+  min-width: 320px;
 
-  @media screen and (max-width: $to-tablet) {
+  @media screen and (max-width: 767px) {
     padding-top: 29px;
     padding-bottom: 30px;
   }
 
-  @media screen and (min-width: $tablet) {
+  @media screen and (min-width: 768px) {
     padding-top: 30px;
     padding-bottom: 28px;
   }
@@ -19,24 +19,24 @@
 .copyright {
   display: block;
 
-  @media screen and (max-width: $to-tablet) {
+  @media screen and (max-width: 767px) {
     margin-bottom: 10px;
   }
 
-  @media screen and (min-width: $tablet) {
+  @media screen and (min-width: 768px) {
     display: inline-block;
   }
 }
 
 .footer-text {
-  color: $footer-text-color;
-  font-family: $font-family;
+  color: #545454;
+  font-family: var(--main-font);
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
   line-height: 1.14;
 
-  @media screen and (min-width: $tablet) {
+  @media screen and (min-width: 768px) {
     font-size: 16px;
     line-height: 1.187;
   }
@@ -44,24 +44,10 @@
 
 .footer-link:hover,
 .footer:focus {
-  //   color: $accent-color;
-  //   transition: $transition-duration $timing-function;
+  color: orangered;
+  transition: color 250ms linear;
 }
 
 .underline {
   text-decoration: underline;
-}
-
-.footer-svg {
-  // margin-right: 10px;
-  // margin-left: 10px;
-  animation: heartBeat;
-  animation-duration: 2000ms;
-  animation-iteration-count: infinite;
-  //   animation-timing-function: $timing-function;
-
-  &:hover,
-  &:focus {
-    animation-play-state: paused;
-  }
 }
