@@ -51,7 +51,9 @@ function renderWatchedList() {
         const filmGenres = mapGenres.slice(0, 4).join(', ');
         // console.log(filmGenres);
 
-        let img = poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : emptyJpg;
+        let img = poster_path
+          ? `https://image.tmdb.org/t/p/w500${poster_path}`
+          : 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
 
         const releaseYear = release_date.slice(0, 4);
         // console.log(releaseYear);
@@ -85,7 +87,9 @@ function renderQueueList() {
         const filmGenres = mapGenres.slice(0, 4).join(', ');
         // console.log(filmGenres);
 
-        let img = poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : emptyJpg;
+        let img = poster_path
+          ? `https://image.tmdb.org/t/p/w500${poster_path}`
+          : 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
 
         const releaseYear = release_date.slice(0, 4);
         // console.log(releaseYear);

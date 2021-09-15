@@ -14,16 +14,6 @@ const onEntry = entries => {
 
     if (entry.isIntersecting && searchApiService.query !== '' && searchApiService.page > 1) {
       renderSearchGallery2();
-
-      // searchApiService
-      //   .fetchMovieByKeyWord()
-      //   .then(({ results }) => {
-      //     // console.log(data);
-      //     renderSearchGallery2(results);
-      //   })
-      //   .catch(e => {
-      //     console.log(e);
-      //   });
     }
   });
 };

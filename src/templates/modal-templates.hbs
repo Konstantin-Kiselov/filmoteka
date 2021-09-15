@@ -1,4 +1,10 @@
-<img class='modal-img' src='https://image.tmdb.org/t/p/w500/{{poster_path}}' alt='{{title}}' />
+ {{#if poster_path}} <img class='modal-img' src='https://image.tmdb.org/t/p/w500/{{poster_path}}' alt='{{title}}' />
+  {{else}}
+  <img 
+      src='https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'
+      class='modal-img'
+    />
+    {{/if}}
 <div class='movie-card-thumb'>
   <h3 class='movie-card-title uppercase'>{{original_title}}</h3>
   <ul class='movie-card-metrics list'>
