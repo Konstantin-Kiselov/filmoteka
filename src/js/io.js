@@ -19,7 +19,7 @@ const onEntry = entries => {
 };
 
 const options = {
-  rootMargin: '200px',
+  rootMargin: '600px',
 };
 const observer = new IntersectionObserver(onEntry, options);
 
