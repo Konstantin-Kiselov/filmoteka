@@ -82,6 +82,9 @@ function onSearchMovie(e) {
 
   const searchQuery = e.target.value.trim();
   if (searchQuery.length === 0) {
+    newApiService.query = searchQuery;
+    searchApiService.query = searchQuery;
+
     newApiService.resetPage();
     renderCardGallery();
     return;
