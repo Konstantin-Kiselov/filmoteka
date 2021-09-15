@@ -71,9 +71,7 @@ function renderCardGallery() {
     if (localGenres === undefined) {
       const getLocalGenres = localStorage.getItem(STORAGE_KEY);
       localGenres = JSON.parse(getLocalGenres);
-      console.log(localGenres);
     }
-    console.log(results);
     markupMovieFilm(results, localGenres);
 
     return localGenres;
@@ -86,7 +84,6 @@ function fetchGenres() {
   )
     .then(response => response.json())
     .then(({ genres }) => {
-      // console.log(genres);
       const storageGenres = JSON.stringify(genres);
       localStorage.setItem(STORAGE_KEY, storageGenres);
 
@@ -101,8 +98,6 @@ function fetchGenres() {
 
 function markupMovieFilm(results, genres) {
   results.map(({ id, poster_path, title, release_date, genre_ids, vote_average }) => {
-    // console.log(genres);
-
     const filterGenres = genres.filter(genre => genre_ids.includes(genre.id));
 
     const mapGenres = filterGenres.map(({ name }) => name);
@@ -119,7 +114,7 @@ function markupMovieFilm(results, genres) {
 
     const movie = [{ id, img, title, filmGenres, releaseYear, vote_average }];
     updateMarkup(movie);
-    // console.log(movie);
+
     return movie;
   });
 }
@@ -129,7 +124,6 @@ function updateMarkup(movie) {
 
   if (movie.status !== '404') {
     markup = genreCard(movie);
-    // console.log(markup);
   }
   galleryEl.insertAdjacentHTML('beforeend', markup);
 }
