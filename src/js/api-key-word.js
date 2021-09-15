@@ -59,6 +59,8 @@ function renderSearchGallery2() {
       refs.errorMessage.textContent = 'По такому запросу ничего не найдено. Попробуйте еще раз';
       newApiService.resetPage();
       refs.input.value = '';
+      newApiService.query = '';
+      searchApiService.query = '';
 
       renderCardGallery();
     } else if (results.length >= 1) {
