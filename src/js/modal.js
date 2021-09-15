@@ -261,7 +261,7 @@ function onModalClose() {
 
   //снимаем слушатели
   window.removeEventListener('keydown', onEscKeyPress);
-  refs.modal.removeEventListener('click', onModalCloseBackdrop);
+  // refs.modal.removeEventListener('click', onModalCloseBackdrop);
   refs.addWatchedBtn.addEventListener('click', onClickWatch);
   refs.addWatchedBtn.removeEventListener('click', onClickWatch);
   refs.addQueueBtn.removeEventListener('click', onClickQueue);
