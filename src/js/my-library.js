@@ -179,7 +179,15 @@ function changeHeader(event) {
     if (refs.header.classList.contains('library')) {
       ioContainer.classList.add('io-hidden');
     }
-
+    ////////////olyaaa проба дозагрузки скроллом популярных
+    // if (
+    //   refs.header.classList.contains('library') &&
+    //   localStorage.getItem('watched') === [] &&
+    //   localStorage.getItem('queue') === []
+    // ) {
+    //   ioContainer.classList.remove('io-hidden');
+    // }
+    ////////////////////////////////////////////////////////
     refs.header.innerHTML = '';
     // refs.ioContainer.classList.add('hidden_library');
 
