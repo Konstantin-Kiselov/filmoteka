@@ -1,0 +1,242 @@
+// ============ HEADER ============
+.current {
+  border-bottom: 1px solid #ff6b08;
+}
+
+.header {
+  background: rgba(0, 0, 0, 0.56);
+  background-image: url(../images/header-background-mobile@1x.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+  .header {
+    background-image: url('../images/header-background-mobile-2x.jpg');
+  }
+}
+// .navigation {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+
+//   padding: 45px 20px;
+// }
+
+.logo_svg {
+  // content: url(../images/icons/film.svg);
+  // background-image: url(../images/icons/film.svg);
+  width: 24px;
+  height: 24px;
+  align-self: center;
+}
+
+.list__icon {
+  width: 24px;
+  height: 24px;
+  align-self: center;
+}
+
+.navigation {
+  margin-bottom: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navigation__logo {
+  display: flex;
+  align-items: center;
+
+  animation: pulse;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+
+  &:hover,
+  &:focus {
+    animation-play-state: paused;
+  }
+}
+
+.navigation__logo-link {
+  margin-right: 112px;
+  display: flex;
+  align-self: flex-end;
+}
+
+// .navigation__logo-link::before {
+//   content: url(../images/icons/film.svg);
+//   margin-right: 10px;
+// }
+.navigation__list {
+  display: flex;
+}
+.navigation__item:not(:last-child) {
+  margin-right: 39px;
+}
+
+.navigation__link {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.16;
+  text-transform: uppercase;
+
+  color: #ffffff;
+}
+
+.search {
+  position: relative;
+  // display: flex;
+  justify-content: center;
+  width: 280px;
+  margin: 0 auto 22px;
+}
+
+.navigation__search {
+  position: relative;
+  background-color: transparent;
+  color: #ffffff;
+  padding: 4px 0;
+  width: 280px;
+  // height: 30px;
+  border: none;
+  border-bottom: 0.5px solid #ffffff;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.17;
+  // outline: none;
+
+  &::placeholder {
+    color: #ffffff;
+  }
+
+  &:hover,
+  &:focus {
+    outline: none;
+    border-bottom: 0.5px solid #ff6b01;
+  }
+
+  transition-property: border-bottom;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.film-search__icon {
+  position: absolute;
+  margin: 3px;
+  // bottom: 6px;
+  right: 0;
+}
+.error__message {
+  width: 280px;
+  margin-top: 5px;
+  // margin-left: 23%;
+  font-size: 14px;
+  line-height: 1.17;
+  font-weight: 400;
+  color: #ff001b;
+}
+
+@media screen and (max-width: 768px) {
+  .logo {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .header {
+    background-image: url(../images/header-background-tablet@1x.jpg);
+  }
+
+  @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+    .header {
+      background-image: url('../images/header-background-tablet@2x.jpg');
+    }
+  }
+
+  .navigation__search {
+    width: 336px;
+  }
+
+  .search {
+    width: 336px;
+  }
+
+  .navigation {
+    display: flex;
+
+    //  justify-content: space-between;
+    //  align-items: baseline;
+    position: relative;
+
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 37px;
+  }
+
+  .navigation__logo {
+    align-items: flex-end;
+  }
+
+  .navigation__logo-link {
+    margin-right: 303px;
+  }
+
+  .logo {
+    //display: flex;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 35px;
+    color: #ffffff;
+  }
+
+  // .logo_svg {
+  //   margin-right: 10px;
+  // }
+
+  .list__icon {
+    margin-right: 10px;
+
+    color: #ffffff;
+  }
+
+  //=============INPUT===============\
+  .hide_message {
+    display: none;
+  }
+
+  .film-search {
+    position: relative;
+    display: inline;
+  }
+
+  .error__message {
+    width: 336px;
+  }
+  //===========================
+}
+// @media screen and (min-width: 768px) {
+//   .header {
+//     background-image: url(../images/header-background-tablet@1x.jpg);
+//   }
+//   .conteiner {
+//     padding: 41px 71px 97px;
+//   }
+// }
+@media screen and (min-width: 1024px) {
+  .header {
+    background-image: url(../images/header-backgroung-desktop@1x.jpg);
+  }
+
+  @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+    .header {
+      background-image: url('../images/header-background-desktop@2x.jpg');
+    }
+  }
+
+  .navigation__logo-link {
+    margin-right: 564px;
+  }
+}

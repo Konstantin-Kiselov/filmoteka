@@ -1,0 +1,40 @@
+ {{#if poster_path}} <img class='modal-img' src='https://image.tmdb.org/t/p/w500/{{poster_path}}' alt='{{title}}' />
+  {{else}}
+  <img 
+      src='https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'
+      class='modal-img'
+    />
+    {{/if}}
+<div class='movie-card-thumb'>
+  <h3 class='movie-card-title uppercase'>{{original_title}}</h3>
+  <ul class='movie-card-metrics list'>
+    <li class='movie-card-item'>
+      <p class='movie-metrics-title'>Vote / Votes</p>
+      <p class='movie-metrics-value'>
+        <span class='movie-vote'>{{vote_average}}</span>
+        /
+        {{vote_count}}</p>
+    </li>
+    <li class='movie-card-item'>
+      <p class='movie-metrics-title'>Popularity</p>
+      <p class='movie-metrics-value'>{{popularity}}</p>
+    </li>
+    <li class='movie-card-item'>
+      <p class='movie-metrics-title'>Original Title</p>
+      <p class='movie-metrics-value uppercase'>{{original_title}}</p>
+    </li>
+    <li class='movie-card-item genre'>
+      <p class='movie-metrics-title'>Genre</p>
+      <ul class='movie-metrics-title list'>
+        {{#each genres}}
+          <li class='movie-metrics-value'>{{this.name}}</li>
+        {{/each}}
+
+      </ul>
+    </li>
+  </ul>
+  <div class='movie-discripsh'>
+    <h4 class='movie-discripsh-title uppercase'>About</h4>
+    <p class='movie-discripsh-content'>{{overview}}</p>
+  </div>
+</div>
