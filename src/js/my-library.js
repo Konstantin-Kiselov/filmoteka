@@ -35,6 +35,12 @@ function renderWatchedList() {
 
   if (watchedParse.length === 0) {
     refs.emptyLib.insertAdjacentHTML('afterbegin', emptyLibrary());
+    ///////////////////////////////////////// 15.09
+    const emptyPar = document.querySelector('.emptyLibrary__title-par');
+    emptyPar.textContent = 'WATCHED';
+
+    const empty = document.querySelector('.emptyLibrary__text');
+    empty.textContent = "There's nothing in the WATCHED yet.";
   } else {
     watchedParse.map(Id => {
       fetchMovieListById(Id).then(data => {
@@ -66,6 +72,12 @@ function renderQueueList() {
 
   if (queueParse.length === 0) {
     refs.emptyLib.insertAdjacentHTML('afterbegin', emptyLibrary());
+    ///////////////////////////////////////// 15.09
+    const emptyPar = document.querySelector('.emptyLibrary__title-par');
+    emptyPar.textContent = 'QUEUE';
+
+    const empty = document.querySelector('.emptyLibrary__text');
+    empty.textContent = "There's nothing in the QUEUE yet.";
   } else {
     queueParse.map(Id => {
       fetchMovieListById(Id).then(data => {
