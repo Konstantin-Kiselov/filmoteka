@@ -4,8 +4,13 @@ import { newApiService, markupMovieFilm, renderCardGallery } from './api-gallery
 const refs = {
   gallery: document.querySelector('.gallery-list'),
   input: document.querySelector('.navigation__search'),
+  searchForm: document.querySelector('.search'),
   errorMessage: document.querySelector('.error__message'),
 };
+
+refs.searchForm.addEventListener('submit', event => {
+  event.preventDefault();
+});
 
 refs.input.addEventListener('input', debounce(onSearchMovie, 1000));
 
