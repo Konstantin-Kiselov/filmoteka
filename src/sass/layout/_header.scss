@@ -82,7 +82,7 @@
 
 .search {
   position: relative;
-  display: flex;
+  // display: flex;
   justify-content: center;
   width: 280px;
   margin: 0 auto 22px;
@@ -120,8 +120,17 @@
 .film-search__icon {
   position: absolute;
   margin: 3px;
-  bottom: 6px;
+  // bottom: 6px;
   right: 0;
+}
+.error__message {
+  width: 280px;
+  margin-top: 5px;
+  // margin-left: 23%;
+  font-size: 14px;
+  line-height: 1.17;
+  font-weight: 400;
+  color: #ff001b;
 }
 
 @media screen and (max-width: 768px) {
@@ -196,12 +205,6 @@
 
   .error__message {
     width: 336px;
-    margin-top: 5px;
-    margin-left: 23%;
-    font-size: 14px;
-    line-height: 1.17;
-    font-weight: 400;
-    color: #ff001b;
   }
   //===========================
 }

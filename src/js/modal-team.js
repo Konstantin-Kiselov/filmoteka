@@ -1,7 +1,7 @@
 const refs = {
   body: document.querySelector('body'),
   modalTeamBackdrop: document.querySelector('.backdrop-team'),
-  openTeamLink: document.querySelector('.team'),
+  openTeamLink: document.getElementById('js-team-modal'),
   closeTeamBtn: document.querySelector('.modal-team-close-btn'),
   modalTeam: document.querySelector('.modal-team'),
 };
@@ -15,7 +15,8 @@ function toggleModalTeam() {
 }
 
 /////////////////////////////////
-function onModalTeamOpen() {
+function onModalTeamOpen(e) {
+  e.preventDefault();
   toggleModalTeam();
   stopScroll();
 }
@@ -28,8 +29,8 @@ function onModalTeamClose() {
 // Закрытие модального окна по нажатию клавиши ESC
 function onEscKeyPress(event) {
   const ESC_KEY_CODE = 'Escape';
-
   const isEscKey = event.code === ESC_KEY_CODE;
+  
   if (isEscKey) {
     toggleModalTeam();
     onScroll();
