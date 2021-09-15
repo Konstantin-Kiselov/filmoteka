@@ -9,8 +9,6 @@ import {
   renderLibCard,
 } from './my-library';
 
-// console.log(modalTemplate);
-
 // ============ Проверяем локал сторадж на наличие данных ============
 if (localStorage.getItem('watched') === null) {
   localStorage.setItem('watched', JSON.stringify([]));
@@ -45,7 +43,7 @@ refs.closeModalBtn.addEventListener('click', onModalClose);
 
 function onModalOpen(event) {
   const a = event.target;
-  // console.log(a);
+
   //если клик не на элемент li, тогда модальное окно не открывается
   const isCardElement = event.target.closest('li');
   if (!isCardElement) {
@@ -54,7 +52,6 @@ function onModalOpen(event) {
   movieId = isCardElement.firstElementChild.getAttribute('data-movie-id');
   // console.log(movieId);
   // const a = event.target.value;
-  // console.log(a);
 
   event.preventDefault();
   toggleModal();
@@ -72,7 +69,6 @@ function onModalOpen(event) {
   // ===========================================================
 
   if (watchedParse.includes(movieId)) {
-    // console.log('ura');
     refs.addWatchedBtn.classList.add('add-collection');
     refs.addWatchedBtn.textContent = 'REMOVE FROM WATCHED';
   }
@@ -80,7 +76,6 @@ function onModalOpen(event) {
   if (queueParse.includes(movieId)) {
     refs.addQueueBtn.classList.add('add-collection');
     refs.addQueueBtn.textContent = 'REMOVE FROM QUEUE';
-    // console.log('u!!ra');
   }
 
   return movieId;
@@ -95,9 +90,9 @@ function onClickQueue(e) {
     addToQueueStorage(movieId, queueParse);
 
     const indexWatchedLocalStorage = watchedParse.indexOf(movieId);
-    console.log(indexWatchedLocalStorage);
+
     watchedParse.splice(indexWatchedLocalStorage, 1);
-    console.log(watchedParse);
+
     localStorage.setItem('watched', JSON.stringify(watchedParse));
 
     if (refs.header.classList.contains('library') && refs.header.classList.contains('watched')) {
@@ -134,9 +129,9 @@ function onClickQueue(e) {
     removeClassFromQueueBtn();
 
     const indexWatchedLocalStorage = queueParse.indexOf(movieId);
-    console.log(indexWatchedLocalStorage);
+
     queueParse.splice(indexWatchedLocalStorage, 1);
-    console.log(queueParse);
+
     localStorage.setItem('queue', JSON.stringify(queueParse));
 
     if (refs.header.classList.contains('header')) {
@@ -156,7 +151,6 @@ function onClickQueue(e) {
     }
 
     if (refs.header.classList.contains('library') && refs.header.classList.contains('watched')) {
-      console.log('jjjjjjjjjjjjjjjj');
       renderWatchedList();
       return;
     }
@@ -177,9 +171,9 @@ function onClickWatch(e) {
 
     addToWatchedStorage(movieId, watchedParse);
     const indexWatchedLocalStorage = queueParse.indexOf(movieId);
-    console.log(indexWatchedLocalStorage);
+
     queueParse.splice(indexWatchedLocalStorage, 1);
-    console.log(queueParse);
+
     localStorage.setItem('queue', JSON.stringify(queueParse));
 
     if (refs.header.classList.contains('library') && refs.header.classList.contains('watched')) {
@@ -217,9 +211,9 @@ function onClickWatch(e) {
     removeClassFromWatchedBtn();
 
     const indexWatchedLocalStorage = watchedParse.indexOf(movieId);
-    console.log(indexWatchedLocalStorage);
+
     watchedParse.splice(indexWatchedLocalStorage, 1);
-    console.log(watchedParse);
+
     localStorage.setItem('watched', JSON.stringify(watchedParse));
 
     // localStorage.setItem('queue', JSON.stringify(queueParse));
@@ -287,7 +281,7 @@ function onModalClose() {
 // Закрытие модального окна по нажатию клавиши ESC
 function onEscKeyPress(event) {
   const ESC_KEY_CODE = 'Escape';
-  //console.log(event.code);
+
   const isEscKey = event.code === ESC_KEY_CODE;
   if (isEscKey) {
     toggleModal();
@@ -303,7 +297,7 @@ function onEscKeyPress(event) {
 refs.modal.addEventListener('click', onModalCloseBackdrop);
 function onModalCloseBackdrop(evt) {
   const isBackdrop = evt.target.classList.contains('backdrop');
-  // console.log(isBackdrop);
+
   if (isBackdrop) {
     toggleModal();
     onScroll();
@@ -333,8 +327,6 @@ function removeClassFromWatchedBtn() {
   // renderLibCard();
 }
 
-console.log('hhhhhhhhhhhhhhhh');
-
 function addClassFromQueueBtn() {
   refs.addQueueBtn.classList.add('add-collection');
   refs.addQueueBtn.textContent = 'REMOVE FROM QUEUE';
@@ -348,8 +340,6 @@ function removeClassFromQueueBtn() {
   refs.addQueueBtn.textContent = 'ADD TO QUEUE';
   // const libraryFromLocalStorage = watchedParse.concat(queueParse);
   // localStorage.setItem('libraryId', JSON.stringify(libraryFromLocalStorage));
-
-  console.log('hhhhhhhhhhhhhhhh');
 }
 
 //========================================
@@ -380,7 +370,7 @@ function fetchMovieInform() {
 //чтобы не скролился body под модалкой
 function stopScroll() {
   const isBackdropIsHidden = refs.modalBackdrop.classList.contains('is-hidden');
-  // console.log(isBackdropIsHidden);
+
   if (!isBackdropIsHidden) {
     // refs.body.style.overflow = 'hidden';
     refs.body.classList.add('no-scroll');
@@ -412,7 +402,6 @@ function onScroll() {
 // myLibrarylink.addEventListener('click', renderCardLibrary);
 
 function addToWatchedStorage(movieId, watchedParse) {
-  console.log(movieId);
   // refs.addWatchedBtn.textContent = 'REMOVE FROM WATCHED';
   if (watchedParse.includes(movieId)) {
     return;
@@ -422,7 +411,6 @@ function addToWatchedStorage(movieId, watchedParse) {
 }
 
 function addToQueueStorage(movieId, queueParse) {
-  console.log(movieId);
   // refs.addQueueBtn.textContent = 'REMOVE FROM QUEUE';
   if (queueParse.includes(movieId)) {
     return;

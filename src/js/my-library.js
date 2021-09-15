@@ -37,10 +37,7 @@ function renderWatchedList() {
     refs.emptyLib.insertAdjacentHTML('afterbegin', emptyLibrary());
   } else {
     watchedParse.map(Id => {
-      // console.log(Id);
       fetchMovieListById(Id).then(data => {
-        // console.log(data);
-
         let { poster_path, title, id, vote_average, genres, release_date } = data;
 
         const mapGenres = genres.map(({ name }) => name);
@@ -49,14 +46,12 @@ function renderWatchedList() {
           mapGenres.splice(3, 0, 'Other');
         }
         const filmGenres = mapGenres.slice(0, 4).join(', ');
-        // console.log(filmGenres);
 
         let img = poster_path
           ? `https://image.tmdb.org/t/p/w500${poster_path}`
           : 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
 
         const releaseYear = release_date.slice(0, 4);
-        // console.log(releaseYear);
 
         const movie = [{ id, img, title, filmGenres, releaseYear, vote_average }];
         updateMarkup(movie);
@@ -73,10 +68,7 @@ function renderQueueList() {
     refs.emptyLib.insertAdjacentHTML('afterbegin', emptyLibrary());
   } else {
     queueParse.map(Id => {
-      // console.log(Id);
       fetchMovieListById(Id).then(data => {
-        // console.log(data);
-
         let { poster_path, title, id, vote_average, genres, release_date } = data;
 
         const mapGenres = genres.map(({ name }) => name);
@@ -85,14 +77,12 @@ function renderQueueList() {
           mapGenres.splice(3, 0, 'Other');
         }
         const filmGenres = mapGenres.slice(0, 4).join(', ');
-        // console.log(filmGenres);
 
         let img = poster_path
           ? `https://image.tmdb.org/t/p/w500${poster_path}`
           : 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
 
         const releaseYear = release_date.slice(0, 4);
-        // console.log(releaseYear);
 
         const movie = [{ id, img, title, filmGenres, releaseYear, vote_average }];
         updateMarkup(movie);
@@ -104,7 +94,6 @@ function renderQueueList() {
 function addWatchedListener() {
   const watchedBtnListener = document.querySelector('#libraryWatchedBtn');
   const queueBtnListener = document.querySelector('#libraryQueueBtn');
-  console.log(watchedBtnListener);
 
   /////////////////////////////////////////// 13.09 Люда
   watchedBtnListener.classList.add('is-active-header-btn');
@@ -183,13 +172,20 @@ function changeHeader(event) {
     if (refs.header.classList.contains('library')) {
       ioContainer.classList.add('io-hidden');
     }
-
+    //////////olyaaa проба дозагрузки скроллом популярных
+    // if (
+    //   refs.header.classList.contains('library') &&
+    //   watchedParse.length === 0 &&
+    //   queueParse.length === 0
+    // ) {
+    //   ioContainer.classList.remove('io-hidden');
+    // }
+    //////////////////////////////////////////////////////
     refs.header.innerHTML = '';
     // refs.ioContainer.classList.add('hidden_library');
 
     refs.header.insertAdjacentHTML('afterbegin', headerLibrary());
-    console.log(watchedParse);
-    console.log(queueParse);
+
     addWatchedListener();
     // if (watchedParse.length === 0 && queueParse.length === 0) {
     //   refs.galleryList.insertAdjacentHTML('beforebegin', emptyLibrary());
@@ -232,10 +228,7 @@ function renderLibCard() {
   refs.galleryList.innerHTML = '';
 
   libraryFromLocalStorage.map(Id => {
-    // console.log(Id);
     fetchMovieListById(Id).then(data => {
-      // console.log(data);
-
       let { poster_path, title, id, vote_average, genres, release_date } = data;
 
       const mapGenres = genres.map(({ name }) => name);
@@ -244,12 +237,10 @@ function renderLibCard() {
         mapGenres.splice(3, 0, 'Other');
       }
       const filmGenres = mapGenres.slice(0, 4).join(', ');
-      // console.log(filmGenres);
 
       let img = poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : emptyJpg;
 
       const releaseYear = release_date.slice(0, 4);
-      // console.log(releaseYear);
 
       const movie = [{ id, img, title, filmGenres, releaseYear, vote_average }];
       updateMarkup(movie);

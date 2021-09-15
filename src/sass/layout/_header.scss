@@ -42,6 +42,15 @@
 .navigation__logo {
   display: flex;
   align-items: center;
+
+  animation: pulse;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+
+  &:hover,
+  &:focus {
+    animation-play-state: paused;
+  }
 }
 
 .navigation__logo-link {
@@ -172,15 +181,6 @@
     font-size: 30px;
     line-height: 35px;
     color: #ffffff;
-
-    animation: rubberBand;
-    animation-duration: 3s;
-    animation-iteration-count: infinite;
-
-    &:hover,
-    &:focus {
-      animation-play-state: paused;
-    }
   }
 
   // .logo_svg {

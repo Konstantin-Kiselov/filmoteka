@@ -29,8 +29,8 @@ function onModalTeamClose() {
 // Закрытие модального окна по нажатию клавиши ESC
 function onEscKeyPress(event) {
   const ESC_KEY_CODE = 'Escape';
-  //console.log(event.code);
   const isEscKey = event.code === ESC_KEY_CODE;
+  
   if (isEscKey) {
     toggleModalTeam();
     onScroll();
@@ -41,7 +41,7 @@ function onEscKeyPress(event) {
 refs.modalTeam.addEventListener('click', onModalCloseBackdrop);
 function onModalCloseBackdrop(evt) {
   const isBackdrop = evt.target.classList.contains('backdrop-team');
-  // console.log(isBackdrop);
+
   if (isBackdrop) {
     toggleModalTeam();
     onScroll();
@@ -50,7 +50,7 @@ function onModalCloseBackdrop(evt) {
 //чтобы не скролился body под модалкой
 function stopScroll() {
   const isBackdropIsHidden = refs.modalTeamBackdrop.classList.contains('is-hidden-team');
-  // console.log(isBackdropIsHidden);
+
   if (!isBackdropIsHidden) {
     refs.body.classList.add('no-scroll');
   }
