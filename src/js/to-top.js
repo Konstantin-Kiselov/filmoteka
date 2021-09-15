@@ -4,4 +4,5 @@ addBackToTop({
   diameter: 40,
   backgroundColor: '#ddd',
   textColor: 'red',
+  scrollDuration: 600,
 });

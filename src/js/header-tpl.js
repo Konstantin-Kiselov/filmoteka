@@ -7,3 +7,4 @@ const headerTemplates = {
   </ul>
 `,
 };
+export default headerTemplates;
